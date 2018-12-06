@@ -1,0 +1,43 @@
+{
+    "name": "axlon/laravel-postal-code-validation",
+    "description": "Postal code validation for Laravel",
+    "keywords": [
+        "laravel",
+        "lumen",
+        "post code",
+        "postal code",
+        "zip code",
+        "validation"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Choraimy Kroonstuiver",
+            "email": "choraimy@23g.nl"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "illuminate/support": ">=5.0,<5.8",
+        "illuminate/validation": ">=5.0,<5.8",
+        "sirprize/postal-code-validator": "^1.3"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.0",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Axlon\\PostalCodeValidation\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Axlon\\PostalCodeValidation\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
