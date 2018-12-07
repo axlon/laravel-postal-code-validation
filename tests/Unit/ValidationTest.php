@@ -22,7 +22,7 @@ class ValidationTest extends TestCase
         $validator = $this->app->make('validator');
 
         try {
-            $validator->validate($request, $rulesAsString);
+            $validator->make($request, $rulesAsString)->validate();
             $this->fail('Validation passed but should have failed');
         } catch (Exception $exception) {
             $this->assertInstanceOf(ValidationException::class, $exception);
@@ -36,7 +36,7 @@ class ValidationTest extends TestCase
         $rulesAsString = ['postal_code' => 'postal_code:NL'];
         $validator = $this->app->make('validator');
 
-        $this->assertCount(1, $validator->validate($request, $rulesAsObject));
-        $this->assertCount(1, $validator->validate($request, $rulesAsString));
+        $this->assertCount(1, $validator->make($request, $rulesAsObject)->validate());
+        $this->assertCount(1, $validator->make($request, $rulesAsString)->validate());
     }
 }
