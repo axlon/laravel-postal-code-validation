@@ -1,6 +1,8 @@
 # laravel-postal-code-validation
 Postal code validation for Laravel
 
+![Build status](https://travis-ci.org/axlon/laravel-postal-code-validation.svg?branch=master)
+
 ## Installation
 You can install this package with Composer, by running the command below:
 
