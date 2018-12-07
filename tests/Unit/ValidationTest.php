@@ -4,8 +4,6 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Rules\PostalCode;
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
-use Exception;
-use Illuminate\Validation\ValidationException;
 use Orchestra\Testbench\TestCase;
 
 class ValidationTest extends TestCase
@@ -18,15 +16,12 @@ class ValidationTest extends TestCase
     public function testInvalidPostalCode()
     {
         $request = ['postal_code' => 'Some arbitrary string'];
+        $rulesAsObject = ['postal_code' => [PostalCode::forCountry('NL')]];
         $rulesAsString = ['postal_code' => 'postal_code:NL'];
         $validator = $this->app->make('validator');
 
-        try {
-            $validator->make($request, $rulesAsString)->validate();
-            $this->fail('Validation passed but should have failed');
-        } catch (Exception $exception) {
-            $this->assertInstanceOf(ValidationException::class, $exception);
-        }
+        $this->assertTrue($validator->make($request, $rulesAsObject)->fails());
+        $this->assertTrue($validator->make($request, $rulesAsString)->fails());
     }
 
     public function testValidPostalCode()
@@ -36,7 +31,7 @@ class ValidationTest extends TestCase
         $rulesAsString = ['postal_code' => 'postal_code:NL'];
         $validator = $this->app->make('validator');
 
-        $this->assertCount(1, $validator->make($request, $rulesAsObject)->validate());
-        $this->assertCount(1, $validator->make($request, $rulesAsString)->validate());
+        $this->assertTrue($validator->make($request, $rulesAsObject)->passes());
+        $this->assertTrue($validator->make($request, $rulesAsString)->passes());
     }
 }
