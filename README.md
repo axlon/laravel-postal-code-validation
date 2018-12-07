@@ -8,6 +8,14 @@ You can install this package with Composer, by running the command below:
 composer require axlon/laravel-postal-code-validation
 ```
 
+If you run Laravel 5.6 or higher, you can now use postal code validation, you can find out how in the usage section. If
+you use Laravel 5.5 or lower, you must add the the following line to your `config/app.php` file, in the providers
+section:
+
+```php
+\Axlon\PostalCodeValidation\ValidationServiceProvider::class,
+```
+
 ## Usage
 Postal code validation perfectly integrates into your Laravel application, you can use it just like you would any
 framework validation rule.
