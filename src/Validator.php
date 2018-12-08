@@ -16,6 +16,8 @@ class Validator
 
     public function validate(string $attribute, string $value, array $countryCodes)
     {
+        $countryCodes = array_map('strtoupper', $countryCodes);
+
         foreach ($countryCodes as $countryCode) {
             if (!$this->library->hasCountry($countryCode)) {
                 throw new InvalidArgumentException(
