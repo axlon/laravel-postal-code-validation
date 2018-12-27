@@ -18,7 +18,7 @@ class ValidationTest extends TestCase
         return [ValidationServiceProvider::class];
     }
 
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
         $this->factory = $this->app->make('validator');
