@@ -4,6 +4,7 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Rules\PostalCode;
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
+use Exception;
 use Illuminate\Contracts\Validation\Factory;
 use InvalidArgumentException;
 use Orchestra\Testbench\TestCase;
@@ -35,12 +36,19 @@ class ValidationTest extends TestCase
 
     public function testInvalidCountryCode()
     {
+        $exception = null;
         $request = ['postal_code' => '75008'];
         $rules = ['postal_code' => 'postal_code:FOO'];
         $validator = $this->factory->make($request, $rules);
 
-        $this->expectException(InvalidArgumentException::class);
-        $validator->fails();
+        try {
+            $validator->fails();
+        } catch (Exception $exception) {
+            # Do nothing here..
+        }
+
+        # Manually assert exception to maintain BC with older versions of PHPUnit
+        $this->assertInstanceOf(InvalidArgumentException::class, $exception);
     }
 
     public function testInvalidPostalCode()
