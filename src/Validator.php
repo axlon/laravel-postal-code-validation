@@ -3,15 +3,15 @@
 namespace Axlon\PostalCodeValidation;
 
 use InvalidArgumentException;
-use Sirprize\PostalCodeValidator\Validator as PostalCodeLibrary;
+use Sirprize\PostalCodeValidator\Validator as Library;
 
 class Validator
 {
     protected $library;
 
-    public function __construct()
+    public function __construct(Library $library)
     {
-        $this->library = new PostalCodeLibrary();
+        $this->library = $library;
     }
 
     public function validate(string $attribute, string $value, array $countryCodes)
