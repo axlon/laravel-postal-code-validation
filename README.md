@@ -58,7 +58,7 @@ $this->validate($request, [
 ]);
 ```
 
-### Adding a readable error message
+### Adding an error message
 To add an error message your users will be able to understand, open `resources/lang/{your language}/validation.php` and
 add the following line to it:
 
@@ -70,5 +70,5 @@ add the following line to it:
 Special thanks to [sirprize](https://github.com/sirprize), the author of the underlying postal code validation library.
 
 ## Contributing
-If your country code is not yet supported and you want to add support for it, please do so by making a pull request on
-the [underlying library](https://github.com/sirprize/postal-code-validator).
+This is a small and straight forward package, but if you spot a bug or see room for improvement, create an issue or a
+pull request and I will try to respond within a few days

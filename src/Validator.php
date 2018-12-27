@@ -20,10 +20,7 @@ class Validator
 
         foreach ($countryCodes as $countryCode) {
             if (!$this->library->hasCountry($countryCode)) {
-                throw new InvalidArgumentException(
-                    "Country code $countryCode is not currently supported, sorry!\r\n" .
-                    'Please go to https://github.com/sirprize/postal-code-validator to add your country code'
-                );
+                throw new InvalidArgumentException("Unsupported country code $countryCode");
             }
 
             if ($this->library->isValid($countryCode, $value, true)) {
