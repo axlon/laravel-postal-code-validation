@@ -38,8 +38,8 @@ Postal code validation perfectly integrates into your Laravel application, you c
 framework validation rule.
 
 ### Using the rule as a string
-You can call the rule as part of your validation string (see example below). The rule expects at least one country code
-to validate against.
+You can call the rule as part of your validation string, the rule expects at least one country code
+([ISO 3166-1 alpha 2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to validate against.
 
 ```php
 $this->validate($request, [
@@ -48,13 +48,24 @@ $this->validate($request, [
 ```
 
 ### Using the rule directly
-If you prefer a more object-like style, that's available too (see example below).
+If you prefer a more object-like style, that's available too:
 
 ```php
 $this->validate($request, [
     'postal_code' => [
         PostalCode::forCountry('NL')->andCountry('BE'),
     ],
+]);
+```
+
+### Country code from request
+If you want to validate the postal code against a country code that's in the same request, that's also possible. Simply
+put the name of the request variable instead of a country code (dot notation is supported).
+
+```php
+$this->validate($request, [
+    'delivery.country' => 'string|size:2|required',
+    'delivery.postal_code' => 'postal_code:delivery.country|required',
 ]);
 ```
 
@@ -68,7 +79,3 @@ add the following line to it:
 
 ## Special thanks
 Special thanks to [sirprize](https://github.com/sirprize), the author of the underlying postal code validation library.
-
-## Contributing
-This is a small and straight forward package, but if you spot a bug or see room for improvement, create an issue or a
-pull request and I will try to respond within a few days
