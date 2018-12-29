@@ -25,6 +25,15 @@ class ValidationTest extends TestCase
         $this->factory = $this->app->make('validator');
     }
 
+    public function testCountryCodeFromRequest()
+    {
+        $request = ['country' => 'IT', 'postal_code' => '23100'];
+        $rules = ['country' => 'string|size:2|required', 'postal_code' => 'postal_code:country'];
+        $validator = $this->factory->make($request, $rules);
+
+        $this->assertFalse($validator->fails());
+    }
+
     public function testCountryCodeWithIncorrectCasing()
     {
         $request = ['postal_code' => '12345'];

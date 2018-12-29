@@ -9,7 +9,6 @@ class PostalCode
     protected function __construct()
     {
         $this->countryCodes = [];
-        $this->precise = false;
     }
 
     public function andCountry(string $countryCode)
