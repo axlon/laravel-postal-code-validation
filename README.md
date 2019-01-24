@@ -1,7 +1,9 @@
 # laravel-postal-code-validation
 Worldwide postal code validation for Laravel
 
-![Build status](https://travis-ci.org/axlon/laravel-postal-code-validation.svg?branch=master)
+[![Build status](https://travis-ci.org/axlon/laravel-postal-code-validation.svg?branch=master)](https://travis-ci.org/axlon/laravel-postal-code-validation)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/?branch=master)
 
 ## Installation
 You can install this package with Composer, by running the command below:

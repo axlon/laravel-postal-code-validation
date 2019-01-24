@@ -1,0 +1,20 @@
+preset: psr2
+
+enabled:
+  - alpha_ordered_imports
+  - concat_with_spaces
+  - no_trailing_comma_in_list_call
+  - no_trailing_comma_in_singleline_array
+  - no_unused_imports
+  - no_useless_else
+  - no_useless_return
+  - no_whitespace_before_comma_in_array
+  - short_array_syntax
+  - trailing_comma_in_multiline_array
+
+risky: true
+
+finder:
+  exclude:
+    - vendor
+  name: "*.php"
