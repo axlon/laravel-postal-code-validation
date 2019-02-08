@@ -77,14 +77,18 @@ class Validator
      * Validate if the given attribute is a valid postal code.
      *
      * @param string $attribute
-     * @param string $value
+     * @param mixed $value
      * @param array $parameters
      * @param \Illuminate\Contracts\Validation\Validator $validator
      * @return bool
      * @throws \Sirprize\PostalCodeValidator\ValidationException
      */
-    public function validate(string $attribute, string $value, array $parameters, ValidatorContract $validator)
+    public function validate(string $attribute, $value, array $parameters, ValidatorContract $validator)
     {
+        if (!is_string($value) || !$value) {
+            return false;
+        }
+
         $this->setRequest($validator);
 
         foreach ($parameters as $parameter) {
