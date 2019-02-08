@@ -10,15 +10,38 @@ use Sirprize\PostalCodeValidator\Validator as ValidationEngine;
 
 class Validator
 {
+    /**
+     * The validation engine.
+     *
+     * @var \Sirprize\PostalCodeValidator\Validator
+     */
     protected $engine;
+
+    /**
+     * The current request data.
+     *
+     * @var array
+     */
     protected $request;
 
+    /**
+     * Create a new postal code validator instance.
+     *
+     * @param \Sirprize\PostalCodeValidator\Validator $engine
+     * @return void
+     */
     public function __construct(ValidationEngine $engine)
     {
         $this->engine = $engine;
         $this->request = [];
     }
 
+    /**
+     * Fetch a country code from given input.
+     *
+     * @param string $possibleCountryCode
+     * @return string
+     */
     protected function fetchCountryCode(string $possibleCountryCode)
     {
         $countryCode = strtoupper($possibleCountryCode);
@@ -35,6 +58,12 @@ class Validator
         throw new InvalidArgumentException('Unsupported country code ' . ($countryCode ?: $possibleCountryCode));
     }
 
+    /**
+     * Set the current request data.
+     *
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @return void
+     */
     protected function setRequest(ValidatorContract $validator)
     {
         if (!$validator instanceof BaseValidator) {
@@ -44,6 +73,16 @@ class Validator
         $this->request = $validator->getData();
     }
 
+    /**
+     * Validate if the given attribute is a valid postal code.
+     *
+     * @param string $attribute
+     * @param string $value
+     * @param array $parameters
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @return bool
+     * @throws \Sirprize\PostalCodeValidator\ValidationException
+     */
     public function validate(string $attribute, string $value, array $parameters, ValidatorContract $validator)
     {
         $this->setRequest($validator);

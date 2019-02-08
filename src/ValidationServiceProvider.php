@@ -7,6 +7,11 @@ use Illuminate\Support\ServiceProvider;
 
 class ValidationServiceProvider extends ServiceProvider
 {
+    /**
+     * Register postal code validation services.
+     *
+     * @return void
+     */
     public function register()
     {
         $this->app->afterResolving('validator', function (Factory $factory) {
