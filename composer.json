@@ -41,9 +41,6 @@
         "sort-packages": true
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "1.2.x-dev"
-        },
         "laravel": {
             "providers": [
                 "\\Axlon\\PostalCodeValidation\\ValidationServiceProvider"
