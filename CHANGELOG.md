@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.2.1](https://github.com/axlon/laravel-postal-code-validation/tree/v1.2.0) (2019-02-11)
+- Fixed an error when null was passed to the validator
+- Added doc blocks
+
 ## [v1.2.0](https://github.com/axlon/laravel-postal-code-validation/tree/v1.2.0) (2018-12-29)
 - Other fields in the request can now be used as country code to check against
 - Removed useless files from dist
