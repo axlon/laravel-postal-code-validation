@@ -69,6 +69,34 @@ class ValidationTest extends TestCase
     }
 
     /**
+     * Test if validation fails when an empty country code is passed.
+     *
+     * @return void
+     */
+    public function testEmptyCountryCode()
+    {
+        $request = ['postal_code' => '75008'];
+        $rules = ['postal_code' => 'postal_code'];
+        $validator = $this->factory->make($request, $rules);
+
+        $this->assertTrue($validator->fails());
+    }
+
+    /**
+     * Test if validation fails when an empty postal code is passed.
+     *
+     * @return void
+     */
+    public function testEmptyPostalCode()
+    {
+        $request = ['postal_code' => null];
+        $rules = ['postal_code' => 'postal_code:RU'];
+        $validator = $this->factory->make($request, $rules);
+
+        $this->assertTrue($validator->fails());
+    }
+
+    /**
      * Test if validation fails when an invalid country code is passed.
      *
      * @return void
