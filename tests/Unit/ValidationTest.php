@@ -2,7 +2,6 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
-use Axlon\PostalCodeValidation\Rules\PostalCode;
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
 use Exception;
 use InvalidArgumentException;
@@ -141,20 +140,6 @@ class ValidationTest extends TestCase
     {
         $request = ['postal_code' => '1000 AP'];
         $rules = ['postal_code' => 'postal_code:NL'];
-        $validator = $this->factory->make($request, $rules);
-
-        $this->assertFalse($validator->fails());
-    }
-
-    /**
-     * Test if validation passes if object notation is used.
-     *
-     * @return void
-     */
-    public function testValidationUsingObjectNotation()
-    {
-        $request = ['postal_code' => '28770'];
-        $rules = ['postal_code' => [PostalCode::forCountry('ES')]];
         $validator = $this->factory->make($request, $rules);
 
         $this->assertFalse($validator->fails());
