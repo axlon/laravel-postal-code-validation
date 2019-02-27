@@ -17,13 +17,14 @@ env:
   - ILLUMINATE_VERSION=5.5.* TESTBENCH_VERSION=3.5.* PHPUNIT_VERSION=^6.0
   - ILLUMINATE_VERSION=5.6.* TESTBENCH_VERSION=3.6.* PHPUNIT_VERSION=^7.0
   - ILLUMINATE_VERSION=5.7.* TESTBENCH_VERSION=3.7.* PHPUNIT_VERSION=^7.0
+  - ILLUMINATE_VERSION=5.8.* TESTBENCH_VERSION=3.8.* PHPUNIT_VERSION=^7.0 || ^8.0
 
 sudo: false
 
 before_install:
-  - composer require illuminate/support:${ILLUMINATE_VERSION} illuminate/validation:${ILLUMINATE_VERSION} --no-update
-  - composer require orchestra/testbench:${TESTBENCH_VERSION} --no-update
-  - composer require phpunit/phpunit:${PHPUNIT_VERSION} --no-update
+  - composer require illuminate/support:"${ILLUMINATE_VERSION}" illuminate/validation:${ILLUMINATE_VERSION} --no-update
+  - composer require orchestra/testbench:"${TESTBENCH_VERSION}" --no-update
+  - composer require phpunit/phpunit:"${PHPUNIT_VERSION}" --no-update
 
 install:
   - composer install --no-interaction --no-progress --no-suggest --prefer-dist

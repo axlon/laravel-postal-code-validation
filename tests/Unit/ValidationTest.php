@@ -33,7 +33,7 @@ class ValidationTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->factory = $this->app->make('validator');
