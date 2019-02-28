@@ -3,8 +3,7 @@
 ## [v1.3.0](https://github.com/axlon/laravel-postal-code-validation/tree/v1.3.0) (2019-02-27)
 - Added Laravel 5.8 support
 - Dropped Laravel 5.0 support (due to PHPUnit 8 compatibility issues)
-- Increased minimum required PHP version from 7.0.0 to 7.1.3 (due to no supported version of Laravel supporting any PHP
-versions lower than 7.1.3)
+- Increased minimum required PHP version from 7.0.0 to 7.1.3 (due to PHPUnit 8 compatibility issues)
 
 ## [v1.2.1](https://github.com/axlon/laravel-postal-code-validation/tree/v1.2.1) (2019-02-11)
 - Fixed an error when null was passed to the validator
