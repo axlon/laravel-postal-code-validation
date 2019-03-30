@@ -3,8 +3,6 @@
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
-use Exception;
-use InvalidArgumentException;
 use Orchestra\Testbench\TestCase;
 
 class ValidationTest extends TestCase
