@@ -4,8 +4,8 @@ namespace Axlon\PostalCodeValidation;
 
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Validator as BaseValidator;
-use InvalidArgumentException;
 use Sirprize\PostalCodeValidator\Validator as ValidationEngine;
 
 class Validator
@@ -37,25 +37,25 @@ class Validator
     }
 
     /**
-     * Fetch a country code from given input.
+     * Parse given input parameter.
      *
-     * @param string $possibleCountryCode
-     * @return string
+     * @param string $parameter
+     * @return array|null
      */
-    protected function fetchCountryCode(string $possibleCountryCode)
+    protected function parseInputParameter(string $parameter)
     {
-        $countryCode = strtoupper($possibleCountryCode);
+        $countryCode = $input = rtrim($parameter, '?');
+        $optional = Str::endsWith($parameter, '?');
 
-        if ($this->engine->hasCountry($countryCode)) {
-            return $countryCode;
+        if (Arr::has($this->request, $input)) {
+            $countryCode = Arr::get($this->request, $input);
         }
 
-        if (($countryCode = Arr::get($this->request, $possibleCountryCode)) &&
-            $this->engine->hasCountry(strtoupper($countryCode))) {
-            return strtoupper($countryCode);
+        if (!$this->engine->hasCountry($countryCode = strtoupper($countryCode))) {
+            $countryCode = null;
         }
 
-        throw new InvalidArgumentException('Unsupported country code ' . ($countryCode ?: $possibleCountryCode));
+        return [$countryCode, $optional];
     }
 
     /**
@@ -92,8 +92,10 @@ class Validator
         $this->setRequest($validator);
 
         foreach ($parameters as $parameter) {
-            if (!$countryCode = $this->fetchCountryCode($parameter)) {
-                continue;
+            [$countryCode, $optional] = $this->parseInputParameter($parameter);
+
+            if (!$countryCode) {
+                return $optional;
             }
 
             if ($this->engine->isValid($countryCode, $value, true)) {

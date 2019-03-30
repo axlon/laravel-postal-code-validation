@@ -113,14 +113,22 @@ class ValidationTest extends TestCase
         $rules = ['postal_code' => 'postal_code:FOO'];
         $validator = $this->factory->make($request, $rules);
 
-        try {
-            $validator->fails();
-        } catch (Exception $exception) {
-            # Do nothing here..
-        }
+        $this->assertTrue($validator->fails());
+    }
 
-        # Manually assert exception to maintain BC with older versions of PHPUnit
-        $this->assertInstanceOf(InvalidArgumentException::class, $exception);
+    /**
+     * Test if validation passes when an invalid optional country code is passed.
+     *
+     * @return void
+     */
+    public function testInvalidOptionalCountryCode()
+    {
+        $exception = null;
+        $request = ['postal_code' => '75008'];
+        $rules = ['postal_code' => 'postal_code:BAR?'];
+        $validator = $this->factory->make($request, $rules);
+
+        $this->assertFalse($validator->fails());
     }
 
     /**
