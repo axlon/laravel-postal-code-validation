@@ -25,11 +25,12 @@ class PostalCode
      * Add an additional country to the rule.
      *
      * @param string $countryCode
+     * @param bool $optional
      * @return $this
      */
-    public function andCountry(string $countryCode)
+    public function andCountry(string $countryCode, bool $optional = false)
     {
-        $this->countryCodes[] = $countryCode;
+        $this->countryCodes[$countryCode] = $optional;
         return $this;
     }
 
@@ -37,11 +38,12 @@ class PostalCode
      * Create a new "postal code" rule instance for given country.
      *
      * @param string $countryCode
+     * @param bool $optional
      * @return static
      */
-    public static function forCountry(string $countryCode)
+    public static function forCountry(string $countryCode, bool $optional = false)
     {
-        return (new static)->andCountry($countryCode);
+        return (new static)->andCountry($countryCode, $optional);
     }
 
     /**
@@ -51,6 +53,12 @@ class PostalCode
      */
     public function __toString()
     {
-        return 'postal_code:' . implode(',', $this->countryCodes);
+        $parameters = [];
+
+        foreach ($this->countryCodes as $countryCode => $optional) {
+            $parameters[] = $countryCode . ($optional ? '?' : '');
+        }
+
+        return 'postal_code:' . implode(',', $parameters);
     }
 }

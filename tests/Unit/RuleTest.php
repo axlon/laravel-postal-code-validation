@@ -15,6 +15,8 @@ class RuleTest extends TestCase
     public function testRuleToValidationStringConversion()
     {
         $this->assertEquals('postal_code:ES', (string)PostalCode::forCountry('ES'));
+        $this->assertEquals('postal_code:CN?', (string)PostalCode::forCountry('CN', true));
         $this->assertEquals('postal_code:AF,GH', (string)PostalCode::forCountry('AF')->andCountry('GH'));
+        $this->assertEquals('postal_code:DK,GT?', (string)PostalCode::forCountry('DK')->andCountry('GT', true));
     }
 }
