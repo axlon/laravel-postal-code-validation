@@ -117,7 +117,7 @@ class Validator
     {
         $this->setRequest($validator);// Important to set the request before anything else
         
-        $formats = array();
+        $formats = [];
         foreach ($parameters as $parameter) {
             $countryCode = $this->fetchCountryCode($parameter);
             $formats = array_merge($formats, $this->engine->getFormats($countryCode));
