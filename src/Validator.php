@@ -92,7 +92,7 @@ class Validator
         $this->setRequest($validator);
         
         // Adding replacer as a closure as $this->request must be avilable from the closure
-        $validator->addReplacer('postal_code', function($message, $attribute, $rule, $parameters) {
+        $validator->addReplacer('postal_code', function ($message, $attribute, $rule, $parameters) {
             // Find all possible formats
             $formats = [];
             foreach ($parameters as $parameter) {
