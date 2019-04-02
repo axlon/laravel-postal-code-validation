@@ -103,4 +103,33 @@ class Validator
 
         return false;
     }
+    
+    /**
+     * Replace all place-holders for the required_with rule.
+     *
+     * @param  string  $message
+     * @param  string  $attribute
+     * @param  string  $rule
+     * @param  array   $parameters
+     * @return string
+     */
+    public function replacer($message, $attribute, $rule, $parameters, ValidatorContract $validator)
+    {
+        $this->setRequest($validator);// Important to set the request before anything else
+        
+        $formats = array();
+        foreach ($parameters as $parameter) {
+            $countryCode = $this->fetchCountryCode($parameter);
+            $formats = array_merge($formats, $this->engine->getFormats($countryCode));
+        }
+        
+        // Remove any doublicate formats if validating with more than one country
+        $formats = array_unique($formats);
+        
+        // Implode all formats comma separated
+        $format = implode(', ', $formats);
+        
+        //Return $message where :format is replaced with comma separated list of formats
+        return str_replace([':format'], $format, $message);
+    }
 }

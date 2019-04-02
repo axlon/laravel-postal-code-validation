@@ -52,7 +52,7 @@ To add an error message your users will be able to understand, open `resources/l
 add the following line to it:
 
 ```php
-'postal_code' => 'The :attribute field must be a valid postal code.',
+'postal_code' => 'The :attribute field must be a valid postal code of format :format.',
 ```
 
 ## Installation

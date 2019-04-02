@@ -16,6 +16,7 @@ class ValidationServiceProvider extends ServiceProvider
     {
         $this->app->afterResolving('validator', function (Factory $factory) {
             $factory->extend('postal_code', 'Axlon\PostalCodeValidation\Validator@validate');
+            $factory->replacer('postal_code', 'Axlon\PostalCodeValidation\Validator@replacer');
         });
     }
 }
