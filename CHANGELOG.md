@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.3.1](https://github.com/axlon/laravel-postal-code-validation/tree/v1.3.1) (2019-04-04)
+- Lowered PHP requirement from 7.1.3 to 7.1.0
+- Removed exception thrown when an invalid country is passed, instead validation now fails
+
 ## [v1.3.0](https://github.com/axlon/laravel-postal-code-validation/tree/v1.3.0) (2019-02-27)
 - Added Laravel 5.8 support
 - Dropped Laravel 5.0 support (due to PHPUnit 8 compatibility issues)
