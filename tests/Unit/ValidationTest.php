@@ -3,8 +3,6 @@
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
-use Exception;
-use InvalidArgumentException;
 use Orchestra\Testbench\TestCase;
 
 class ValidationTest extends TestCase
@@ -113,14 +111,7 @@ class ValidationTest extends TestCase
         $rules = ['postal_code' => 'postal_code:FOO'];
         $validator = $this->factory->make($request, $rules);
 
-        try {
-            $validator->fails();
-        } catch (Exception $exception) {
-            # Do nothing here..
-        }
-
-        # Manually assert exception to maintain BC with older versions of PHPUnit
-        $this->assertInstanceOf(InvalidArgumentException::class, $exception);
+        $this->assertTrue($validator->fails());
     }
 
     /**
