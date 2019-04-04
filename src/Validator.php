@@ -5,7 +5,6 @@ namespace Axlon\PostalCodeValidation;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator as BaseValidator;
-use InvalidArgumentException;
 use Sirprize\PostalCodeValidator\Validator as ValidationEngine;
 
 class Validator
@@ -55,7 +54,7 @@ class Validator
             return strtoupper($countryCode);
         }
 
-        throw new InvalidArgumentException('Unsupported country code ' . ($countryCode ?: $possibleCountryCode));
+        return null;
     }
 
     /**
