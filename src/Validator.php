@@ -58,6 +58,38 @@ class Validator
     }
 
     /**
+     * Replace error message placeholders.
+     *
+     * @param string $message
+     * @param $attribute
+     * @param $rule
+     * @param $parameters
+     * @return mixed
+     * @throws \Sirprize\PostalCodeValidator\ValidationException
+     */
+    public function replacer(string $message, string $attribute, string $rule, array $parameters)
+    {
+        $countries = [];
+        $formats = [];
+
+        foreach ($parameters as $parameter) {
+            $countryCode = $this->fetchCountryCode($parameter);
+
+            if (!$this->engine->hasCountry($countryCode)) {
+                continue;
+            }
+
+            $countries[] = $countryCode;
+            $formats = array_merge($formats, $this->engine->getFormats($countryCode));
+        }
+
+        $countries = implode(', ', array_unique($countries));
+        $formats = implode(', ', array_unique($formats));
+
+        return str_replace([':countries', ':formats'], [$countries, $formats], $message);
+    }
+
+    /**
      * Set the current request data.
      *
      * @param \Illuminate\Contracts\Validation\Validator $validator
@@ -89,25 +121,6 @@ class Validator
         }
 
         $this->setRequest($validator);
-        
-        // Adding replacer as a closure as $this->request must be avilable from the closure
-        $validator->addReplacer('postal_code', function ($message, $attribute, $rule, $parameters) {
-            // Find all possible formats
-            $formats = [];
-            foreach ($parameters as $parameter) {
-                $countryCode = $this->fetchCountryCode($parameter);
-                $formats = array_merge($formats, $this->engine->getFormats($countryCode));
-            }
-            
-            // Remove any doublicate formats if validating with more than one country
-            $formats = array_unique($formats);
-            
-            // Implode all formats comma separated
-            $format = implode(', ', $formats);
-            
-            //Return $message where :format is replaced with comma separated list of formats
-            return str_replace([':format'], $format, $message);
-        });
 
         foreach ($parameters as $parameter) {
             if (!$countryCode = $this->fetchCountryCode($parameter)) {
