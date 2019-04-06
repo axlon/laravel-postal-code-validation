@@ -52,8 +52,16 @@ To add an error message your users will be able to understand, open `resources/l
 add the following line to it:
 
 ```php
-'postal_code' => 'The :attribute field must be a valid postal code of format :format.',
+'postal_code' => 'The :attribute field must be a valid postal code.',
 ```
+
+The following placeholders are available:
+
+| placeholder  | description 
+|--------------|-------------
+| `:attribute` | The name of the attribute that was validated (e.g. `postal_code`)
+| `:countries` | The countries that were validated against, comma separated (e.g. `NL, BE`) 
+| `:formats`   | The formats that were validated against, comma separated (e.g. `#### NN, ####`)
 
 ## Installation
 You can install this package with Composer, by running the command below:
