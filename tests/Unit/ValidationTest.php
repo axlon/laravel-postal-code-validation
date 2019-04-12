@@ -132,6 +132,8 @@ class ValidationTest extends TestCase
 
     /**
      * Test if the replacer correctly replaces all placeholders.
+     *
+     * @return void
      */
     public function testReplacer()
     {
