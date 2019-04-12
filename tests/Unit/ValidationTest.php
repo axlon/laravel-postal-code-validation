@@ -16,6 +16,19 @@ class ValidationTest extends TestCase
     protected $factory;
 
     /**
+     * Define environment setup.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        $app->extend('translation.loader', function () {
+            return new FileLoader($this->app['files'], __DIR__ . '/../resources/lang');
+        });
+    }
+
+    /**
      * Get package providers.
      *
      * @param \Illuminate\Foundation\Application $app
@@ -35,7 +48,6 @@ class ValidationTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->app->instance('translation.loader', new FileLoader($this->app['files'], __DIR__ . '/../resources/lang'));
         $this->factory = $this->app->make('validator');
     }
 
