@@ -3,16 +3,30 @@
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
+use Illuminate\Translation\FileLoader;
 use Orchestra\Testbench\TestCase;
 
 class ValidationTest extends TestCase
 {
     /**
-     * The framework validation factory.
+     * The validation factory.
      *
      * @var \Illuminate\Contracts\Validation\Factory
      */
     protected $factory;
+
+    /**
+     * Define environment setup.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        $app->extend('translation.loader', function () {
+            return new FileLoader($this->app['files'], __DIR__ . '/../resources/lang');
+        });
+    }
 
     /**
      * Get package providers.
@@ -126,6 +140,20 @@ class ValidationTest extends TestCase
         $validator = $this->factory->make($request, $rules);
 
         $this->assertTrue($validator->fails());
+    }
+
+    /**
+     * Test if the replacer correctly replaces all placeholders.
+     *
+     * @return void
+     */
+    public function testReplacer()
+    {
+        $request = ['postal_code' => 'Another random string'];
+        $rules = ['postal_code' => 'postal_code:CO'];
+        $validator = $this->factory->make($request, $rules);
+
+        $this->assertEquals($validator->errors()->get('postal_code'), ['postal code CO ######']);
     }
 
     /**

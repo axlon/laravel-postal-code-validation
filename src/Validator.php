@@ -58,6 +58,36 @@ class Validator
     }
 
     /**
+     * Replace error message placeholders.
+     *
+     * @param string $message
+     * @param $attribute
+     * @param $rule
+     * @param $parameters
+     * @return mixed
+     * @throws \Sirprize\PostalCodeValidator\ValidationException
+     */
+    public function replacer(string $message, string $attribute, string $rule, array $parameters)
+    {
+        $countries = [];
+        $formats = [];
+
+        foreach ($parameters as $parameter) {
+            $countryCode = $this->fetchCountryCode($parameter);
+            if (!$this->engine->hasCountry($countryCode)) {
+                continue;
+            }
+            $countries[] = $countryCode;
+            $formats = array_merge($formats, $this->engine->getFormats($countryCode));
+        }
+
+        $countries = implode(', ', array_unique($countries));
+        $formats = implode(', ', array_unique($formats));
+
+        return str_replace([':countries', ':formats'], [$countries, $formats], $message);
+    }
+
+    /**
      * Set the current request data.
      *
      * @param \Illuminate\Contracts\Validation\Validator $validator
