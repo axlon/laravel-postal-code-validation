@@ -1,5 +1,8 @@
 # Changelog
 
+## [v1.4.0](https://github.com/axlon/laravel-postal-code-validation/tree/v1.4.0) (2019-04-13)
+- Added error message replacer for `:countries` and `:formats` placeholders
+
 ## [v1.3.1](https://github.com/axlon/laravel-postal-code-validation/tree/v1.3.1) (2019-04-04)
 - Lowered PHP requirement from 7.1.3 to 7.1.0
 - Removed exception thrown when an invalid country is passed, instead validation now fails
