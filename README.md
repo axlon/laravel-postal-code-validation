@@ -9,6 +9,40 @@ Worldwide postal code validation for Laravel
     <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation"><img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/license"></a>
 </p>
 
+## Installation
+You can install this package with Composer, by running the command below:
+
+```bash
+composer require axlon/laravel-postal-code-validation
+```
+
+### Laravel 5.5+
+If you are running Laravel 5.5 or higher, package discovery will automatically register the package for you after
+running the Composer command.
+
+### Laravel 5.4 and below
+If you are running a Laravel version lower than 5.5, register the package by adding the service provider to the
+providers array in your `config/app.php` file:
+
+```php
+'providers' => [
+   ...
+   Axlon\PostalCodeValidation\ValidationServiceProvider::class,
+   ...
+],
+```
+
+#### A note on Laravel 5.0
+Version 1.3.0 dropped support for Laravel 5.0. If you want to use this package with Laravel 5.0, target the 1.2.x
+family.
+
+### Lumen
+If you are running Lumen, register the package by adding the following line to your `bootstrap/app.php` file:
+
+```php
+$app->register(Axlon\PostalCodeValidation\ValidationServiceProvider::class);
+```
+
 
 
 ## Usage
@@ -57,45 +91,11 @@ add the following line to it:
 
 The following placeholders are available:
 
-| placeholder  | description 
+| placeholder  | description
 |--------------|-------------
 | `:attribute` | The name of the attribute that was validated (e.g. `postal_code`)
 | `:countries` | The countries that were validated against, for example `NL, BE`, note that this placeholder may contain user input if you use the 'country code from request' feature
 | `:formats`   | The formats that were validated against, for example: `#### NN, ####`, note that this placeholder may be empty if no valid countries are passed
-
-## Installation
-You can install this package with Composer, by running the command below:
-
-```bash
-composer require axlon/laravel-postal-code-validation
-```
-
-### Laravel 5.5+
-If you are running Laravel 5.5 or higher, package discovery will automatically register the package for you after
-running the Composer command.
-
-### Laravel 5.4 and below
-If you are running a Laravel version lower than 5.5, register the package by adding the service provider to the
-providers array in your `config/app.php` file:
-
-```php
-'providers' => [
-   ...
-   Axlon\PostalCodeValidation\ValidationServiceProvider::class,
-   ...
-],
-```
-
-#### A note on Laravel 5.0
-Version 1.3.0 dropped support for Laravel 5.0. If you want to use this package with Laravel 5.0, target the 1.2.x 
-family.
-
-### Lumen
-If you are running Lumen, register the package by adding the following line to your `bootstrap/app.php` file:
-
-```php
-$app->register(Axlon\PostalCodeValidation\ValidationServiceProvider::class);
-```
 
 ## Special thanks
 Special thanks to [sirprize](https://github.com/sirprize), the author of the underlying postal code validation library.
