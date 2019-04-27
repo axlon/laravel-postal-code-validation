@@ -61,10 +61,10 @@ class Validator
      * Replace error message placeholders.
      *
      * @param string $message
-     * @param $attribute
-     * @param $rule
-     * @param $parameters
-     * @return mixed
+     * @param string $attribute
+     * @param string $rule
+     * @param array $parameters
+     * @return string
      * @throws \Sirprize\PostalCodeValidator\ValidationException
      */
     public function replacer(string $message, string $attribute, string $rule, array $parameters)
@@ -74,9 +74,11 @@ class Validator
 
         foreach ($parameters as $parameter) {
             $countryCode = $this->fetchCountryCode($parameter);
+
             if (!$this->engine->hasCountry($countryCode)) {
                 continue;
             }
+
             $countries[] = $countryCode;
             $formats = array_merge($formats, $this->engine->getFormats($countryCode));
         }
@@ -106,19 +108,19 @@ class Validator
      * Validate if the given attribute is a valid postal code.
      *
      * @param string $attribute
-     * @param mixed $value
+     * @param string|null $value
      * @param array $parameters
      * @param \Illuminate\Contracts\Validation\Validator $validator
      * @return bool
      * @throws \Sirprize\PostalCodeValidator\ValidationException
      */
-    public function validate(string $attribute, $value, array $parameters, ValidatorContract $validator)
+    public function validate(string $attribute, ?string $value, array $parameters, ValidatorContract $validator)
     {
+        $this->setRequest($validator);
+
         if (!is_string($value) || !$value) {
             return false;
         }
-
-        $this->setRequest($validator);
 
         foreach ($parameters as $parameter) {
             if (!$countryCode = $this->fetchCountryCode($parameter)) {
