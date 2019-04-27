@@ -1,5 +1,8 @@
 # Changelog
 
+## [v1.4.1](https://github.com/axlon/laravel-postal-code-validation/tree/v1.4.1) (2019-04-27)
+- Fixed replacer being empty if empty input was passed
+
 ## [v1.4.0](https://github.com/axlon/laravel-postal-code-validation/tree/v1.4.0) (2019-04-13)
 - Added error message replacer for `:countries` and `:formats` placeholders
 
