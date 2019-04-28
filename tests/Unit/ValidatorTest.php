@@ -56,8 +56,9 @@ class ValidatorTest extends TestCase
         return [
             'Jamaica' => ['JM', '/\d{2}/i'],
             'Papua New Guinea' => ['PG', '/\d{3}/i'],
-            'Qatar' => ['QA', '/.*/'],
+            'Qatar, lowercase' => ['qa', '/.*/'],
             'Turks and Caicos Islands' => ['TC', '/TKCA\s?1ZZ/i'],
+            'Venezuela, titlecase' => ['Ve', '/\d{4}|\d{4}-[a-z]/i'],
         ];
     }
 
