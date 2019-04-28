@@ -96,6 +96,3 @@ The following placeholders are available:
 | `:attribute` | The name of the attribute that was validated (e.g. `postal_code`)
 | `:countries` | The countries that were validated against, for example `NL, BE`, note that this placeholder may contain user input if you use the 'country code from request' feature
 | `:formats`   | The formats that were validated against, for example: `#### NN, ####`, note that this placeholder may be empty if no valid countries are passed
-
-## Special thanks
-Special thanks to [sirprize](https://github.com/sirprize), the author of the underlying postal code validation library.
