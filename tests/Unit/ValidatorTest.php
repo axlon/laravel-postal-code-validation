@@ -4,7 +4,7 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Validator;
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
+use Orchestra\Testbench\TestCase;
 
 class ValidatorTest extends TestCase
 {
