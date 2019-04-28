@@ -42,7 +42,7 @@ class ValidatorTest extends TestCase
             'Saint Helena, lowercase' => ['sh', ['@@@@ 1ZZ']],
             'Sudan, titlecase' => ['Sd', ['#####']],
             'Suriname' => ['SR', []],
-            'Taiwan' => ['TW', ['###', '###-##']]
+            'Taiwan' => ['TW', ['###', '###-##']],
         ];
     }
 
