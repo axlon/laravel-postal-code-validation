@@ -14,23 +14,6 @@ class ValidatorTest extends TestCase
     protected $validator;
 
     /**
-     * Provide country codes.
-     *
-     * @return array
-     */
-    public function provideCountryCodes()
-    {
-        return [
-            'Canada' => ['CA'],
-            'Ghana' => ['GH'],
-            'North Korea' => ['KP'],
-            'Saint Martin, lowercase' => ['mf'],
-            'Sweden, titlecase' => ['Se'],
-            'South Korea' => ['KR'],
-        ];
-    }
-
-    /**
      * Provide formats.
      *
      * @return array
