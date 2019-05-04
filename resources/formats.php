@@ -3,6 +3,7 @@
 /**
  * List of supported postal codes.
  * @see https://en.wikipedia.org/wiki/List_of_postal_codes
+ * @see https://github.com/sirprize/postal-code-validator/blob/master/lib/Sirprize/PostalCodeValidator/Validator.php
  */
 
 return [
