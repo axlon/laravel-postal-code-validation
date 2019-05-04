@@ -73,7 +73,11 @@ class Validator
             );
         }
 
-        return sprintf('/%s/i', implode('|', $patterns));
+        if (count($patterns) === 1) {
+            return sprintf('/^%s$/i', $patterns[0]);
+        }
+
+        return sprintf('/^(%s)$/i', implode('|', $patterns));
     }
 
     /**

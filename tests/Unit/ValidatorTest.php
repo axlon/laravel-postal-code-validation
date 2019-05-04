@@ -37,11 +37,11 @@ class ValidatorTest extends TestCase
     public function providePatterns()
     {
         return [
-            'Jamaica' => ['JM', '/\d{2}/i'],
-            'Papua New Guinea' => ['PG', '/\d{3}/i'],
+            'Jamaica' => ['JM', '/^\d{2}$/i'],
+            'Papua New Guinea' => ['PG', '/^\d{3}$/i'],
             'Qatar, lowercase' => ['qa', '/.*/'],
-            'Turks and Caicos Islands' => ['TC', '/TKCA\s?1ZZ/i'],
-            'Venezuela, titlecase' => ['Ve', '/\d{4}|\d{4}-[a-z]/i'],
+            'Turks and Caicos Islands' => ['TC', '/^TKCA\s?1ZZ$/i'],
+            'Venezuela, titlecase' => ['Ve', '/^(\d{4}|\d{4}-[a-z])$/i'],
         ];
     }
 
@@ -54,7 +54,7 @@ class ValidatorTest extends TestCase
     {
         return [
             'Belgium' => ['BE', '1620'],
-            'China' => ['CH', '736200'],
+            'China' => ['CH', '3012'],
             'France' => ['FR', '67290'],
             'Germany' => ['DE', '49084'],
             'Great Britain' => ['GB', 'EX1 2NZ'],
@@ -62,7 +62,6 @@ class ValidatorTest extends TestCase
             'Ireland' => ['IE', 'D02 AF30'],
             'Ireland, no space' => ['IE', 'D02AF30'],
             'Japan' => ['JP', '196-0000'],
-            'Japan, no hyphen' => ['JP', '1960000'],
             'Nairu' => ['NR', 'Literally anything'],
             'Moldova' => ['MD', 'MD-2001'],
             'Moldova, no hyphen' => ['MD', 'MD2001'],
