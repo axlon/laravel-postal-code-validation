@@ -96,7 +96,7 @@ class ValidatorTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->validator = new Validator();
+        $this->validator = $this->app->make(Validator::class);
     }
 
     /**
