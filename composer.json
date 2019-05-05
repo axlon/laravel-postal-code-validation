@@ -19,10 +19,12 @@
     ],
     "require": {
         "php": "^7.1",
+        "illuminate/contracts": ">=5.1,<5.9",
         "illuminate/support": ">=5.1,<5.9",
         "illuminate/validation": ">=5.1,<5.9"
     },
     "require-dev": {
+        "illuminate/translation": ">=5.1,<5.9",
         "orchestra/testbench": "^3.0",
         "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0 || ^8.0"
     },
