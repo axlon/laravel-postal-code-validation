@@ -5,6 +5,13 @@ namespace Axlon\PostalCodeValidation\Rules;
 class PostalCode
 {
     /**
+     * Whether or not this rule depends on other request parameters.
+     *
+     * @var bool
+     */
+    protected $dependant;
+
+    /**
      * The rule parameters.
      *
      * @var string[]
@@ -12,23 +19,16 @@ class PostalCode
     protected $parameters;
 
     /**
-     * Whether or not this is a with rule.
-     *
-     * @var bool
-     */
-    protected $with;
-
-    /**
      * Create a new postal code validation rule.
      *
-     * @param bool $with
      * @param array $parameters
+     * @param bool $dependant
      * @return void
      */
-    protected function __construct(bool $with, array $parameters)
+    protected function __construct(array $parameters, bool $dependant)
     {
+        $this->dependant = $dependant;
         $this->parameters = $parameters;
-        $this->with = $with;
     }
 
     /**
@@ -52,18 +52,18 @@ class PostalCode
      */
     public static function for(string ...$parameters)
     {
-        return new static(false, $parameters);
+        return new static($parameters, false);
     }
 
     /**
-     * Create a new postal code rule with given inputs.
+     * Create a new postal code rule dependant on given inputs.
      *
      * @param string ...$parameters
      * @return \Axlon\PostalCodeValidation\Rules\PostalCode
      */
     public static function with(string ...$parameters)
     {
-        return new static(true, $parameters);
+        return new static($parameters, true);
     }
 
     /**
@@ -73,6 +73,6 @@ class PostalCode
      */
     public function __toString()
     {
-        return 'postal_code' . ($this->with ? '_with:' : ':') . implode(',', $this->parameters);
+        return 'postal_code' . ($this->dependant ? '_with:' : ':') . implode(',', $this->parameters);
     }
 }

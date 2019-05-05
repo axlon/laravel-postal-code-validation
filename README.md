@@ -84,8 +84,8 @@ one of the specified fields is present.
 **Important**: while this rule supports array references (e.g. `postal_code:deliveries.*.country`), this will not work
 in Laravel 5.1-5.3 due to framework limitations.
 
-### Rule objects
-If you prefer using objects, that's also available. You can use the `PostalCode` class to build the rules dynamically
+### Fluent API
+If you prefer using object based rules, that's also available. You can use the `PostalCode` class to build the rules dynamically
 (handy if your country is session based, for example).
 
 ```php

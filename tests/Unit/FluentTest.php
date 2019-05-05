@@ -5,14 +5,14 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 use Axlon\PostalCodeValidation\Rules\PostalCode;
 use Orchestra\Testbench\TestCase;
 
-class RuleTest extends TestCase
+class FluentTest extends TestCase
 {
     /**
-     * Test the fluent API.
+     * Test creating new instances.
      *
      * @return void
      */
-    public function testFluentApi()
+    public function testObjectCreation()
     {
         $this->assertInstanceOf(PostalCode::class, $instance = PostalCode::for('foo'));
         $this->assertInstanceOf(PostalCode::class, PostalCode::with('bar'));
@@ -20,9 +20,10 @@ class RuleTest extends TestCase
     }
 
     /**
-     * Test the fluent rule to validation string conversion.
+     * Test the conversion to validation strings.
      *
      * @return void
+     * @depends testObjectCreation
      */
     public function testStringConversion()
     {
