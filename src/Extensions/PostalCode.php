@@ -14,7 +14,7 @@ class PostalCode
     protected $validator;
 
     /**
-     * Create a new postal code validator extension.
+     * Create a new PostalCode validator extension.
      *
      * @param \Axlon\PostalCodeValidation\Validator $validator
      * @return void

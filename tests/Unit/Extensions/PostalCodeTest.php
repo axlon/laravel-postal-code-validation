@@ -1,12 +1,12 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Tests\Unit;
+namespace Axlon\PostalCodeValidation\Tests\Unit\Extensions;
 
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
 use Illuminate\Translation\FileLoader;
 use Orchestra\Testbench\TestCase;
 
-class ValidationTest extends TestCase
+class PostalCodeTest extends TestCase
 {
     /**
      * @var \Illuminate\Contracts\Validation\Factory
@@ -19,7 +19,7 @@ class ValidationTest extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         $app->extend('translation.loader', function () {
-            return new FileLoader($this->app['files'], __DIR__ . '/../resources/lang');
+            return new FileLoader($this->app['files'], __DIR__ . '/../../resources/lang');
         });
     }
 
@@ -49,15 +49,15 @@ class ValidationTest extends TestCase
      */
     public function testEmptyInput()
     {
-        $request = ['postal_code' => null];
-        $rules = ['postal_code' => 'postal_code:RU'];
-        $validator = $this->factory->make($request, $rules);
-
         if (version_compare($this->app->version(), '5.3.0', '<')) {
             # Before Laravel 5.3 nullable was the implicit default
             # See: https://laravel.com/docs/5.3/upgrade#upgrade-5.3.0
             $this->markTestSkipped('Laravel < 5.3 won\'t run validation for empty input');
         }
+
+        $request = ['postal_code' => null];
+        $rules = ['postal_code' => 'postal_code:RU'];
+        $validator = $this->factory->make($request, $rules);
 
         $this->assertTrue($validator->fails());
     }
