@@ -7,7 +7,7 @@ use Axlon\PostalCodeValidation\Validator;
 class PostalCode
 {
     /**
-     * The validator.
+     * The postal code validator.
      *
      * @var \Axlon\PostalCodeValidation\Validator
      */
@@ -30,7 +30,7 @@ class PostalCode
      * @param string $message
      * @param string $attribute
      * @param string $rule
-     * @param array $parameters
+     * @param string[] $parameters
      * @return string
      */
     public function replace(string $message, string $attribute, string $rule, array $parameters)
@@ -58,7 +58,7 @@ class PostalCode
      *
      * @param string $attribute
      * @param string|null $value
-     * @param array $parameters
+     * @param string[] $parameters
      * @return bool
      */
     public function validate(string $attribute, ?string $value, array $parameters)

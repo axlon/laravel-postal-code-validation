@@ -19,6 +19,14 @@ class ValidationServiceProvider extends ServiceProvider
         $this->app->afterResolving('validator', function (Factory $factory) {
             $factory->extend('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@validate');
             $factory->replacer('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@replace');
+
+            if (method_exists($factory, 'extendDependant')) {
+                $factory->extendDependant('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
+                $factory->replacer('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@replace');
+            } else {
+                $factory->extend('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
+                $factory->replacer('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@replace');
+            }
         });
     }
 }
