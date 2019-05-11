@@ -130,29 +130,6 @@ class ValidatorTest extends TestCase
     }
 
     /**
-     * Test validation, when an invalid country is passed.
-     *
-     * @return void
-     */
-    public function testValidationWithInvalidCountryCodes()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->assertFalse($this->validator->supports('XX'));
-        $this->validator->isValid('XX', '02305');
-    }
-
-    /**
-     * Test validation, when an invalid postal code is passed.
-     *
-     * @return void
-     */
-    public function testValidationWithInvalidPostalCodes()
-    {
-        $this->assertTrue($this->validator->supports('CO'));
-        $this->assertFalse($this->validator->isValid('CO', 'Not a postal code'));
-    }
-
-    /**
      * Test validation of valid postal codes.
      *
      * @param string $countryCode

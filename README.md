@@ -16,7 +16,6 @@ Worldwide postal code validation for Laravel
     - [Lumen](#lumen)
 - [Usage](#usage)
     - [Available rules](#available-rules)
-    - [Rule objects](#rule-objects)
     - [Adding an error message](#adding-an-error-message)
     - [Manually validating](#manually-validating)
 
@@ -70,7 +69,7 @@ countries in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha
 'postal_code' => 'postal_code:NL,DE,FR,BE'
 ```
 
-#### postal_code_with:foo,bar,...
+#### postal_code_for:foo,bar,...
 The field under validation must be a postal code in at least one of the countries in the given fields _only if_ at least
 one of the specified fields is present.
 
@@ -78,41 +77,18 @@ one of the specified fields is present.
 'billing.country' => 'required|string|max:2',
 ...
 'shipping.country' => 'nullable|string|max:2',
-'shipping.postal_code' => 'postal_code_with:billing.country,shipping.country'
+'shipping.postal_code' => 'postal_code_for:billing.country,shipping.country'
 ```
 
-**Important**: while this rule supports array references (e.g. `postal_code:deliveries.*.country`), this will not work
+**Important**: while this rule supports array references (e.g. `postal_code_for:deliveries.*.country`), this will not work
 in Laravel 5.1-5.3 due to framework limitations.
-
-### Fluent API
-If you prefer using object based rules, that's also available. You can use the `PostalCode` class to build the rules dynamically
-(handy if your country is session based, for example).
-
-```php
-session()->put('country', 'US');
-
-...
-
-'postal_code' => [
-    PostalCode::for(session()->get('country)),
-],
-```
-
-The `postal_code_with` rule is also available as an object rule:
-
-```php
-'country' => 'string|max:2',
-'postal_code' => [
-    PostalCode::with('country'),
-],
-```
 
 ### Adding an error message
 To add a meaningful error message, add the following lines to `resources/lang/{your language}/validation.php`:
 
 ```php
 'postal_code' => 'Your message here',
-'postal_code_with' => 'Your message here',
+'postal_code_for' => 'Your message here',
 ```
 
 The following placeholders will be automatically filled for you:
@@ -123,8 +99,7 @@ Placeholder | Description
 :countries  | The countries that are validated against (e.g. `NL, BE`)*
 :formats    | The formats that the field must be (e.g. `#### NN, ####`)*
 
-*The `:countries` and `:formats` placeholders will be empty for the `postal_code_with` rule if no valid country input is
-passed.
+*The `:countries` and `:formats` placeholders will be emptyif no valid countries are passed.
 
 ### Manually validating
 If you want to validate postal codes manually outside of Laravel's validation system, you can call the validator
