@@ -16,6 +16,7 @@ Worldwide postal code validation for Laravel
     - [Lumen](#lumen)
 - [Usage](#usage)
     - [Available rules](#available-rules)
+    - [Fluent API](#fluent-api)
     - [Adding an error message](#adding-an-error-message)
     - [Manually validating](#manually-validating)
 
@@ -82,6 +83,26 @@ one of the specified fields is present.
 
 **Important**: while this rule supports array references (e.g. `postal_code_for:deliveries.*.country`), this will not work
 in Laravel 5.1-5.3 due to framework limitations.
+
+### Fluent API
+If you prefer using a fluent object style over string based rules, that's also available:
+
+```php
+'postal_code' => [
+    PostalCode::forCountry('NL', 'DE', 'FR', 'BE'),
+],
+```
+
+The same goes for the `postal_code_for` rule:
+
+```php
+'billing.country' => 'required|string|max:2',
+...
+'shipping.country' => 'nullable|string|max:2',
+'shipping.postal_code' => [
+    PostalCode::forInput('billing.country', 'shipping.country')
+],
+```
 
 ### Adding an error message
 To add a meaningful error message, add the following lines to `resources/lang/{your language}/validation.php`:

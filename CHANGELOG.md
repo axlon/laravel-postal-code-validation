@@ -2,7 +2,7 @@
 
 ## [v2.0.0](https://github.com/axlon/laravel-postal-code-validation/tree/v2.0.0) (TBD)
 - Changed `postal_code` rule to no longer accept request inputs as arguments (**breaking change**)
-- Changed `PostalCode` rule class methods (**breaking change**)
+- Changed Fluent API class methods (**breaking change**)
 - Added internal validation engine (**potentially breaking change**)
 - Added `postal_code_for` rule, which accepts request inputs as arguments
 - Added support for referencing request array parameters (e.g. `addresses.*.country`) for Laravel 5.4 and up
