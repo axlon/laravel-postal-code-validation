@@ -6,7 +6,7 @@ use Axlon\PostalCodeValidation\ValidationServiceProvider;
 use Illuminate\Translation\FileLoader;
 use Orchestra\Testbench\TestCase;
 
-class PostalCodeTest extends TestCase
+class PostalCodeForTest extends TestCase
 {
     /**
      * @var \Illuminate\Contracts\Validation\Factory
@@ -55,8 +55,8 @@ class PostalCodeTest extends TestCase
             $this->markTestSkipped('Laravel < 5.3 won\'t run validation for empty input');
         }
 
-        $request = ['postal_code' => null];
-        $rules = ['postal_code' => 'postal_code:RU'];
+        $request = ['country' => 'RU', 'postal_code' => null];
+        $rules = ['postal_code' => 'postal_code_for:country'];
         $validator = $this->factory->make($request, $rules);
 
         $this->assertTrue($validator->fails());
@@ -70,10 +70,10 @@ class PostalCodeTest extends TestCase
     public function testEmptyParameterList()
     {
         $request = ['postal_code' => '75008'];
-        $rules = ['postal_code' => 'postal_code'];
+        $rules = ['postal_code' => 'postal_code_for'];
         $validator = $this->factory->make($request, $rules);
 
-        $this->assertTrue($validator->fails());
+        $this->assertFalse($validator->fails());
     }
 
     /**
@@ -84,15 +84,15 @@ class PostalCodeTest extends TestCase
     public function testValidationOfInvalidInput()
     {
         # Invalid postal code
-        $request = ['postal_code' => 'Incorrect postal code'];
-        $rules = ['postal_code' => 'postal_code:BE'];
+        $request = ['country' => 'BE', 'postal_code' => 'Incorrect postal code'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
         $validator = $this->factory->make($request, $rules);
 
         $this->assertTrue($validator->fails());
 
         # Invalid country code
-        $request = ['postal_code' => '75008'];
-        $rules = ['postal_code' => 'postal_code:"Incorrect country code"'];
+        $request = ['country' => 'Incorrect country code', 'postal_code' => '75008'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
         $validator = $this->factory->make($request, $rules);
 
         $this->assertTrue($validator->fails());
@@ -106,8 +106,8 @@ class PostalCodeTest extends TestCase
      */
     public function testErrorMessagePlaceholderReplacement()
     {
-        $request = ['postal_code' => 'Incorrect postal code'];
-        $rules = ['postal_code' => 'postal_code:CO'];
+        $request = ['country' => 'CO', 'postal_code' => 'Incorrect postal code'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
         $validator = $this->factory->make($request, $rules);
 
         $this->assertEquals(['postal code CO ######'], $validator->errors()->get('postal_code'));
@@ -120,8 +120,8 @@ class PostalCodeTest extends TestCase
      */
     public function testValidationOfValidInput()
     {
-        $request = ['postal_code' => '1000 AP'];
-        $rules = ['postal_code' => 'postal_code:NL'];
+        $request = ['country' => 'NL', 'postal_code' => '1000 AP'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
         $validator = $this->factory->make($request, $rules);
 
         $this->assertFalse($validator->fails());

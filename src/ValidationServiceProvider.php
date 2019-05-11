@@ -15,6 +15,7 @@ class ValidationServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('Axlon\PostalCodeValidation\Validator');
+        $this->app->singleton('Axlon\PostalCodeValidation\Extensions\PostalCodeFor');
 
         $this->app->afterResolving('validator', function (Factory $factory) {
             $factory->extend('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@validate');
