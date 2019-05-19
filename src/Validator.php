@@ -129,11 +129,11 @@ class Validator
     /**
      * Determine if the given country code is supported.
      *
-     * @param string $countryCode
+     * @param string|null $countryCode
      * @return bool
      */
-    public function supports(string $countryCode)
+    public function supports(?string $countryCode)
     {
-        return array_key_exists(strtoupper($countryCode), $this->formats);
+        return $countryCode && array_key_exists(strtoupper($countryCode), $this->formats);
     }
 }
