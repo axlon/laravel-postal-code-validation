@@ -2,11 +2,21 @@
 Worldwide postal code validation for Laravel
 
 <p align="center">
-    <a href="https://travis-ci.org/axlon/laravel-postal-code-validation"><img src="https://travis-ci.org/axlon/laravel-postal-code-validation.svg?branch=master"></a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation"><img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/downloads"></a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation"><img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/version"></a>
-    <a href="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation"><img src="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/badges/coverage.png?b=master"></a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation"><img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/license"></a>
+    <a href="https://travis-ci.org/axlon/laravel-postal-code-validation">
+        <img src="https://travis-ci.org/axlon/laravel-postal-code-validation.svg?branch=master">
+    </a>
+    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
+        <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/downloads">
+    </a>
+    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
+        <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/version">
+    </a>
+    <a href="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation">
+        <img src="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/badges/coverage.png?b=master">
+    </a>
+    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
+        <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/license">
+    </a>
 </p>
 
 - [Installation](#installation)
@@ -19,6 +29,10 @@ Worldwide postal code validation for Laravel
     - [Fluent API](#fluent-api)
     - [Adding an error message](#adding-an-error-message)
     - [Manually validating](#manually-validating)
+- [Changelog](#changelog)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [License](#license)
 
 ## Installation
 You can install this package with Composer, by running the command below:
@@ -49,7 +63,7 @@ this by adding the following line to your `config/app.php` file:
 ```
 
 ### Lumen
-If you are running Lumen, register the package by adding the following line to your `bootstrap/app.php` file:
+If you are using Lumen, register the package by adding the following line to your `bootstrap/app.php` file:
 
 ```php
 $app->register(Axlon\PostalCodeValidation\ValidationServiceProvider::class);
@@ -81,8 +95,8 @@ one of the specified fields is present.
 'shipping.postal_code' => 'postal_code_for:billing.country,shipping.country'
 ```
 
-**Important**: while this rule supports array references (e.g. `postal_code_for:deliveries.*.country`), this will not work
-in Laravel 5.1-5.3 due to framework limitations.
+**Important**: while this rule supports array references (e.g. `postal_code_for:deliveries.*.country`), this will not
+work in Laravel 5.1-5.3 due to framework limitations.
 
 ### Fluent API
 If you prefer using a fluent object style over string based rules, that's also available:
@@ -120,7 +134,7 @@ Placeholder | Description
 :countries  | The countries that are validated against (e.g. `NL, BE`)*
 :formats    | The formats that the field must be (e.g. `#### NN, ####`)*
 
-*The `:countries` and `:formats` placeholders will be emptyif no valid countries are passed.
+*The `:countries` and `:formats` placeholders may be empty if no valid countries are passed.
 
 ### Manually validating
 If you want to validate postal codes manually outside of Laravel's validation system, you can call the validator
@@ -130,3 +144,16 @@ directly, like so:
 $validator = $this->app->make('\Axlon\PostalCodeValidation\Validator');
 $validator->isValid($countryCode, $postalCode);
 ```
+
+## Changelog
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Contributing
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Credits
+- [Choraimy Kroonstuiver](https://github.com/axlon)
+- [All contributors](https://github.com/axlon/laravel-postal-code-validation/contributors)
+
+## License
+This open-source software is licenced under the [MIT licence](LICENSE.md).
