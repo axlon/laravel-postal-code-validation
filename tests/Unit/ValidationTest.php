@@ -4,7 +4,6 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
@@ -44,6 +43,7 @@ abstract class ValidationTest extends TestCase
             $this->factory = new Factory($translations)
         );
 
-        $this->version = ltrim(Str::before(Versions::getVersion('illuminate/validation'), '@'), 'v');
+
+        $this->version = ltrim(explode('@', Versions::getVersion('illuminate/validation'))[0], 'v');
     }
 }
