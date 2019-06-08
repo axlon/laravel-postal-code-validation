@@ -4,9 +4,11 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Illuminate\Contracts\Validation\Factory as FactoryContract;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
+use PackageVersions\Versions;
 use PHPUnit\Framework\TestCase;
 
 abstract class ValidationTest extends TestCase
@@ -15,6 +17,11 @@ abstract class ValidationTest extends TestCase
      * @var \Illuminate\Contracts\Validation\Factory
      */
     protected $factory;
+
+    /**
+     * @var string
+     */
+    protected $version;
 
     /**
      * Extend the validator.
@@ -36,5 +43,7 @@ abstract class ValidationTest extends TestCase
         $this->extendValidator(
             $this->factory = new Factory($translations)
         );
+
+        $this->version = ltrim(Str::before(Versions::getVersion('illuminate/validation'), '@'), 'v');
     }
 }

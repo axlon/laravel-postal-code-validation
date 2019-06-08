@@ -27,6 +27,7 @@
     "require-dev": {
         "illuminate/filesystem": ">=5.1,<5.9",
         "illuminate/translation": ">=5.1,<5.9",
+        "ocramius/package-versions": "^1.4",
         "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0"
     },
     "autoload": {
