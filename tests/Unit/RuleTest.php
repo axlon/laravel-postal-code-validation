@@ -3,7 +3,7 @@
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Rules\PostalCode;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase
 {

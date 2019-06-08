@@ -1,45 +1,29 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Tests\Unit\Extensions;
+namespace Axlon\PostalCodeValidation\Tests\Unit;
 
-use Axlon\PostalCodeValidation\ValidationServiceProvider;
-use Illuminate\Translation\FileLoader;
-use Orchestra\Testbench\TestCase;
+use Axlon\PostalCodeValidation\Extensions\PostalCodeFor;
+use Axlon\PostalCodeValidation\Validator;
+use Illuminate\Contracts\Validation\Factory as FactoryContract;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 
-class PostalCodeForTest extends TestCase
+class PostalCodeForTest extends ValidationTest
 {
     /**
-     * @var \Illuminate\Contracts\Validation\Factory
-     */
-    protected $factory;
-
-    /**
      * {@inheritDoc}
      */
-    protected function getEnvironmentSetUp($app)
+    protected function extendValidator(FactoryContract $factory)
     {
-        $app->extend('translation.loader', function () {
-            return new FileLoader($this->app['files'], __DIR__ . '/../../resources/lang');
+        $rule = new PostalCodeFor(new Request, new Validator);
+
+        $factory->extend('postal_code_for', function (...$parameters) use ($rule) {
+            return $rule->validate(...$parameters);
         });
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function getPackageProviders($app)
-    {
-        return [
-            ValidationServiceProvider::class,
-        ];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->factory = $this->app->make('validator');
+        $factory->replacer('postal_code_for', function (...$parameters) use ($rule) {
+            return $rule->replace(...$parameters);
+        });
     }
 
     /**
@@ -49,7 +33,7 @@ class PostalCodeForTest extends TestCase
      */
     public function testEmptyInput()
     {
-        if (version_compare($this->app->version(), '5.3.0', '<')) {
+        if (version_compare(Application::VERSION, '5.3.0', '<')) {
             # Before Laravel 5.3 nullable was the implicit default
             # See: https://laravel.com/docs/5.3/upgrade#upgrade-5.3.0
             $this->markTestSkipped('Laravel < 5.3 won\'t run validation for empty input');

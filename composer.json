@@ -25,9 +25,9 @@
         "illuminate/validation": ">=5.1,<5.9"
     },
     "require-dev": {
+        "illuminate/filesystem": ">=5.1,<5.9",
         "illuminate/translation": ">=5.1,<5.9",
-        "orchestra/testbench": "^3.0",
-        "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0 || ^8.0"
+        "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -41,6 +41,9 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit --colors=always"
     },
     "extra": {
         "laravel": {
