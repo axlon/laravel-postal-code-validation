@@ -48,7 +48,7 @@ This package has the following requirements:
 - Laravel (or Lumen) 5.1 or higher
 
 ### Laravel 5.5+
-If you use Laravel 5.5 or higher, that's it. You can now use the package, continue to the [usage](#usage) section.
+If you use Laravel 5.5 or higher, that's it, continue to the [usage](#usage) section.
 
 ### Laravel 5.1-5.4
 If you're using an older version of Laravel, register the package's service provider to your application. You can do
@@ -103,7 +103,7 @@ If you prefer using a fluent object style over string based rules, that's also a
 
 ```php
 'postal_code' => [
-    PostalCode::forCountry('NL', 'DE', 'FR', 'BE'),
+    PostalCode::forCountry('NL')->or('BE'),
 ],
 ```
 
@@ -114,7 +114,7 @@ The same goes for the `postal_code_for` rule:
 ...
 'shipping.country' => 'nullable|string|max:2',
 'shipping.postal_code' => [
-    PostalCode::forInput('billing.country', 'shipping.country')
+    PostalCode::forInput('billing.country')->or('shipping.country')
 ],
 ```
 
@@ -141,12 +141,12 @@ If you want to validate postal codes manually outside of Laravel's validation sy
 directly, like so:
 
 ```php
-$validator = $this->app->make('\Axlon\PostalCodeValidation\Validator');
+$validator = app('\Axlon\PostalCodeValidation\Validator');
 $validator->isValid($countryCode, $postalCode);
 ```
 
 ## Changelog
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
@@ -156,4 +156,4 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 - [All contributors](https://github.com/axlon/laravel-postal-code-validation/contributors)
 
 ## License
-This open-source software is licenced under the [MIT licence](LICENSE.md).
+This open-source software is licenced under the [MIT license](LICENSE.md).
