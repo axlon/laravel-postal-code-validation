@@ -69,7 +69,7 @@ class PostalCode
      * @param string ...$parameters
      * @return $this
      */
-    public function and(string ...$parameters)
+    public function or(string ...$parameters)
     {
         $this->parameters = array_merge($this->parameters, $parameters);
 
