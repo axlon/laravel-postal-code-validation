@@ -6,7 +6,7 @@
  *
  * This is an automatically generated file, don't edit this file directly,
  * use the bin/generate-formats utility instead.
- * 
+ *
  * Last modified: 2019-06-10T20:48:36+00:00
  */
 return [
