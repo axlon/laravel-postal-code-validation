@@ -93,7 +93,7 @@ class PostalCodeForTest extends ValidationTest
         $rules = ['postal_code' => 'postal_code_for:country'];
         $validator = $this->factory->make($request, $rules);
 
-        $this->assertEquals(['postal code CO ######'], $validator->errors()->get('postal_code'));
+        $this->assertEquals(['postal code CO 111221'], $validator->errors()->get('postal_code'));
     }
 
     /**

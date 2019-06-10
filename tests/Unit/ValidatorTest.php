@@ -14,34 +14,25 @@ class ValidatorTest extends TestCase
     protected $validator;
 
     /**
-     * Provide formats.
+     * Provide country codes.
      *
      * @return array
      */
-    public function provideFormats()
+    public function provideCountryCodes()
     {
         return [
-            'India' => ['IN', ['######', '### ###']],
-            'Saint Helena, lowercase' => ['sh', ['@@@@ 1ZZ']],
-            'Sudan, titlecase' => ['Sd', ['#####']],
-            'Suriname' => ['SR', []],
-            'Taiwan' => ['TW', ['###', '###-##']],
-        ];
-    }
-
-    /**
-     * Provide regex patterns.
-     *
-     * @return array
-     */
-    public function providePatterns()
-    {
-        return [
-            'Jamaica' => ['JM', '/^\d{2}$/i'],
-            'Papua New Guinea' => ['PG', '/^\d{3}$/i'],
-            'Qatar, lowercase' => ['qa', '/.*/'],
-            'Turks and Caicos Islands' => ['TC', '/^TKCA\s?1ZZ$/i'],
-            'Venezuela, titlecase' => ['Ve', '/^(\d{4}|\d{4}-[a-z])$/i'],
+            'Belgium' => ['BE'],
+            'China' => ['CH'],
+            'France' => ['FR'],
+            'Germany' => ['DE'],
+            'Great Britain' => ['GB'],
+            'Ireland' => ['IE'],
+            'Japan' => ['JP'],
+            'Nairu' => ['NR'],
+            'Moldova' => ['MD'],
+            'Netherlands' => ['NL'],
+            'Vatican' => ['VA'],
+            'United States' => ['US'],
         ];
     }
 
@@ -63,8 +54,7 @@ class ValidatorTest extends TestCase
             'Ireland, no space' => ['IE', 'D02AF30'],
             'Japan' => ['JP', '196-0000'],
             'Nairu' => ['NR', 'Literally anything'],
-            'Moldova' => ['MD', 'MD-2001'],
-            'Moldova, no hyphen' => ['MD', 'MD2001'],
+            'Moldova' => ['MD', '2001'],
             'Netherlands' => ['NL', '2393 ER'],
             'Netherlands, no space' => ['NL', '2393ER'],
             'Vatican' => ['VA', '00120'],
@@ -81,51 +71,21 @@ class ValidatorTest extends TestCase
     }
 
     /**
-     * Test formats of an invalid country code.
-     *
-     * @return void
-     */
-    public function testFormatsOfInvalidCountryCodes()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->validator->getFormats('XX');
-    }
-
-    /**
-     * Test formats retrieval.
+     * Test the generated example postal codes.
      *
      * @param string $countryCode
-     * @param array $formats
      * @return void
-     * @dataProvider provideFormats
+     * @dataProvider provideCountryCodes
      */
-    public function testFormats(string $countryCode, array $formats)
+    public function testExamples(string $countryCode)
     {
-        $this->assertEquals($formats, $this->validator->getFormats($countryCode));
-    }
+        $this->assertTrue($this->validator->supports($countryCode));
 
-    /**
-     * Test compiled patterns of an invalid country code.
-     *
-     * @return void
-     */
-    public function testPatternOfInvalidCountryCodes()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->validator->getPattern('XX');
-    }
+        if (is_null($example = $this->validator->getExample($countryCode))) {
+            return;
+        }
 
-    /**
-     * Test compiled patterns.
-     *
-     * @param string $countryCode
-     * @param string $pattern
-     * @return void
-     * @dataProvider providePatterns
-     */
-    public function testPatterns(string $countryCode, string $pattern)
-    {
-        $this->assertEquals($pattern, $this->validator->getPattern($countryCode));
+        $this->assertTrue($this->validator->validate($countryCode, $example));
     }
 
     /**
@@ -136,8 +96,22 @@ class ValidatorTest extends TestCase
      * @return void
      * @dataProvider providePostalCodes
      */
-    public function testValidPostalCodes(string $countryCode, string $postalCode)
+    public function testValidation(string $countryCode, string $postalCode)
     {
-        $this->assertTrue($this->validator->isValid($countryCode, $postalCode));
+        $this->assertTrue($this->validator->validate($countryCode, $postalCode));
+    }
+
+    /**
+     * Test what happens if an non-existent country code is used for validation.
+     *
+     * @return void
+     */
+    public function testValidationWithUnsupportedCountry()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsupported country code XX');
+
+        $this->assertFalse($this->validator->supports('XX'));
+        $this->validator->validate('XX', '0000');
     }
 }

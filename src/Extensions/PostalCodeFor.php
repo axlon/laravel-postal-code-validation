@@ -48,7 +48,7 @@ class PostalCodeFor
     public function replace(string $message, string $attribute, string $rule, array $parameters)
     {
         $countries = [];
-        $formats = [];
+        $examples = [];
 
         $parameters = array_filter($parameters, function (string $parameter) {
             return Arr::has($this->request, $parameter);
@@ -62,13 +62,13 @@ class PostalCodeFor
             }
 
             $countries[] = $countryCode;
-            $formats = array_merge($formats, $this->validator->getFormats($countryCode));
+            $examples[] = $this->validator->getExample($countryCode);
         }
 
         $countries = implode(', ', array_unique($countries));
-        $formats = implode(', ', array_unique($formats));
+        $examples = implode(', ', array_unique(array_filter($examples)));
 
-        return str_replace([':countries', ':formats'], [$countries, $formats], $message);
+        return str_replace([':countries', ':examples'], [$countries, $examples], $message);
     }
 
     /**
@@ -118,7 +118,7 @@ class PostalCodeFor
                 continue;
             }
 
-            if ($this->validator->isValid($countryCode, $value)) {
+            if ($this->validator->validate($countryCode, $value)) {
                 return true;
             }
         }

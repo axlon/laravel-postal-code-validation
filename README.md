@@ -1,5 +1,5 @@
 # laravel-postal-code-validation
-Worldwide postal code validation for Laravel
+Worldwide postal code validation for Laravel, based on Google's Address Data Service.
 
 <p align="center">
     <a href="https://travis-ci.org/axlon/laravel-postal-code-validation">
@@ -130,11 +130,11 @@ The following placeholders will be automatically filled for you:
 
 Placeholder | Description
 ------------|------------
-:attribute  | The name of the field that was under validation.
-:countries  | The countries that are validated against (e.g. `NL, BE`)*
-:formats    | The formats that the field must be (e.g. `#### NN, ####`)*
+:attribute  | The name of the field that was under validation
+:countries  | The countries that were validated against (e.g. `NL, BE`)*
+:examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)*
 
-*The `:countries` and `:formats` placeholders may be empty if no valid countries are passed.
+*The `:countries` and `:examples` placeholders may be empty if no valid countries are passed.
 
 ### Manually validating
 If you want to validate postal codes manually outside of Laravel's validation system, you can call the validator
