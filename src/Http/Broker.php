@@ -3,9 +3,9 @@
 namespace Axlon\PostalCodeValidation\Http;
 
 use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\Promise\all;
+use Psr\Http\Message\ResponseInterface;
 
 class Broker
 {
