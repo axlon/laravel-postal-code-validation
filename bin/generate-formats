@@ -21,7 +21,7 @@ fwrite($handle, <<<EOL
 /**
  * This file contains a list of all postal code formats, retrieved from
  * Google's Address Data Service.
- *
+ * 
  * This is an automatically generated file, don't edit this file directly,
  * use the bin/generate-formats utility instead.
  * 
@@ -33,8 +33,8 @@ EOL
 );
 
 foreach ($broker->getCountries() as $country) {
-    $example = $country->zipex ? "'" . explode(',', $country->zipex)[0] . "'" : 'null';
-    $pattern = $country->zip ? "'/^$country->zip$/i'" : 'null';
+    $example = isset($country->zipex) ? "'" . explode(',', $country->zipex)[0] . "'" : 'null';
+    $pattern = isset($country->zip) ? "'/^$country->zip$/i'" : 'null';
 
     fwrite($handle, <<<EOL
     '$country->key' => [ # $country->name
