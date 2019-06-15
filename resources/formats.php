@@ -3,11 +3,11 @@
 /**
  * This file contains a list of all postal code formats, retrieved from
  * Google's Address Data Service.
- *
+ * 
  * This is an automatically generated file, don't edit this file directly,
- * use the bin/generate-formats utility instead.
- *
- * Last modified: 2019-06-10T20:48:36+00:00
+ * run `composer build` instead.
+ * 
+ * Last modified: 2019-06-15T14:03:54+00:00
  */
 return [
     'AC' => [ # ASCENSION ISLAND

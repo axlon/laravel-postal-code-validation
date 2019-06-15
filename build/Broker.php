@@ -1,6 +1,6 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Http;
+namespace Axlon\PostalCodeValidation\Build;
 
 use GuzzleHttp\Client;
 use function GuzzleHttp\json_decode;

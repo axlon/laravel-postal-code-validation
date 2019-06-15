@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Axlon\PostalCodeValidation\Http\Broker;
+use Axlon\PostalCodeValidation\Build\Broker;
 use GuzzleHttp\Client;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -23,7 +23,7 @@ fwrite($handle, <<<EOL
  * Google's Address Data Service.
  * 
  * This is an automatically generated file, don't edit this file directly,
- * use the bin/generate-formats utility instead.
+ * run `composer build` instead.
  * 
  * Last modified: $timestamp
  */

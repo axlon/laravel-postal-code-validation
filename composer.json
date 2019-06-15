@@ -39,6 +39,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Axlon\\PostalCodeValidation\\Build\\": "build/",
             "Axlon\\PostalCodeValidation\\Tests\\": "tests/"
         }
     },
@@ -46,7 +47,12 @@
         "sort-packages": true
     },
     "scripts": {
+        "build": "./build/generate-formats",
         "test": "./vendor/bin/phpunit --colors=always"
+    },
+    "scripts-descriptions": {
+        "build": "Generate a new postal code formats file.",
+        "test": "Run all tests."
     },
     "extra": {
         "laravel": {

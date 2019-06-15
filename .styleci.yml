@@ -16,5 +16,6 @@ risky: true
 
 finder:
   exclude:
+    - resources
     - vendor
   name: "*.php"
