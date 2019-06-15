@@ -19,8 +19,8 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
     </a>
 </p>
 
+- [Requirements](#requirements)
 - [Installation](#installation)
-    - [Requirements](#requirements)
     - [Laravel 5.5+](#laravel-55)
     - [Laravel 5.1-5.4](#laravel-51-54)
     - [Lumen](#lumen)
@@ -34,18 +34,18 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
 - [Credits](#credits)
 - [License](#license)
 
+## Requirements
+This package has the following requirements:
+
+- PHP 7.1 or higher
+- Laravel (or Lumen) 5.1 or higher
+
 ## Installation
 You can install this package with Composer, by running the command below:
 
 ```bash
 composer require axlon/laravel-postal-code-validation
 ```
-
-### Requirements
-This package has the following requirements:
-
-- PHP 7.1 or higher
-- Laravel (or Lumen) 5.1 or higher
 
 ### Laravel 5.5+
 If you use Laravel 5.5 or higher, that's it, continue to the [usage](#usage) section.
@@ -156,4 +156,6 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 - [All contributors](https://github.com/axlon/laravel-postal-code-validation/contributors)
 
 ## License
-This open-source software is licenced under the [MIT license](LICENSE.md).
+This open-source software is licenced under the [MIT license](LICENSE.md). This software contains code generated from
+Google's Address Data Service, more information on this service can be found
+[here](https://github.com/google/libaddressinput/wiki/AddressValidationMetadata).
