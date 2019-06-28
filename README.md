@@ -142,7 +142,7 @@ directly, like so:
 
 ```php
 $validator = app('\Axlon\PostalCodeValidation\Validator');
-$validator->isValid($countryCode, $postalCode);
+$validator->validate($countryCode, $postalCode); // returns a boolean
 ```
 
 ## Changelog
