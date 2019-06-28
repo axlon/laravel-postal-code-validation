@@ -67,6 +67,10 @@ class PostalCode
             return false;
         }
 
+        if (empty($parameters)) {
+            return true;
+        }
+
         foreach ($parameters as $parameter) {
             if (!$this->validator->supports($parameter)) {
                 return false;

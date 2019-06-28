@@ -102,7 +102,7 @@ class ValidatorTest extends TestCase
     }
 
     /**
-     * Test what happens if an non-existent country code is used for validation.
+     * Test validation using a non-existent country code.
      *
      * @return void
      */
