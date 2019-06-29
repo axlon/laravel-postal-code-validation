@@ -8,11 +8,11 @@ use PHPUnit\Framework\TestCase;
 class RuleTest extends TestCase
 {
     /**
-     * Test the creation of dependant postal code rules.
+     * Test the creation of dependent postal code rules.
      *
      * @return void
      */
-    public function testDependantRuleCreation()
+    public function testDependentRuleCreation()
     {
         $this->assertEquals('postal_code_for:', (string)PostalCode::forInput());
         $this->assertEquals('postal_code_for:foo,bar,baz', (string)PostalCode::forInput('foo', 'bar')->or('baz'));
