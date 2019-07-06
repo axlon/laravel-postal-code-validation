@@ -100,7 +100,7 @@ class PostalCodeFor
         $this->setRequestData($validator);
 
         $parameters = array_filter($parameters, function (string $parameter) {
-            return Arr::has($this->request, $parameter);
+            return filled(Arr::get($this->request, $parameter));
         });
 
         if (empty($parameters)) {

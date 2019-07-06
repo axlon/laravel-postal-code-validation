@@ -123,6 +123,18 @@ class PostalCodeForValidationTest extends ValidationTest
         $rules = ['postal_codes.*' => 'postal_code_for:countries.*'];
 
         $this->assertPasses($request, $rules);
+
+        # Null country
+        $request = ['countries' => ['BR', null], 'postal_codes' => ['40301-110', '223016']];
+        $rules = ['postal_codes.*' => 'postal_code_for:countries.*'];
+
+        $this->assertPasses($request, $rules);
+
+        # Partially empty (not null) country code
+        $request = ['countries' => ['SJ', ''], 'postal_codes' => ['9170', '50100']];
+        $rules = ['postal_codes.*' => 'postal_code_for:countries.*'];
+
+        $this->assertPasses($request, $rules);
     }
 
     /**
@@ -148,8 +160,8 @@ class PostalCodeForValidationTest extends ValidationTest
 
         $this->assertFails($request, $rules);
 
-        # Null country
-        $request = ['countries' => ['BR', null], 'postal_codes' => ['40301-110', '223016']];
+        # Partially invalid country codes
+        $request = ['countries' => ['MK', 'Invalid country code'], 'postal_codes' => ['1314', '02860']];
         $rules = ['postal_codes.*' => 'postal_code_for:countries.*'];
 
         $this->assertFails($request, $rules);
