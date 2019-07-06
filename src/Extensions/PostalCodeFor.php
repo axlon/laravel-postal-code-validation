@@ -3,6 +3,7 @@
 namespace Axlon\PostalCodeValidation\Extensions;
 
 use Axlon\PostalCodeValidation\Validator;
+use Countable;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -100,7 +101,7 @@ class PostalCodeFor
         $this->setRequestData($validator);
 
         $parameters = array_filter($parameters, function (string $parameter) {
-            return filled(Arr::get($this->request, $parameter));
+            return $this->verifyExistence($parameter);
         });
 
         if (empty($parameters)) {
@@ -124,5 +125,27 @@ class PostalCodeFor
         }
 
         return false;
+    }
+
+    /**
+     * Verify that a referenced attribute exists.
+     *
+     * @param string $key
+     * @return bool
+     * @see \Illuminate\Validation\Validator::validateRequired()
+     */
+    protected function verifyExistence(string $key)
+    {
+        $value = Arr::get($this->request, $key);
+
+        if (is_null($value)) {
+            return false;
+        } elseif (is_string($value) && trim($value) === '') {
+            return false;
+        } elseif ((is_array($value) || $value instanceof Countable) && count($value) < 1) {
+            return false;
+        }
+
+        return true;
     }
 }
