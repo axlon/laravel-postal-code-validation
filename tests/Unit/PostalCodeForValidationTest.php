@@ -89,7 +89,20 @@ class PostalCodeForValidationTest extends ValidationTest
      */
     public function testValidationOfValidInput()
     {
+        # Regular input
         $request = ['postal_code' => '1234 AB', 'country' => 'NL'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
+
+        $this->assertPasses($request, $rules);
+
+        # Country not sent along
+        $request = ['postal_code' => '10000'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
+
+        $this->assertPasses($request, $rules);
+
+        # Empty country
+        $request = ['postal_code' => '12500', 'country' => ''];
         $rules = ['postal_code' => 'postal_code_for:country'];
 
         $this->assertPasses($request, $rules);
@@ -124,13 +137,7 @@ class PostalCodeForValidationTest extends ValidationTest
 
         $this->assertPasses($request, $rules);
 
-        # Null country
-        $request = ['countries' => ['BR', null], 'postal_codes' => ['40301-110', '223016']];
-        $rules = ['postal_codes.*' => 'postal_code_for:countries.*'];
-
-        $this->assertPasses($request, $rules);
-
-        # Partially empty (not null) country code
+        # Partially empty country code
         $request = ['countries' => ['SJ', ''], 'postal_codes' => ['9170', '50100']];
         $rules = ['postal_codes.*' => 'postal_code_for:countries.*'];
 
