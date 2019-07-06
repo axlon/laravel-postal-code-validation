@@ -1,5 +1,15 @@
 # Changelog
 
+## [v2.0.0](https://github.com/axlon/laravel-postal-code-validation/tree/v2.0.0) (2019-07-06)
+- Updated `postal_code` rule, which longer accepts references to request parameters as arguments (**breaking change**)
+- Updated fluent API methods (**breaking change**)
+- Removed `:formats` error message placeholder (**breaking change**)
+- Replaced the validation engine with an internal engine based on Google's Address Data Service (**potentially breaking change**)
+- Added `postal_code_for` rule, which accepts references to request parameters as arguments
+- Added `:examples` error message placeholder
+- Added support for referencing request parameters inside an array (for example `addresses.*.country`)
+- Added support for referencing request variables while using a custom validator class
+
 ## [v1.4.1](https://github.com/axlon/laravel-postal-code-validation/tree/v1.4.1) (2019-04-27)
 - Fixed replacer being empty if empty input was passed
 
@@ -12,8 +22,8 @@
 
 ## [v1.3.0](https://github.com/axlon/laravel-postal-code-validation/tree/v1.3.0) (2019-02-27)
 - Added Laravel 5.8 support
-- Dropped Laravel 5.0 support (due to PHPUnit 8 compatibility issues)
-- Increased minimum required PHP version from 7.0.0 to 7.1.3 (due to PHPUnit 8 compatibility issues)
+- Removed Laravel 5.0 support
+- Increased minimum required PHP version from 7.0.0 to 7.1.3
 
 ## [v1.2.1](https://github.com/axlon/laravel-postal-code-validation/tree/v1.2.1) (2019-02-11)
 - Fixed an error when null was passed to the validator
@@ -25,7 +35,7 @@
 - Removed useless files from dist
 
 ## [v1.1.1](https://github.com/axlon/laravel-postal-code-validation/tree/v1.1.1) (2018-12-27)
-- Fixed PHPUnit issues on older versions of Laravel (the [issues](https://travis-ci.org/axlon/laravel-postal-code-validation/jobs/472731322) didn't affect the package outside of CI)
+- Fixed PHPUnit issues on older versions of Laravel
 
 ## [v1.1.0](https://github.com/axlon/laravel-postal-code-validation/tree/v1.1.0) (2018-12-27)
 - Country codes are no longer case sensitive

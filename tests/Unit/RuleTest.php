@@ -3,18 +3,29 @@
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Rules\PostalCode;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase
 {
     /**
-     * Test if rule objects are converted to a correct validation string.
+     * Test the creation of dependent postal code rules.
      *
      * @return void
      */
-    public function testRuleToValidationStringConversion()
+    public function testDependentRuleCreation()
     {
-        $this->assertEquals('postal_code:ES', (string)PostalCode::forCountry('ES'));
-        $this->assertEquals('postal_code:AF,GH', (string)PostalCode::forCountry('AF')->andCountry('GH'));
+        $this->assertEquals('postal_code_for:', (string)PostalCode::forInput());
+        $this->assertEquals('postal_code_for:foo,bar,baz', (string)PostalCode::forInput('foo', 'bar')->or('baz'));
+    }
+
+    /**
+     * Test the creation of explicit postal code rules.
+     *
+     * @return void
+     */
+    public function testExplicitRuleCreation()
+    {
+        $this->assertEquals('postal_code:', (string)PostalCode::forCountry());
+        $this->assertEquals('postal_code:foo,bar,baz', (string)PostalCode::forCountry('foo', 'bar')->or('baz'));
     }
 }

@@ -2,136 +2,77 @@
 
 namespace Axlon\PostalCodeValidation;
 
-use Illuminate\Contracts\Validation\Validator as ValidatorContract;
-use Illuminate\Support\Arr;
-use Illuminate\Validation\Validator as BaseValidator;
-use Sirprize\PostalCodeValidator\Validator as ValidationEngine;
+use InvalidArgumentException;
 
 class Validator
 {
     /**
-     * The validation engine.
-     *
-     * @var \Sirprize\PostalCodeValidator\Validator
-     */
-    protected $engine;
-
-    /**
-     * The current request data.
+     * The validation rules for each country.
      *
      * @var array
      */
-    protected $request;
+    protected $rules;
 
     /**
-     * Create a new postal code validator instance.
+     * Create a new postal code validator.
      *
-     * @param \Sirprize\PostalCodeValidator\Validator $engine
      * @return void
      */
-    public function __construct(ValidationEngine $engine)
+    public function __construct()
     {
-        $this->engine = $engine;
-        $this->request = [];
+        $this->rules = require __DIR__ . '/../resources/formats.php';
     }
 
     /**
-     * Fetch a country code from given input.
+     * Get an example postal code for the country.
      *
-     * @param string $possibleCountryCode
-     * @return string
+     * @param string $countryCode
+     * @return string|null
      */
-    protected function fetchCountryCode(string $possibleCountryCode)
+    public function getExample(string $countryCode)
     {
-        $countryCode = strtoupper($possibleCountryCode);
-
-        if ($this->engine->hasCountry($countryCode)) {
-            return $countryCode;
-        }
-
-        if (($countryCode = Arr::get($this->request, $possibleCountryCode)) &&
-            $this->engine->hasCountry(strtoupper($countryCode))) {
-            return strtoupper($countryCode);
-        }
-
-        return null;
+        return $this->rules[strtoupper($countryCode)]['example'] ?? null;
     }
 
     /**
-     * Replace error message placeholders.
+     * Get the validation rule for the country.
      *
-     * @param string $message
-     * @param string $attribute
-     * @param string $rule
-     * @param array $parameters
-     * @return string
-     * @throws \Sirprize\PostalCodeValidator\ValidationException
+     * @param string $countryCode
+     * @return string|null
      */
-    public function replacer(string $message, string $attribute, string $rule, array $parameters)
+    protected function getRule(string $countryCode)
     {
-        $countries = [];
-        $formats = [];
-
-        foreach ($parameters as $parameter) {
-            $countryCode = $this->fetchCountryCode($parameter);
-
-            if (!$this->engine->hasCountry($countryCode)) {
-                continue;
-            }
-
-            $countries[] = $countryCode;
-            $formats = array_merge($formats, $this->engine->getFormats($countryCode));
-        }
-
-        $countries = implode(', ', array_unique($countries));
-        $formats = implode(', ', array_unique($formats));
-
-        return str_replace([':countries', ':formats'], [$countries, $formats], $message);
+        return $this->rules[strtoupper($countryCode)]['pattern'];
     }
 
     /**
-     * Set the current request data.
+     * Determine if the country code is supported.
      *
-     * @param \Illuminate\Contracts\Validation\Validator $validator
-     * @return void
-     */
-    protected function setRequest(ValidatorContract $validator)
-    {
-        if (!$validator instanceof BaseValidator) {
-            return;
-        }
-
-        $this->request = $validator->getData();
-    }
-
-    /**
-     * Validate if the given attribute is a valid postal code.
-     *
-     * @param string $attribute
-     * @param string|null $value
-     * @param array $parameters
-     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @param string|null $countryCode
      * @return bool
-     * @throws \Sirprize\PostalCodeValidator\ValidationException
      */
-    public function validate(string $attribute, ?string $value, array $parameters, ValidatorContract $validator)
+    public function supports(?string $countryCode)
     {
-        $this->setRequest($validator);
+        return $countryCode && array_key_exists(strtoupper($countryCode), $this->rules);
+    }
 
-        if (!is_string($value) || !$value) {
-            return false;
+    /**
+     * Validate the postal code.
+     *
+     * @param string $countryCode
+     * @param string $postalCode
+     * @return bool
+     */
+    public function validate(string $countryCode, string $postalCode)
+    {
+        if (!$this->supports($countryCode)) {
+            throw new InvalidArgumentException("Unsupported country code $countryCode");
         }
 
-        foreach ($parameters as $parameter) {
-            if (!$countryCode = $this->fetchCountryCode($parameter)) {
-                continue;
-            }
-
-            if ($this->engine->isValid($countryCode, $value, true)) {
-                return true;
-            }
+        if (is_null($pattern = $this->getRule($countryCode))) {
+            return true;
         }
 
-        return false;
+        return (bool)preg_match($pattern, $postalCode);
     }
 }

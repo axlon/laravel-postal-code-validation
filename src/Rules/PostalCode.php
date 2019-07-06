@@ -5,43 +5,30 @@ namespace Axlon\PostalCodeValidation\Rules;
 class PostalCode
 {
     /**
-     * The countries which postal code rules should be checked.
+     * Whether or not this rule is dependant.
+     *
+     * @var bool
+     */
+    protected $dependant;
+
+    /**
+     * The rule parameters.
      *
      * @var string[]
      */
-    protected $countryCodes;
+    protected $parameters;
 
     /**
-     * Create a new "postal code" rule instance.
+     * Create a new postal code validation rule.
      *
+     * @param array $parameters
+     * @param bool $dependant
      * @return void
      */
-    protected function __construct()
+    public function __construct(array $parameters, bool $dependant)
     {
-        $this->countryCodes = [];
-    }
-
-    /**
-     * Add an additional country to the rule.
-     *
-     * @param string $countryCode
-     * @return $this
-     */
-    public function andCountry(string $countryCode)
-    {
-        $this->countryCodes[] = $countryCode;
-        return $this;
-    }
-
-    /**
-     * Create a new "postal code" rule instance for given country.
-     *
-     * @param string $countryCode
-     * @return static
-     */
-    public static function forCountry(string $countryCode)
-    {
-        return (new static)->andCountry($countryCode);
+        $this->dependant = $dependant;
+        $this->parameters = $parameters;
     }
 
     /**
@@ -51,6 +38,41 @@ class PostalCode
      */
     public function __toString()
     {
-        return 'postal_code:' . implode(',', $this->countryCodes);
+        return 'postal_code' . ($this->dependant ? '_for:' : ':') . implode(',', $this->parameters);
+    }
+
+    /**
+     * Create a new postal code validation rule for given countries.
+     *
+     * @param string ...$parameters
+     * @return static
+     */
+    public static function forCountry(string ...$parameters)
+    {
+        return new static($parameters, false);
+    }
+
+    /**
+     * Create a new postal code validation rule for given inputs.
+     *
+     * @param string ...$parameters
+     * @return static
+     */
+    public static function forInput(string ...$parameters)
+    {
+        return new static($parameters, true);
+    }
+
+    /**
+     * Add additional validation parameters to the rule.
+     *
+     * @param string ...$parameters
+     * @return $this
+     */
+    public function or(string ...$parameters)
+    {
+        $this->parameters = array_merge($this->parameters, $parameters);
+
+        return $this;
     }
 }

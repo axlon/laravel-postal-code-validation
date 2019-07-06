@@ -1,13 +1,44 @@
 # laravel-postal-code-validation
-Worldwide postal code validation for Laravel
+Worldwide postal code validation for Laravel, based on Google's Address Data Service.
 
 <p align="center">
-    <a href="https://travis-ci.org/axlon/laravel-postal-code-validation"><img src="https://travis-ci.org/axlon/laravel-postal-code-validation.svg?branch=master"></a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation"><img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/downloads"></a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation"><img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/version"></a>
-    <a href="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation"><img src="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/badges/coverage.png?b=master"></a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation"><img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/license"></a>
+    <a href="https://travis-ci.org/axlon/laravel-postal-code-validation">
+        <img src="https://travis-ci.org/axlon/laravel-postal-code-validation.svg?branch=master">
+    </a>
+    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
+        <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/downloads">
+    </a>
+    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
+        <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/version">
+    </a>
+    <a href="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation">
+        <img src="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/badges/coverage.png?b=master">
+    </a>
+    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
+        <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/license">
+    </a>
 </p>
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+    - [Laravel 5.5+](#laravel-55)
+    - [Laravel 5.1-5.4](#laravel-51-54)
+    - [Lumen](#lumen)
+- [Usage](#usage)
+    - [Available rules](#available-rules)
+    - [Fluent API](#fluent-api)
+    - [Adding an error message](#adding-an-error-message)
+    - [Manually validating](#manually-validating)
+- [Changelog](#changelog)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [License](#license)
+
+## Requirements
+This package has the following requirements:
+
+- PHP 7.1 or higher
+- Laravel (or Lumen) 5.1 or higher
 
 ## Installation
 You can install this package with Composer, by running the command below:
@@ -17,12 +48,11 @@ composer require axlon/laravel-postal-code-validation
 ```
 
 ### Laravel 5.5+
-If you are running Laravel 5.5 or higher, package discovery will automatically register the package for you after
-running the Composer command.
+If you use Laravel 5.5 or higher, that's it, continue to the [usage](#usage) section.
 
-### Laravel 5.4 and below
-If you are running a Laravel version lower than 5.5, register the package by adding the service provider to the
-providers array in your `config/app.php` file:
+### Laravel 5.1-5.4
+If you're using an older version of Laravel, register the package's service provider to your application. You can do
+this by adding the following line to your `config/app.php` file:
 
 ```php
 'providers' => [
@@ -32,70 +62,100 @@ providers array in your `config/app.php` file:
 ],
 ```
 
-#### A note on Laravel 5.0
-Version 1.3.0 dropped support for Laravel 5.0. If you want to use this package with Laravel 5.0, target the 1.2.x
-family.
-
 ### Lumen
-If you are running Lumen, register the package by adding the following line to your `bootstrap/app.php` file:
+If you are using Lumen, register the package by adding the following line to your `bootstrap/app.php` file:
 
 ```php
 $app->register(Axlon\PostalCodeValidation\ValidationServiceProvider::class);
 ```
 
-
-
 ## Usage
 Postal code validation perfectly integrates into your Laravel application, you can use it just like you would any
 framework validation rule.
 
-### Using the rule as a string
-You can call the rule as part of your validation string, the rule expects at least one country code
-([ISO 3166-1 alpha 2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)) to validate against.
+### Available rules
+This package adds the following validation rules:
+
+#### postal_code:foo,bar,...
+The field under validation must be a valid postal code in at least one of the given countries. Arguments must be
+countries in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
 
 ```php
-$this->validate($request, [
-    'postal_code' => 'postal_code:NL,BE',
-]);
+'postal_code' => 'postal_code:NL,DE,FR,BE'
 ```
 
-### Using the rule directly
-If you prefer a more object-like fluent style, that's available too:
+#### postal_code_for:foo,bar,...
+The field under validation must be a postal code in at least one of the countries in the given fields _only if_ at least
+one of the specified fields is present.
 
 ```php
-$this->validate($request, [
-    'postal_code' => [
-        PostalCode::forCountry('NL')->andCountry('BE'),
-    ],
-]);
+'billing.country' => 'required|string|max:2',
+...
+'shipping.country' => 'nullable|string|max:2',
+'shipping.postal_code' => 'postal_code_for:billing.country,shipping.country'
 ```
 
-### Country code from request
-If you want to validate a postal code against a country code that's passed in the same request, that's also possible.
-Simply put the name of the request variable instead of a country code (dot notation is supported).
+**Important**: while this rule supports array references (e.g. `postal_code_for:deliveries.*.country`), this will not
+work in Laravel 5.1-5.3 due to framework limitations.
+
+### Fluent API
+If you prefer using a fluent object style over string based rules, that's also available:
 
 ```php
-$this->validate($request, [
-    'delivery.country' => 'string|size:2|required',
-    'delivery.postal_code' => 'postal_code:delivery.country|required',
-]);
+'postal_code' => [
+    PostalCode::forCountry('NL')->or('BE'),
+],
+```
+
+The same goes for the `postal_code_for` rule:
+
+```php
+'billing.country' => 'required|string|max:2',
+...
+'shipping.country' => 'nullable|string|max:2',
+'shipping.postal_code' => [
+    PostalCode::forInput('billing.country')->or('shipping.country')
+],
 ```
 
 ### Adding an error message
-To add an error message your users will be able to understand, open `resources/lang/{your language}/validation.php` and
-add the following line to it:
+To add a meaningful error message, add the following lines to `resources/lang/{your language}/validation.php`:
 
 ```php
-'postal_code' => 'The :attribute field must be a valid postal code.',
+'postal_code' => 'Your message here',
+'postal_code_for' => 'Your message here',
 ```
 
-The following placeholders are available:
+The following placeholders will be automatically filled for you:
 
-| placeholder  | description
-|--------------|-------------
-| `:attribute` | The name of the attribute that was validated (e.g. `postal_code`)
-| `:countries` | The countries that were validated against, for example `NL, BE`, note that this placeholder may contain user input if you use the 'country code from request' feature
-| `:formats`   | The formats that were validated against, for example: `#### NN, ####`, note that this placeholder may be empty if no valid countries are passed
+Placeholder | Description
+------------|------------
+:attribute  | The name of the field that was under validation
+:countries  | The countries that were validated against (e.g. `NL, BE`)*
+:examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)*
 
-## Special thanks
-Special thanks to [sirprize](https://github.com/sirprize), the author of the underlying postal code validation library.
+*The `:countries` and `:examples` placeholders may be empty if no valid countries are passed.
+
+### Manually validating
+If you want to validate postal codes manually outside of Laravel's validation system, you can call the validator
+directly, like so:
+
+```php
+$validator = app('\Axlon\PostalCodeValidation\Validator');
+$validator->validate($countryCode, $postalCode); // returns a boolean
+```
+
+## Changelog
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Credits
+- [Choraimy Kroonstuiver](https://github.com/axlon)
+- [All contributors](https://github.com/axlon/laravel-postal-code-validation/contributors)
+
+## License
+This open-source software is licenced under the [MIT license](LICENSE.md). This software contains code generated from
+Google's Address Data Service, more information on this service can be found
+[here](https://github.com/google/libaddressinput/wiki/AddressValidationMetadata).
