@@ -29,8 +29,9 @@ matrix:
 sudo: false
 
 before_install:
-  - composer require illuminate/support:"${ILLUMINATE_VERSION}" illuminate/validation:${ILLUMINATE_VERSION} --no-update
-  - composer require phpunit/phpunit:"${PHPUNIT_VERSION}" --no-update
+  - composer require illuminate/contracts:"${ILLUMINATE_VERSION}" illuminate/http:"${ILLUMINATE_VERSION}" illuminate/support:"${ILLUMINATE_VERSION}" illuminate/validation:"${ILLUMINATE_VERSION}" --no-update
+  - composer require illuminate/filesystem:"${ILLUMINATE_VERSION}" illuminate/translation:"${ILLUMINATE_VERSION}" --dev --no-update
+  - composer require phpunit/phpunit:"${PHPUNIT_VERSION}" --dev --no-update
 
 install:
   - composer install --no-interaction --no-progress --no-suggest --prefer-dist
