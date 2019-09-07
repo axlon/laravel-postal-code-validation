@@ -1,5 +1,8 @@
 # Changelog
 
+## [v2.0.1](https://github.com/axlon/laravel-postal-code-validation/tree/v2.0.1) (2019-09-07)
+- Added support for Laravel 6
+
 ## [v2.0.0](https://github.com/axlon/laravel-postal-code-validation/tree/v2.0.0) (2019-07-06)
 - Updated `postal_code` rule, which longer accepts references to request parameters as arguments (**breaking change**)
 - Updated fluent API methods (**breaking change**)
