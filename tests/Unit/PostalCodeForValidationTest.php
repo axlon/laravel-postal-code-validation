@@ -28,6 +28,10 @@ class PostalCodeForValidationTest extends ValidationTest
         $this->getFactory()->{$this->strategy}('postal_code_for', function (...$parameters) use ($extension) {
             return $extension->validate(...$parameters);
         });
+
+        $this->getFactory()->replacer('postal_code_for', function (...$parameters) use ($extension) {
+            return $extension->replace(...$parameters);
+        });
     }
 
     /**
@@ -47,6 +51,23 @@ class PostalCodeForValidationTest extends ValidationTest
         $rules = ['postal_code' => 'postal_code_for:country'];
 
         $this->assertFails($request, $rules);
+    }
+
+    /**
+     * Test the error message given by the validation system.
+     *
+     * @return void
+     */
+    public function testErrorMessage()
+    {
+        $request = ['country' => 'PL', 'postal_code' => 'Incorrect postal code'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
+        $validator = $this->getFactory()->make($request, $rules);
+
+        $this->assertContains(
+            'The postal code field must be a valid PL postal code (e.g. 00-950).',
+            $validator->getMessageBag()->all()
+        );
     }
 
     /**

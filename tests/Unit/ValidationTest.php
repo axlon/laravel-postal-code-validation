@@ -4,8 +4,7 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Tests\Constraints\Fails;
 use Axlon\PostalCodeValidation\Tests\Constraints\Passes;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Translation\FileLoader;
+use Illuminate\Translation\ArrayLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
 use PackageVersions\Versions;
@@ -25,9 +24,12 @@ abstract class ValidationTest extends TestCase
     {
         parent::setUp();
 
-        $this->factory = new Factory(new Translator(
-            new FileLoader(new Filesystem(), __DIR__), 'en'
-        ));
+        $this->factory = new Factory(new Translator($loader = new ArrayLoader(), 'en'));
+
+        $loader->addMessages('en', 'validation', [
+            'postal_code' => 'The :attribute field must be a valid :countries postal code (e.g. :examples).',
+            'postal_code_for' => 'The :attribute field must be a valid :countries postal code (e.g. :examples).',
+        ]);
     }
 
     /**
