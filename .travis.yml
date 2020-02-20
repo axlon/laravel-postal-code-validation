@@ -10,28 +10,27 @@ php:
   - 7.3
 
 env:
-  - ILLUMINATE_VERSION=5.1.* PHPUNIT_VERSION=^5.2
-  - ILLUMINATE_VERSION=5.2.* PHPUNIT_VERSION=^5.2
-  - ILLUMINATE_VERSION=5.3.* PHPUNIT_VERSION=^5.2
-  - ILLUMINATE_VERSION=5.4.* PHPUNIT_VERSION=^5.2
-  - ILLUMINATE_VERSION=5.5.* PHPUNIT_VERSION=^6.0
-  - ILLUMINATE_VERSION=5.6.* PHPUNIT_VERSION=^7.0
-  - ILLUMINATE_VERSION=5.7.* PHPUNIT_VERSION=^7.0
-  - ILLUMINATE_VERSION=5.8.* PHPUNIT_VERSION=^7.0
-  - ILLUMINATE_VERSION=^6.0  PHPUNIT_VERSION=^7.0
+  - ILLUMINATE_VERSION=5.1.*
+  - ILLUMINATE_VERSION=5.2.*
+  - ILLUMINATE_VERSION=5.3.*
+  - ILLUMINATE_VERSION=5.4.*
+  - ILLUMINATE_VERSION=5.5.*
+  - ILLUMINATE_VERSION=5.6.*
+  - ILLUMINATE_VERSION=5.7.*
+  - ILLUMINATE_VERSION=5.8.*
+  - ILLUMINATE_VERSION=6.*
 
 matrix:
   exclude:
     # Laravel 6 does not support PHP 7.1
     - php: 7.1
-      env: ILLUMINATE_VERSION=^6.0  PHPUNIT_VERSION=^7.0
+      env: ILLUMINATE_VERSION=6.*
 
 sudo: false
 
 before_install:
   - composer require illuminate/contracts:"${ILLUMINATE_VERSION}" illuminate/http:"${ILLUMINATE_VERSION}" illuminate/support:"${ILLUMINATE_VERSION}" illuminate/validation:"${ILLUMINATE_VERSION}" --no-update
   - composer require illuminate/filesystem:"${ILLUMINATE_VERSION}" illuminate/translation:"${ILLUMINATE_VERSION}" --dev --no-update
-  - composer require phpunit/phpunit:"${PHPUNIT_VERSION}" --dev --no-update
 
 install:
   - composer install --no-interaction --no-progress --no-suggest --prefer-dist
