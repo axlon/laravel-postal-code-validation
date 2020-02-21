@@ -1,0 +1,97 @@
+#!/usr/bin/env php
+<?php
+
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\VarExporter\VarExporter;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\Promise\all;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+define('OUTPUT_PATH', __DIR__ . '/../resources/formats.php');
+
+$httpClient = new Client(['base_uri' => 'https://chromium-i18n.appspot.com']);
+$httpQueue = [];
+$responses = [];
+$timeout = 500000;
+
+$unwrap = function (ResponseInterface $response) {
+    return json_decode($response->getBody()->getContents());
+};
+
+# Retrieve the country list
+echo 'Fetching country list... ';
+$countries = $httpClient->get('/ssl-address/data')->getBody()->getContents();
+$countries = explode('~', json_decode($countries)->countries);
+echo "Ok\r\n";
+
+# Dispatch the requests
+$padding = strlen((string)count($countries)) * 2 + 1;
+echo 'Fetching country data...        ';
+foreach ($countries as $i => $country) {
+    $httpQueue[] = $httpClient->getAsync("/ssl-address/data/{$country}")->then($unwrap);
+
+    echo "\033[7D";
+    echo str_pad(sprintf('%d/%d', $i + 1, count($countries)), 7, ' ');
+
+    if (($i !== 0 && $i % 10 === 0) || $i + 1 === count($countries)) {
+        $responses = array_merge($responses, all($httpQueue)->wait());
+        $httpQueue = [];
+        usleep($timeout);
+    }
+}
+unset($countries, $httpClient, $httpQueue);
+echo "\033[7D";
+echo "Ok     \r\n";
+
+# Compile data
+echo 'Compiling data...        ';
+$compiled = [];
+foreach ($responses as $response) {
+    $compiled[$response->key] = [
+        'example' => isset($response->zipex) ? explode(',', $response->zipex)[0] : null,
+        'pattern' => isset($response->zip) ? "/^{$response->zip}$/i" : null,
+    ];
+
+    echo "\033[7D";
+    echo str_pad(sprintf('%d/%d', $i + 1, count($responses)), 7, ' ');
+}
+ksort($compiled);
+unset($responses);
+echo "\033[7D";
+echo "Ok     \r\n";
+
+# Write data to file
+echo 'Writing to file... ';
+
+$timestamp = date('c');
+if (!$handle = @fopen(OUTPUT_PATH, 'w')) {
+    echo 'Unable to write to file: ' . OUTPUT_PATH;
+    exit(1);
+}
+
+fwrite($handle, <<<EOT
+<?php
+
+/**
+ * This file contains a list of all postal code formats, retrieved from
+ * Google's Address Data Service.
+ *
+ * This is an automatically generated file, don't edit this file directly,
+ * run `composer build` instead.
+ *
+ * Last modified: $timestamp
+ */
+return
+EOT
+);
+fwrite($handle, stripslashes(VarExporter::export($compiled)));
+fwrite($handle, <<<EOT
+;
+
+EOT
+);
+
+@fclose($handle);
+echo "Ok\r\n";
