@@ -114,4 +114,16 @@ class ValidatorTest extends TestCase
         $this->assertFalse($this->validator->supports('XX'));
         $this->validator->validate('XX', '0000');
     }
+
+    /**
+     * Test if patterns are being properly wrapped.
+     *
+     * @return void
+     * @link https://github.com/axlon/laravel-postal-code-validation/issues/13
+     */
+    public function testPatternWrapping(): void
+    {
+        $this->assertTrue($this->validator->validate('GB', 'NN1 5LL'));
+        $this->assertFalse($this->validator->validate('GB', 'NN1 5LLL'));
+    }
 }
