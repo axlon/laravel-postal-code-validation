@@ -51,7 +51,7 @@ $compiled = [];
 foreach ($responses as $response) {
     $compiled[$response->key] = [
         'example' => isset($response->zipex) ? explode(',', $response->zipex)[0] : null,
-        'pattern' => isset($response->zip) ? "/^{$response->zip}$/i" : null,
+        'pattern' => isset($response->zip) ? "/^(?:{$response->zip})$/i" : null,
     ];
 
     echo "\033[7D";
@@ -86,7 +86,7 @@ fwrite($handle, <<<EOT
 return
 EOT
 );
-fwrite($handle, stripslashes(VarExporter::export($compiled)));
+fwrite($handle, ' ' . stripslashes(VarExporter::export($compiled)));
 fwrite($handle, <<<EOT
 ;
 
