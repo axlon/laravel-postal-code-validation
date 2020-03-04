@@ -1,5 +1,8 @@
 # Changelog
 
+## [v2.1.0](https://github.com/axlon/laravel-postal-code-validation/tree/v2.1.0) (2020-03-04)
+- Added support for Laravel 7
+
 ## [v2.0.2](https://github.com/axlon/laravel-postal-code-validation/tree/v2.0.2) (2020-03-03)
 - Fixed validation of countries with complex patterns
 [#13](https://github.com/axlon/laravel-postal-code-validation/issues/13)
