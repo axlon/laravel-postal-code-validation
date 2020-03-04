@@ -19,15 +19,15 @@
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/contracts": "^5.1 || ^6.0",
-        "illuminate/http": "^5.1 || ^6.0",
-        "illuminate/support": "^5.1 || ^6.0",
-        "illuminate/validation": "^5.1 || ^6.0"
+        "illuminate/contracts": "^5.1 || ^6.0 || ^7.0",
+        "illuminate/http": "^5.1 || ^6.0 || ^7.0",
+        "illuminate/support": "^5.1 || ^6.0 || ^7.0",
+        "illuminate/validation": "^5.1 || ^6.0 || ^7.0"
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^6.3",
-        "illuminate/filesystem": "^5.1 || ^6.0",
-        "illuminate/translation": "^5.1 || ^6.0",
+        "illuminate/filesystem": "^5.1 || ^6.0 || ^7.0",
+        "illuminate/translation": "^5.1 || ^6.0 || ^7.0",
         "ocramius/package-versions": "^1.4",
         "phpunit/phpunit": "^7.0",
         "symfony/var-exporter": "^4.0"
