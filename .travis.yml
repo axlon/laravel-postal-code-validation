@@ -4,38 +4,30 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-php:
-  - 7.1
-  - 7.2
-  - 7.3
-  - 7.4
+php: 7.1
+env: ILLUMINATE_VERSION=^5.4.20
 
-env:
-  - ILLUMINATE_VERSION=5.1.*
-  - ILLUMINATE_VERSION=5.2.*
-  - ILLUMINATE_VERSION=5.3.*
-  - ILLUMINATE_VERSION=5.4.*
-  - ILLUMINATE_VERSION=5.5.*
-  - ILLUMINATE_VERSION=5.6.*
-  - ILLUMINATE_VERSION=5.7.*
-  - ILLUMINATE_VERSION=5.8.*
-  - ILLUMINATE_VERSION=6.*
-  - ILLUMINATE_VERSION=7.*
-
-matrix:
-  exclude:
-    # Laravel 6 does not support PHP 7.1
-    - php: 7.1
+jobs:
+  include:
+    - stage: unit & integration
+      env: ILLUMINATE_VERSION=^5.4.20
+    - stage: unit & integration
+      env: ILLUMINATE_VERSION=5.5.*
+    - stage: unit & integration
+      env: ILLUMINATE_VERSION=5.6.*
+    - stage: unit & integration
+      env: ILLUMINATE_VERSION=5.7.*
+    - stage: unit & integration
+      env: ILLUMINATE_VERSION=5.8.*
+    - stage: unit & integration
+      php: 7.2
       env: ILLUMINATE_VERSION=6.*
-    # Laravel 7 does not support PHP 7.1
-    - php: 7.1
+    - stage: unit & integration
+      php: 7.2
       env: ILLUMINATE_VERSION=7.*
 
-sudo: false
-
 before_install:
-  - composer require illuminate/contracts:"${ILLUMINATE_VERSION}" illuminate/http:"${ILLUMINATE_VERSION}" illuminate/support:"${ILLUMINATE_VERSION}" illuminate/validation:"${ILLUMINATE_VERSION}" --no-update
-  - composer require illuminate/filesystem:"${ILLUMINATE_VERSION}" illuminate/translation:"${ILLUMINATE_VERSION}" --dev --no-update
+  - composer require laravel/framework:"${ILLUMINATE_VERSION}" --dev --no-update
 
 install:
   - composer install --no-interaction --no-progress --no-suggest --prefer-dist

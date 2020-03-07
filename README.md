@@ -22,7 +22,7 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
 - [Requirements](#requirements)
 - [Installation](#installation)
     - [Laravel 5.5+](#laravel-55)
-    - [Laravel 5.1-5.4](#laravel-51-54)
+    - [Laravel 5.4](#laravel-54)
     - [Lumen](#lumen)
 - [Usage](#usage)
     - [Available rules](#available-rules)
@@ -38,7 +38,7 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
 This package has the following requirements:
 
 - PHP 7.1 or higher
-- Laravel (or Lumen) 5.1 or higher
+- Laravel (or Lumen) 5.4 or higher
 
 ## Installation
 You can install this package with Composer, by running the command below:
@@ -50,7 +50,7 @@ composer require axlon/laravel-postal-code-validation
 ### Laravel 5.5+
 If you use Laravel 5.5 or higher, that's it, continue to the [usage](#usage) section.
 
-### Laravel 5.1-5.4
+### Laravel 5.4
 If you're using an older version of Laravel, register the package's service provider to your application. You can do
 this by adding the following line to your `config/app.php` file:
 
@@ -94,9 +94,6 @@ one of the specified fields is present.
 'shipping.country' => 'nullable|string|max:2',
 'shipping.postal_code' => 'postal_code_for:billing.country,shipping.country'
 ```
-
-**Important**: while this rule supports array references (e.g. `postal_code_for:deliveries.*.country`), this will not
-work in Laravel 5.1-5.3 due to framework limitations.
 
 ### Fluent API
 If you prefer using a fluent object style over string based rules, that's also available:

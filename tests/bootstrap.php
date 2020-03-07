@@ -9,6 +9,4 @@ if (!class_exists('\Illuminate\Contracts\Translation\Loader\ArrayLoader')) {
     if (!interface_exists('\Illuminate\Contracts\Translation\Loader')) {
         class_alias('\Illuminate\Translation\LoaderInterface', '\Illuminate\Contracts\Translation\Loader');
     }
-
-    require_once __DIR__ . '/Polyfills/ArrayLoader.php';
 }

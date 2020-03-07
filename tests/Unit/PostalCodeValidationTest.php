@@ -32,12 +32,6 @@ class PostalCodeValidationTest extends ValidationTest
      */
     public function testEmptyInput()
     {
-        if (version_compare($this->getLaravelVersion(), '5.3.0', '<')) {
-            # Before Laravel 5.3 nullable was the implicit default
-            # See: https://laravel.com/docs/5.3/upgrade#upgrade-5.3.0
-            $this->markTestSkipped('Laravel < 5.3 won\'t run validation for empty input');
-        }
-
         $request = ['postal_code' => null];
         $rules = ['postal_code' => 'postal_code:RU'];
 

@@ -7,7 +7,6 @@ use Axlon\PostalCodeValidation\Tests\Constraints\Passes;
 use Illuminate\Translation\ArrayLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
-use PackageVersions\Versions;
 use PHPUnit\Framework\TestCase;
 
 abstract class ValidationTest extends TestCase
@@ -64,15 +63,5 @@ abstract class ValidationTest extends TestCase
     public function getFactory()
     {
         return $this->factory;
-    }
-
-    /**
-     * Get the Laravel version.
-     *
-     * @return string
-     */
-    public function getLaravelVersion()
-    {
-        return ltrim(explode('@', Versions::getVersion('illuminate/validation'))[0], 'v');
     }
 }
