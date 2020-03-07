@@ -2,7 +2,7 @@
 
 namespace Axlon\PostalCodeValidation\Extensions;
 
-use Axlon\PostalCodeValidation\Validator;
+use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Countable;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class PostalCodeFor
     /**
      * The postal code validator.
      *
-     * @var \Axlon\PostalCodeValidation\Validator
+     * @var \Axlon\PostalCodeValidation\PostalCodeValidator
      */
     protected $validator;
 
@@ -29,9 +29,9 @@ class PostalCodeFor
      * Create a new PostalCodeFor validator extension.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Axlon\PostalCodeValidation\Validator $validator
+     * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
      */
-    public function __construct(Request $request, Validator $validator)
+    public function __construct(Request $request, PostalCodeValidator $validator)
     {
         $this->request = $request->all();
         $this->validator = $validator;

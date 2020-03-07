@@ -3,7 +3,7 @@
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Extensions\PostalCodeFor;
-use Axlon\PostalCodeValidation\Validator;
+use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Illuminate\Http\Request;
 
 class PostalCodeForValidationTest extends ValidationTest
@@ -22,7 +22,7 @@ class PostalCodeForValidationTest extends ValidationTest
     {
         parent::setUp();
 
-        $extension = new PostalCodeFor(new Request(), new Validator());
+        $extension = new PostalCodeFor(new Request(), new PostalCodeValidator());
         $this->strategy = method_exists($this->getFactory(), 'extendDependent') ? 'extendDependent' : 'extend';
 
         $this->getFactory()->{$this->strategy}('postal_code_for', function (...$parameters) use ($extension) {

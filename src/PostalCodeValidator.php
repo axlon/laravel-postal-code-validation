@@ -4,7 +4,7 @@ namespace Axlon\PostalCodeValidation;
 
 use InvalidArgumentException;
 
-class Validator
+class PostalCodeValidator
 {
     /**
      * The validation rules for each country.

@@ -24,7 +24,7 @@ class ValidationServiceProvider extends ServiceProvider
         }
 
         $this->app->singleton(PostalCodeFor::class);
-        $this->app->singleton(Validator::class);
+        $this->app->singleton(PostalCodeValidator::class);
     }
 
     /**

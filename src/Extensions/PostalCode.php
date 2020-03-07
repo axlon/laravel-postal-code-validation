@@ -2,24 +2,24 @@
 
 namespace Axlon\PostalCodeValidation\Extensions;
 
-use Axlon\PostalCodeValidation\Validator;
+use Axlon\PostalCodeValidation\PostalCodeValidator;
 
 class PostalCode
 {
     /**
      * The postal code validator.
      *
-     * @var \Axlon\PostalCodeValidation\Validator
+     * @var \Axlon\PostalCodeValidation\PostalCodeValidator
      */
     protected $validator;
 
     /**
      * Create a new PostalCode validator extension.
      *
-     * @param \Axlon\PostalCodeValidation\Validator $validator
+     * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
      * @return void
      */
-    public function __construct(Validator $validator)
+    public function __construct(PostalCodeValidator $validator)
     {
         $this->validator = $validator;
     }

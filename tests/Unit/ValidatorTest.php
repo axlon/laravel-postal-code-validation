@@ -2,14 +2,14 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
-use Axlon\PostalCodeValidation\Validator;
+use Axlon\PostalCodeValidation\PostalCodeValidator;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase
 {
     /**
-     * @var \Axlon\PostalCodeValidation\Validator
+     * @var \Axlon\PostalCodeValidation\PostalCodeValidator
      */
     protected $validator;
 
@@ -67,7 +67,7 @@ class ValidatorTest extends TestCase
      */
     protected function setUp()
     {
-        $this->validator = new Validator();
+        $this->validator = new PostalCodeValidator();
     }
 
     /**
