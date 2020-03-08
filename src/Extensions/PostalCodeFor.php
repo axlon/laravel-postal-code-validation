@@ -38,41 +38,6 @@ class PostalCodeFor
     }
 
     /**
-     * Replace error message placeholders.
-     *
-     * @param string $message
-     * @param string $attribute
-     * @param string $rule
-     * @param string[] $parameters
-     * @return string
-     */
-    public function replace(string $message, string $attribute, string $rule, array $parameters)
-    {
-        $countries = [];
-        $examples = [];
-
-        $parameters = array_filter($parameters, function (string $parameter) {
-            return Arr::has($this->request, $parameter);
-        });
-
-        foreach ($parameters as $parameter) {
-            $countryCode = Arr::get($this->request, $parameter);
-
-            if (!$this->validator->supports($countryCode)) {
-                continue;
-            }
-
-            $countries[] = $countryCode;
-            $examples[] = $this->validator->getExample($countryCode);
-        }
-
-        $countries = implode(', ', array_unique($countries));
-        $examples = implode(', ', array_unique(array_filter($examples)));
-
-        return str_replace([':countries', ':examples'], [$countries, $examples], $message);
-    }
-
-    /**
      * Set the request data from the validator.
      *
      * @param \Illuminate\Contracts\Validation\Validator $validator

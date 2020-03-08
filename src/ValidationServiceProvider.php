@@ -32,18 +32,19 @@ class ValidationServiceProvider extends ServiceProvider
      *
      * @param \Illuminate\Contracts\Validation\Factory $validator
      * @return void
+     * @uses \Axlon\PostalCodeValidation\PostalCodeReplacer::replacePostalCode()
+     * @uses \Axlon\PostalCodeValidation\PostalCodeReplacer::replacePostalCodeFor()
      */
     public function registerRules(Factory $validator): void
     {
         $validator->extend('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@validate');
-        $validator->replacer('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@replace');
+        $validator->replacer('postal_code', 'Axlon\PostalCodeValidation\PostalCodeReplacer@replacePostalCode');
+        $validator->replacer('postal_code_for', 'Axlon\PostalCodeValidation\PostalCodeReplacer@replacePostalCodeFor');
 
         if (method_exists($validator, 'extendDependent')) {
             $validator->extendDependent('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
-            $validator->replacer('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@replace');
         } else {
             $validator->extend('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
-            $validator->replacer('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@replace');
         }
     }
 }

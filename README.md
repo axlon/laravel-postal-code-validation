@@ -128,10 +128,11 @@ The following placeholders will be automatically filled for you:
 Placeholder | Description
 ------------|------------
 :attribute  | The name of the field that was under validation
-:countries  | The countries that were validated against (e.g. `NL, BE`)*
-:examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)*
+:codes      | The countries that were validated against (e.g. `NL, BE`)
+:examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)
+:fields     | The referenced field names (`postal_code_for` only)
 
-*The `:countries` and `:examples` placeholders may be empty if no valid countries are passed.
+>The `:codes` and `:examples` placeholders may be empty if no valid countries are passed.
 
 ### Manually validating
 If you want to validate postal codes manually outside of Laravel's validation system, you can call the validator

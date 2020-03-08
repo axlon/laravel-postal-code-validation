@@ -25,35 +25,6 @@ class PostalCode
     }
 
     /**
-     * Replace error message placeholders.
-     *
-     * @param string $message
-     * @param string $attribute
-     * @param string $rule
-     * @param string[] $parameters
-     * @return string
-     */
-    public function replace(string $message, string $attribute, string $rule, array $parameters)
-    {
-        $countries = [];
-        $examples = [];
-
-        foreach ($parameters as $parameter) {
-            if (!$this->validator->supports($parameter)) {
-                continue;
-            }
-
-            $countries[] = $parameter;
-            $examples[] = $this->validator->getExample($parameter);
-        }
-
-        $countries = implode(', ', array_unique($countries));
-        $examples = implode(', ', array_unique(array_filter($examples)));
-
-        return str_replace([':countries', ':examples'], [$countries, $examples], $message);
-    }
-
-    /**
      * Validate the given attribute.
      *
      * @param string $attribute
