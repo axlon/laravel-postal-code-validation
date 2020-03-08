@@ -2,7 +2,6 @@
 
 namespace Axlon\PostalCodeValidation;
 
-use Axlon\PostalCodeValidation\Extensions\PostalCodeFor;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,7 +22,6 @@ class ValidationServiceProvider extends ServiceProvider
             });
         }
 
-        $this->app->singleton(PostalCodeFor::class);
         $this->app->singleton(PostalCodeValidator::class);
     }
 
@@ -32,19 +30,21 @@ class ValidationServiceProvider extends ServiceProvider
      *
      * @param \Illuminate\Contracts\Validation\Factory $validator
      * @return void
+     * @uses \Axlon\PostalCodeValidation\PostalCodeExtension::validatePostalCode()
+     * @uses \Axlon\PostalCodeValidation\PostalCodeExtension::validatePostalCodeFor()
      * @uses \Axlon\PostalCodeValidation\PostalCodeReplacer::replacePostalCode()
      * @uses \Axlon\PostalCodeValidation\PostalCodeReplacer::replacePostalCodeFor()
      */
     public function registerRules(Factory $validator): void
     {
-        $validator->extend('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@validate');
+        $validator->extend('postal_code', '\Axlon\PostalCodeValidation\PostalCodeExtension@validatePostalCode');
         $validator->replacer('postal_code', 'Axlon\PostalCodeValidation\PostalCodeReplacer@replacePostalCode');
         $validator->replacer('postal_code_for', 'Axlon\PostalCodeValidation\PostalCodeReplacer@replacePostalCodeFor');
 
         if (method_exists($validator, 'extendDependent')) {
-            $validator->extendDependent('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
+            $validator->extendDependent('postal_code_for', '\Axlon\PostalCodeValidation\PostalCodeExtension@validatePostalCodeFor');
         } else {
-            $validator->extend('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
+            $validator->extend('postal_code_for', '\Axlon\PostalCodeValidation\PostalCodeExtension@validatePostalCodeFor');
         }
     }
 }

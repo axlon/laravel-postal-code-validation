@@ -4,6 +4,7 @@
 - Dropped support for Laravel 5.1, 5.2 and 5.3
 - Renamed `:countries` error placeholder to `:codes`
 - Added `:fields` error replacer (`postal_code_for` only)
+- Changed rules to throw an exception when no parameters are passed (similar to framework rules)
 
 ## [v2.1.0](https://github.com/axlon/laravel-postal-code-validation/tree/v2.1.0) (2020-03-04)
 - Added support for Laravel 7
