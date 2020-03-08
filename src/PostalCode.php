@@ -1,6 +1,6 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Rules;
+namespace Axlon\PostalCodeValidation;
 
 class PostalCode
 {

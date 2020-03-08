@@ -2,7 +2,7 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
-use Axlon\PostalCodeValidation\Rules\PostalCode;
+use Axlon\PostalCodeValidation\PostalCode;
 use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase

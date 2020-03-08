@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 
-class PostalCodeReplacer
+class Replacer
 {
     /**
      * The postal code validator.

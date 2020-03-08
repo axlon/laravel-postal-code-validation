@@ -2,7 +2,7 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
-use Axlon\PostalCodeValidation\PostalCodeExtension;
+use Axlon\PostalCodeValidation\ValidationExtension;
 use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
@@ -45,7 +45,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeForRuleFailsOnEmptyValue(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->validator->shouldReceive('getData')->andReturn(['field' => 'code']);
         $this->postalCodeValidator->shouldNotReceive('supports');
@@ -65,7 +65,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeForRuleFailsWhenThereAreNoMatches(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->validator->shouldReceive('getData')->andReturn(['field' => 'code']);
         $this->postalCodeValidator->shouldReceive('supports')->once()->with('code')->andReturnTrue();
@@ -82,7 +82,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeForRuleIgnoresUnsupportedParameters(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->validator->shouldReceive('getData')->andReturn(['field' => 'code', 'field2' => 'code2']);
         $this->postalCodeValidator->shouldReceive('supports')->with('code')->andReturnFalse();
@@ -101,7 +101,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeForRulePasses(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->validator->shouldReceive('getData')->once()->andReturn(['field' => 'code']);
         $this->postalCodeValidator->shouldReceive('supports')->once()->with('code')->andReturnTrue();
@@ -119,7 +119,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeForRulePassesWithDeepReference(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->validator->shouldReceive('getData')->once()->andReturn(['fields' => ['ignored_code', 'code']]);
         $this->postalCodeValidator->shouldNotReceive('supports')->with('ignored_code');
@@ -139,7 +139,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeForRulePassesWhenNoReferencedFieldsAreFilled(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->postalCodeValidator->shouldNotReceive('supports');
         $this->postalCodeValidator->shouldNotReceive('validate');
@@ -161,7 +161,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeForRulePassesWhenNoReferencedFieldsArePresent(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->postalCodeValidator->shouldNotReceive('supports');
         $this->postalCodeValidator->shouldNotReceive('validate');
@@ -179,7 +179,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeForRuleThrowsWithoutArguments(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->expectException(InvalidArgumentException::class);
         $extension->validatePostalCodeFor('attribute', 'value', [], $this->validator);
@@ -193,7 +193,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeRuleFailsOnEmptyValue(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->postalCodeValidator->shouldNotReceive('supports');
         $this->postalCodeValidator->shouldNotReceive('validate');
@@ -212,7 +212,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeRuleFailsWhenThereAreNoMatches(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->postalCodeValidator->shouldReceive('supports')->once()->with('code')->andReturnTrue();
         $this->postalCodeValidator->shouldReceive('validate')->once()->with('code', 'value')->andReturnFalse();
@@ -229,7 +229,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeRuleFailsOnUnsupportedParameter(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->postalCodeValidator->shouldReceive('supports')->once()->with('code')->andReturnFalse();
         $this->postalCodeValidator->shouldNotReceive('validate');
@@ -245,7 +245,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeRulePasses(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->postalCodeValidator->shouldReceive('supports')->once()->with('code')->andReturnTrue();
         $this->postalCodeValidator->shouldReceive('validate')->once()->with('code', 'value')->andReturnTrue();
@@ -260,7 +260,7 @@ class ExtensionTest extends TestCase
      */
     public function testPostalCodeRuleThrowsWithoutArguments(): void
     {
-        $extension = new PostalCodeExtension($this->postalCodeValidator);
+        $extension = new ValidationExtension($this->postalCodeValidator);
 
         $this->expectException(InvalidArgumentException::class);
         $extension->validatePostalCode('attribute', 'value', [], $this->validator);

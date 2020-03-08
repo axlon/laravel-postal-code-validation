@@ -5,7 +5,7 @@ namespace Axlon\PostalCodeValidation;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 
-class PostalCodeExtension
+class ValidationExtension
 {
     /**
      * The postal code validator.
