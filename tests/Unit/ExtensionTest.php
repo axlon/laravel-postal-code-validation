@@ -2,8 +2,8 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
-use Axlon\PostalCodeValidation\ValidationExtension;
 use Axlon\PostalCodeValidation\PostalCodeValidator;
+use Axlon\PostalCodeValidation\ValidationExtension;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
 use Mockery;
