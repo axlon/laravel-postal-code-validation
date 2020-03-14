@@ -16,11 +16,12 @@ class PostalCodeValidator
     /**
      * Create a new postal code validator.
      *
+     * @param array $rules
      * @return void
      */
-    public function __construct()
+    public function __construct(array $rules)
     {
-        $this->rules = require __DIR__ . '/../resources/formats.php';
+        $this->rules = $rules;
     }
 
     /**

@@ -139,7 +139,7 @@ If you want to validate postal codes manually outside of Laravel's validation sy
 directly, like so:
 
 ```php
-$validator = app('\Axlon\PostalCodeValidation\PostalCodeValidator');
+$validator = app('validator.postal_codes');
 $validator->validate($countryCode, $postalCode); // returns a boolean
 ```
 
