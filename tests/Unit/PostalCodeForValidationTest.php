@@ -96,6 +96,18 @@ class PostalCodeForValidationTest extends ValidationTest
 
         $this->assertFails($request, $rules);
 
+        # Invalid postal code DE
+        $request = ['postal_code' => '00101', 'country' => 'DE'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
+
+        $this->assertFails($request, $rules);
+
+        # Invalid postal code DE
+        $request = ['postal_code' => '00000', 'country' => 'DE'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
+
+        $this->assertFails($request, $rules);
+
         # Invalid country code
         $request = ['postal_code' => '75008', 'country' => 'Incorrect country code'];
         $rules = ['postal_code' => 'postal_code_for:country'];
@@ -112,6 +124,12 @@ class PostalCodeForValidationTest extends ValidationTest
     {
         # Regular input
         $request = ['postal_code' => '1234 AB', 'country' => 'NL'];
+        $rules = ['postal_code' => 'postal_code_for:country'];
+
+        $this->assertPasses($request, $rules);
+        
+        # Regular input DE
+        $request = ['postal_code' => '01277', 'country' => 'DE'];
         $rules = ['postal_code' => 'postal_code_for:country'];
 
         $this->assertPasses($request, $rules);
