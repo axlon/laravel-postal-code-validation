@@ -1,5 +1,8 @@
 # Changelog
 
+## [v3.0.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.0.0) (TBD)
+- Dropped support for PHP 7.1
+
 ## [v2.1.0](https://github.com/axlon/laravel-postal-code-validation/tree/v2.1.0) (2020-03-04)
 - Added support for Laravel 7
 

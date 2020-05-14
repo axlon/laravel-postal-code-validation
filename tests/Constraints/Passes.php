@@ -27,8 +27,6 @@ class Passes extends Constraint
      */
     public function __construct(Factory $factory, array $rules)
     {
-        parent::__construct();
-
         $this->factory = $factory;
         $this->rules = $rules;
     }

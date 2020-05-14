@@ -65,7 +65,7 @@ class ValidatorTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->validator = new Validator();
     }

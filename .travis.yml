@@ -5,7 +5,6 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 7.1
   - 7.2
   - 7.3
   - 7.4
@@ -21,15 +20,6 @@ env:
   - ILLUMINATE_VERSION=5.8.*
   - ILLUMINATE_VERSION=6.*
   - ILLUMINATE_VERSION=7.*
-
-matrix:
-  exclude:
-    # Laravel 6 does not support PHP 7.1
-    - php: 7.1
-      env: ILLUMINATE_VERSION=6.*
-    # Laravel 7 does not support PHP 7.1
-    - php: 7.1
-      env: ILLUMINATE_VERSION=7.*
 
 sudo: false
 
