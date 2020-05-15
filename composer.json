@@ -44,11 +44,9 @@
         "sort-packages": true
     },
     "scripts": {
-        "build": "./bin/generate-formats",
         "test": "./vendor/bin/phpunit --colors=always"
     },
     "scripts-descriptions": {
-        "build": "Generate a new postal code formats file.",
         "test": "Run all tests."
     },
     "extra": {
