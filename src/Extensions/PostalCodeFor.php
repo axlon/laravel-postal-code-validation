@@ -2,6 +2,7 @@
 
 namespace Axlon\PostalCodeValidation\Extensions;
 
+use Axlon\PostalCodeValidation\PostalCodeExamples;
 use Axlon\PostalCodeValidation\Validator;
 use Countable;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
@@ -11,6 +12,8 @@ use Illuminate\Validation\Validator as BaseValidator;
 
 class PostalCodeFor
 {
+    use PostalCodeExamples;
+
     /**
      * The request data.
      *
@@ -46,7 +49,7 @@ class PostalCodeFor
      * @param string[] $parameters
      * @return string
      */
-    public function replace(string $message, string $attribute, string $rule, array $parameters)
+    public function replace(string $message, string $attribute, string $rule, array $parameters): string
     {
         $countries = [];
         $examples = [];
@@ -58,16 +61,16 @@ class PostalCodeFor
         foreach ($parameters as $parameter) {
             $countryCode = Arr::get($this->request, $parameter);
 
-            if (!$this->validator->supports($countryCode)) {
+            if (($example = $this->exampleFor($countryCode)) === null) {
                 continue;
             }
 
             $countries[] = $countryCode;
-            $examples[] = $this->validator->getExample($countryCode);
+            $examples[] = $example;
         }
 
         $countries = implode(', ', array_unique($countries));
-        $examples = implode(', ', array_unique(array_filter($examples)));
+        $examples = implode(', ', array_unique($examples));
 
         return str_replace([':countries', ':examples'], [$countries, $examples], $message);
     }

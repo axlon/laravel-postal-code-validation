@@ -2,10 +2,13 @@
 
 namespace Axlon\PostalCodeValidation\Extensions;
 
+use Axlon\PostalCodeValidation\PostalCodeExamples;
 use Axlon\PostalCodeValidation\Validator;
 
 class PostalCode
 {
+    use PostalCodeExamples;
+
     /**
      * The postal code validator.
      *
@@ -33,22 +36,22 @@ class PostalCode
      * @param string[] $parameters
      * @return string
      */
-    public function replace(string $message, string $attribute, string $rule, array $parameters)
+    public function replace(string $message, string $attribute, string $rule, array $parameters): string
     {
         $countries = [];
         $examples = [];
 
         foreach ($parameters as $parameter) {
-            if (!$this->validator->supports($parameter)) {
+            if (($example = $this->exampleFor($parameter)) === null) {
                 continue;
             }
 
             $countries[] = $parameter;
-            $examples[] = $this->validator->getExample($parameter);
+            $examples[] = $example;
         }
 
         $countries = implode(', ', array_unique($countries));
-        $examples = implode(', ', array_unique(array_filter($examples)));
+        $examples = implode(', ', array_unique($examples));
 
         return str_replace([':countries', ':examples'], [$countries, $examples], $message);
     }
