@@ -2,29 +2,30 @@
 
 namespace Axlon\PostalCodeValidation\Extensions;
 
+use Axlon\PostalCodeValidation\PatternMatcher;
 use Axlon\PostalCodeValidation\PostalCodeExamples;
-use Axlon\PostalCodeValidation\Validator;
+use InvalidArgumentException;
 
 class PostalCode
 {
     use PostalCodeExamples;
 
     /**
-     * The postal code validator.
+     * The pattern matcher.
      *
-     * @var \Axlon\PostalCodeValidation\Validator
+     * @var \Axlon\PostalCodeValidation\PatternMatcher
      */
-    protected $validator;
+    protected $matcher;
 
     /**
      * Create a new PostalCode validator extension.
      *
-     * @param \Axlon\PostalCodeValidation\Validator $validator
+     * @param \Axlon\PostalCodeValidation\PatternMatcher $matcher
      * @return void
      */
-    public function __construct(Validator $validator)
+    public function __construct(PatternMatcher $matcher)
     {
-        $this->validator = $validator;
+        $this->matcher = $matcher;
     }
 
     /**
@@ -64,22 +65,22 @@ class PostalCode
      * @param string[] $parameters
      * @return bool
      */
-    public function validate(string $attribute, ?string $value, array $parameters)
+    public function validate(string $attribute, ?string $value, array $parameters): bool
     {
-        if (!$value) {
+        if (empty($parameters)) {
+            throw new InvalidArgumentException('Validation rule postal_code requires at least 1 parameter.');
+        }
+
+        if (empty($value)) {
             return false;
         }
 
-        if (empty($parameters)) {
-            return true;
-        }
-
         foreach ($parameters as $parameter) {
-            if (!$this->validator->supports($parameter)) {
+            if (!$this->matcher->supports($parameter)) {
                 return false;
             }
 
-            if ($this->validator->validate($parameter, $value)) {
+            if ($this->matcher->passes($parameter, $value)) {
                 return true;
             }
         }

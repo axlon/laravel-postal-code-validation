@@ -2,17 +2,24 @@
 
 namespace Axlon\PostalCodeValidation\Extensions;
 
+use Axlon\PostalCodeValidation\PatternMatcher;
 use Axlon\PostalCodeValidation\PostalCodeExamples;
-use Axlon\PostalCodeValidation\Validator;
-use Countable;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Validation\Validator as BaseValidator;
+use Illuminate\Validation\Validator;
+use InvalidArgumentException;
 
 class PostalCodeFor
 {
     use PostalCodeExamples;
+
+    /**
+     * The pattern matcher.
+     *
+     * @var \Axlon\PostalCodeValidation\PatternMatcher
+     */
+    protected $matcher;
 
     /**
      * The request data.
@@ -22,22 +29,30 @@ class PostalCodeFor
     protected $request;
 
     /**
-     * The postal code validator.
-     *
-     * @var \Axlon\PostalCodeValidation\Validator
-     */
-    protected $validator;
-
-    /**
      * Create a new PostalCodeFor validator extension.
      *
+     * @param \Axlon\PostalCodeValidation\PatternMatcher $matcher
      * @param \Illuminate\Http\Request $request
-     * @param \Axlon\PostalCodeValidation\Validator $validator
+     * @return void
      */
-    public function __construct(Request $request, Validator $validator)
+    public function __construct(PatternMatcher $matcher, Request $request)
     {
-        $this->request = $request->all();
-        $this->validator = $validator;
+        $this->matcher = $matcher;
+        $this->request = $request;
+    }
+
+    /**
+     * Get the value of the given attribute.
+     *
+     * @param string $attribute
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @return string|null
+     */
+    protected function input(string $attribute, ValidatorContract $validator): ?string
+    {
+        return Arr::get(
+            $validator instanceof Validator ? $validator->getData() : $this->request->all(), $attribute
+        );
     }
 
     /**
@@ -76,21 +91,6 @@ class PostalCodeFor
     }
 
     /**
-     * Set the request data from the validator.
-     *
-     * @param \Illuminate\Contracts\Validation\Validator $validator
-     * @return void
-     */
-    protected function setRequestData(ValidatorContract $validator)
-    {
-        if (!$validator instanceof BaseValidator) {
-            return;
-        }
-
-        $this->request = $validator->getData();
-    }
-
-    /**
      * Validate the given attribute.
      *
      * @param string $attribute
@@ -99,56 +99,30 @@ class PostalCodeFor
      * @param \Illuminate\Contracts\Validation\Validator $validator
      * @return bool
      */
-    public function validate(string $attribute, ?string $value, array $parameters, ValidatorContract $validator)
+    public function validate(string $attribute, ?string $value, array $parameters, ValidatorContract $validator): bool
     {
-        $this->setRequestData($validator);
-
-        $parameters = array_filter($parameters, function (string $parameter) {
-            return $this->verifyExistence($parameter);
-        });
-
         if (empty($parameters)) {
-            return true;
+            throw new InvalidArgumentException('Validation rule postal_code_for requires at least 1 parameter.');
         }
 
-        if (!$value) {
+        if (empty($value)) {
             return false;
         }
 
         foreach ($parameters as $parameter) {
-            $countryCode = Arr::get($this->request, $parameter);
-
-            if (!$this->validator->supports($countryCode)) {
+            if (($parameter = $this->input($parameter, $validator)) === null) {
                 continue;
             }
 
-            if ($this->validator->validate($countryCode, $value)) {
+            if (!$this->matcher->supports($parameter)) {
+                continue;
+            }
+
+            if ($this->matcher->passes($parameter, $value)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    /**
-     * Verify that a referenced attribute exists.
-     *
-     * @param string $key
-     * @return bool
-     * @see \Illuminate\Validation\Validator::validateRequired()
-     */
-    protected function verifyExistence(string $key)
-    {
-        $value = Arr::get($this->request, $key);
-
-        if (is_null($value)) {
-            return false;
-        } elseif (is_string($value) && trim($value) === '') {
-            return false;
-        } elseif ((is_array($value) || $value instanceof Countable) && count($value) < 1) {
-            return false;
-        }
-
-        return true;
     }
 }
