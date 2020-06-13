@@ -2,17 +2,11 @@
 Worldwide postal code validation for Laravel, based on Google's Address Data Service.
 
 <p align="center">
-    <a href="https://travis-ci.org/axlon/laravel-postal-code-validation">
-        <img src="https://travis-ci.org/axlon/laravel-postal-code-validation.svg?branch=master">
+    <a href="https://github.com/axlon/laravel-postal-code-validation/actions?query=workflow%3Atests">
+        <img src="https://github.com/axlon/laravel-postal-code-validation/workflows/tests/badge.svg?branch=master">
     </a>
     <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
         <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/downloads">
-    </a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
-        <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/version">
-    </a>
-    <a href="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation">
-        <img src="https://scrutinizer-ci.com/g/axlon/laravel-postal-code-validation/badges/coverage.png?b=master">
     </a>
     <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
         <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/license">
