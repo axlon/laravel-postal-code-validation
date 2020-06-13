@@ -1,4 +1,4 @@
-# laravel-postal-code-validation
+# Laravel Postal Code Validation
 Worldwide postal code validation for Laravel, based on Google's Address Data Service.
 
 <p align="center">
@@ -8,7 +8,7 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
     <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
         <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/downloads">
     </a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
+    <a href="LICENSE.md">
         <img src="https://poser.pugx.org/axlon/laravel-postal-code-validation/license">
     </a>
 </p>
@@ -21,6 +21,7 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
     - [Fluent API](#fluent-api)
     - [Adding an error message](#adding-an-error-message)
     - [Manually validating](#manually-validating)
+    - [Overriding rules](#overriding-rules)
 - [Changelog](#changelog)
 - [Contributing](#contributing)
 - [Credits](#credits)
@@ -128,6 +129,16 @@ directly, like so:
 ```php
 app('postal_codes')->passes($country, $postalCode); // returns a boolean
 ```
+
+### Overriding rules
+This package also ships with the ability to redefine any of the rules it ships with. You can do this by running the
+following command:
+
+```bash
+php artisan vendor:publish --provider="Axlon\PostalCodeValidation\ValidationServiceProvider" --tag="config"
+```
+
+After this you should have a new `config/postal_codes.php` file where you can add the necessary overrides.
 
 ## Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
