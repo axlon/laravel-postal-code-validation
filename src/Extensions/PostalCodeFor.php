@@ -4,8 +4,6 @@ namespace Axlon\PostalCodeValidation\Extensions;
 
 use Axlon\PostalCodeValidation\PatternMatcher;
 use Axlon\PostalCodeValidation\PostalCodeExamples;
-use Illuminate\Contracts\Validation\Validator as ValidatorContract;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
@@ -22,37 +20,26 @@ class PostalCodeFor
     protected $matcher;
 
     /**
-     * The request data.
-     *
-     * @var array
-     */
-    protected $request;
-
-    /**
      * Create a new PostalCodeFor validator extension.
      *
      * @param \Axlon\PostalCodeValidation\PatternMatcher $matcher
-     * @param \Illuminate\Http\Request $request
      * @return void
      */
-    public function __construct(PatternMatcher $matcher, Request $request)
+    public function __construct(PatternMatcher $matcher)
     {
         $this->matcher = $matcher;
-        $this->request = $request;
     }
 
     /**
      * Get the value of the given attribute.
      *
      * @param string $attribute
-     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @param \Illuminate\Validation\Validator $validator
      * @return string|null
      */
-    protected function input(string $attribute, ValidatorContract $validator): ?string
+    protected function input(string $attribute, Validator $validator): ?string
     {
-        return Arr::get(
-            $validator instanceof Validator ? $validator->getData() : $this->request->all(), $attribute
-        );
+        return Arr::get($validator->getData(), $attribute);
     }
 
     /**
@@ -62,19 +49,18 @@ class PostalCodeFor
      * @param string $attribute
      * @param string $rule
      * @param string[] $parameters
+     * @param \Illuminate\Validation\Validator $validator
      * @return string
      */
-    public function replace(string $message, string $attribute, string $rule, array $parameters): string
+    public function replace(string $message, string $attribute, string $rule, array $parameters, Validator $validator): string
     {
         $countries = [];
         $examples = [];
 
-        $parameters = array_filter($parameters, function (string $parameter) {
-            return Arr::has($this->request, $parameter);
-        });
-
         foreach ($parameters as $parameter) {
-            $countryCode = Arr::get($this->request, $parameter);
+            if (($countryCode = $this->input($parameter, $validator)) === null) {
+                continue;
+            }
 
             if (($example = $this->exampleFor($countryCode)) === null) {
                 continue;
@@ -96,10 +82,10 @@ class PostalCodeFor
      * @param string $attribute
      * @param string|null $value
      * @param string[] $parameters
-     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @param \Illuminate\Validation\Validator $validator
      * @return bool
      */
-    public function validate(string $attribute, ?string $value, array $parameters, ValidatorContract $validator): bool
+    public function validate(string $attribute, ?string $value, array $parameters, Validator $validator): bool
     {
         if (empty($parameters)) {
             throw new InvalidArgumentException('Validation rule postal_code_for requires at least 1 parameter.');
