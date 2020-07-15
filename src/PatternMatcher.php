@@ -22,13 +22,44 @@ class PatternMatcher
      * Create a new postal code matcher.
      *
      * @param array $patterns
-     * @param array $patternOverrides
      * @return void
      */
-    public function __construct(array $patterns, array $patternOverrides)
+    public function __construct(array $patterns)
     {
+        $this->patternOverrides = [];
         $this->patterns = $patterns;
-        $this->patternOverrides = $patternOverrides;
+    }
+
+    /**
+     * Determine if the given postal code(s) are invalid for the given country.
+     *
+     * @param string $countryCode
+     * @param string ...$postalCodes
+     * @return bool
+     */
+    public function fails(string $countryCode, string ...$postalCodes): bool
+    {
+        return !$this->passes($countryCode, ...$postalCodes);
+    }
+
+    /**
+     * Override pattern matching for the given country.
+     *
+     * @param array|string $countryCode
+     * @param string|null $pattern
+     * @return $this
+     */
+    public function override($countryCode, ?string $pattern = null): self
+    {
+        if (is_array($countryCode)) {
+            $this->patternOverrides = array_merge(
+                $this->patternOverrides, array_change_key_case($countryCode, CASE_UPPER)
+            );
+        } else {
+            $this->patternOverrides[strtoupper($countryCode)] = $pattern;
+        }
+
+        return $this;
     }
 
     /**
@@ -40,6 +71,10 @@ class PatternMatcher
      */
     public function passes(string $countryCode, string ...$postalCodes): bool
     {
+        if (!$this->supports($countryCode)) {
+            return false;
+        }
+
         if (($pattern = $this->patternFor($countryCode)) === null) {
             return true;
         }

@@ -52,6 +52,9 @@
     },
     "extra": {
         "laravel": {
+            "aliases": {
+                "PostalCodes": "\\Axlon\\PostalCodeValidation\\Support\\Facades\\PostalCodes"
+            },
             "providers": [
                 "\\Axlon\\PostalCodeValidation\\ValidationServiceProvider"
             ]

@@ -127,18 +127,26 @@ If you want to validate postal codes manually outside of Laravel's validation sy
 directly, like so:
 
 ```php
-app('postal_codes')->passes($country, $postalCode); // returns a boolean
+PostalCodes::passes($country, $postalCode); // returns a boolean
 ```
 
 ### Overriding rules
-This package also ships with the ability to redefine any of the rules it ships with. You can do this by running the
-following command:
+Depending on your use case you may want to override the patterns used to validate postal codes for a country. You can do
+this by adding the code below in a central place in your application (e.g. a service provider):
 
-```bash
-php artisan vendor:publish --provider="Axlon\PostalCodeValidation\ValidationServiceProvider" --tag="config"
+```php
+PostalCodes::override('country', '/your pattern/');
+
+// You can also pass overrides as an array
+
+PostalCodes::override([
+    'country 1' => '/pattern 1/',
+    'country 2' => '/pattern 2/',
+]);
 ```
 
-After this you should have a new `config/postal_codes.php` file where you can add the necessary overrides.
+**Important**: If you believe there is a bug in one of the patterns that this package ships with, please create an
+[issue](https://github.com/axlon/laravel-postal-code-validation/issues/new) in the issue tracker.
 
 ## Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

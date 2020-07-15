@@ -2,26 +2,11 @@
 
 namespace Axlon\PostalCodeValidation;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\ServiceProvider;
 
 class ValidationServiceProvider extends ServiceProvider
 {
-    /**
-     * Boot postal code validation services.
-     *
-     * @return void
-     */
-    public function boot(): void
-    {
-        $this->mergeConfigFrom($configPath = __DIR__ . '/../config/postal_codes.php', 'postal_codes');
-
-        if ($this->app->runningInConsole()) {
-            $this->publishes([$configPath => config_path('postal_codes.php')], 'config');
-        }
-    }
-
     /**
      * Register postal code validation services.
      *
@@ -37,10 +22,8 @@ class ValidationServiceProvider extends ServiceProvider
             });
         }
 
-        $this->app->singleton('postal_codes', function (Application $app) {
-            return new PatternMatcher(
-                require __DIR__ . '/../resources/patterns.php', $app['config']['postal_codes.overrides']
-            );
+        $this->app->singleton('postal_codes', function () {
+            return new PatternMatcher(require __DIR__ . '/../resources/patterns.php');
         });
 
         $this->app->alias('postal_codes', PatternMatcher::class);

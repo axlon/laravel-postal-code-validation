@@ -8,40 +8,68 @@ use PHPUnit\Framework\TestCase;
 class PatternMatcherTest extends TestCase
 {
     /**
-     * Test if the pattern matcher can properly determine what it does and doesn't support.
+     * Test if a country without a pattern (null) will always match.
      *
      * @return void
      */
-    public function testCanDetermineSupport(): void
+    public function testCountryWithoutPatternAlwaysMatches(): void
     {
-        $matcher = new PatternMatcher(
-            ['COUNTRY' => 'pattern', 'COUNTRY WITHOUT PATTERN' => null],
-            ['OVERRIDDEN COUNTRY' => 'pattern']
-        );
+        $matcher = new PatternMatcher(['COUNTRY' => null]);
 
         $this->assertTrue($matcher->supports('country'));
-        $this->assertTrue($matcher->supports('country without pattern'));
-        $this->assertTrue($matcher->supports('overridden country'));
-        $this->assertFalse($matcher->supports('unsupported country'));
+        $this->assertNull($matcher->patternFor('country'));
+        $this->assertTrue($matcher->passes('country', 'any-value'));
+        $this->assertFalse($matcher->fails('country', 'any-value'));
     }
 
     /**
-     * Test pattern matching.
+     * Test if only valid input passes validation.
      *
      * @return void
      */
-    public function testPatternMatching(): void
+    public function testOnlyValidInputMatches(): void
     {
-        $matcher = new PatternMatcher(
-            ['COUNTRY' => '/^postal code$/', 'COUNTRY WITHOUT PATTERN' => null, 'OVERRIDDEN COUNTRY' => '/^original$/'],
-            ['OVERRIDDEN COUNTRY' => '/^overridden$/']
-        );
+        $matcher = new PatternMatcher(['COUNTRY' => '/^valid/']);
 
-        $this->assertTrue($matcher->passes('country', 'postal code'));
-        $this->assertFalse($matcher->passes('country', 'invalid postal code'));
-        $this->assertTrue($matcher->passes('country without pattern', 'postal code'));
+        $this->assertTrue($matcher->supports('country'));
+        $this->assertEquals('/^valid/', $matcher->patternFor('country'));
 
-        $this->assertFalse($matcher->passes('overridden country', 'original'));
-        $this->assertTrue($matcher->passes('overridden country', 'overridden'));
+        $this->assertTrue($matcher->passes('country', 'valid input'));
+        $this->assertTrue($matcher->fails('country', 'invalid input'));
+    }
+
+    /**
+     * Test if overrides take precedence over regular rules.
+     *
+     * @return void
+     */
+    public function testOverridesTakePrecedence(): void
+    {
+        $matcher = new PatternMatcher(['COUNTRY' => '/^old$/']);
+        $matcher->override('country', '/^new$/');
+
+        $this->assertFalse($matcher->passes('country', 'old'));
+        $this->assertTrue($matcher->passes('country', 'new'));
+
+        $matcher = new PatternMatcher(['COUNTRY' => '/^old$/']);
+        $matcher->override(['country' => '/^new$/']);
+
+        $this->assertTrue($matcher->fails('country', 'old'));
+        $this->assertFalse($matcher->fails('country', 'new'));
+    }
+
+    /**
+     * Test if the matcher fails postal code for an unsupported country.
+     *
+     * @return void
+     */
+    public function testUnsupportedCountryDoesNotMatch(): void
+    {
+        $matcher = new PatternMatcher([]);
+
+        $this->assertFalse($matcher->supports('country'));
+        $this->assertNull($matcher->patternFor('country'));
+        $this->assertFalse($matcher->passes('country', 'any-value'));
+        $this->assertTrue($matcher->fails('country', 'any-value'));
     }
 }
