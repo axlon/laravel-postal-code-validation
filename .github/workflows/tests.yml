@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  laravel:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -25,8 +25,36 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require laravel/framework:"${{ matrix.laravel }}" --dev --no-update
+          composer remove laravel/framework --dev --no-update
+          composer require laravel/laravel:"${{ matrix.laravel }}" --dev --no-update
           composer install --prefer-dist --no-interaction --no-progress
 
       - name: Run tests
-        run: ./vendor/bin/phpunit --verbose
+        run: composer test-laravel
+
+  lumen:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        lumen: [5.5.*, 5.6.*, 5.7.*, 5.8.*, 6.*, 7.*]
+    name: Tests for Lumen ${{ matrix.lumen }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          tools: composer:v2
+          coverage: xdebug
+
+      - name: Install dependencies
+        run: |
+          composer remove laravel/framework --dev --no-update
+          composer require laravel/lumen:"${{ matrix.lumen }}" --dev --no-update
+          composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Run tests
+        run: composer test-lumen

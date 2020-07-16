@@ -70,10 +70,13 @@ class PostalCodeFor
             $examples[] = $example;
         }
 
-        $countries = implode(', ', array_unique($countries));
-        $examples = implode(', ', array_unique($examples));
+        $replacements = [
+            $attribute,
+            implode(', ', array_unique($countries)),
+            implode(', ', array_unique($examples)),
+        ];
 
-        return str_replace([':countries', ':examples'], [$countries, $examples], $message);
+        return str_replace([':attribute', ':countries', ':examples'], $replacements, $message);
     }
 
     /**
@@ -91,16 +94,8 @@ class PostalCodeFor
             throw new InvalidArgumentException('Validation rule postal_code_for requires at least 1 parameter.');
         }
 
-        if (empty($value)) {
-            return false;
-        }
-
         foreach ($parameters as $parameter) {
             if (($parameter = $this->input($parameter, $validator)) === null) {
-                continue;
-            }
-
-            if (!$this->matcher->supports($parameter)) {
                 continue;
             }
 

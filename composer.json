@@ -44,10 +44,12 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": "php -d zend_extension=xdebug.so ./vendor/bin/phpunit --colors=always"
+        "test-laravel": "./vendor/bin/phpunit --colors=always --bootstrap=tests/bootstrap/laravel.php",
+        "test-lumen": "./vendor/bin/phpunit --colors=always --bootstrap=tests/bootstrap/lumen.php"
     },
     "scripts-descriptions": {
-        "test": "Run PHPUnit with xDebug enabled"
+        "test-laravel": "Run PHPUnit with Laravel",
+        "test-lumen": "Run PHPUnit with Lumen"
     },
     "extra": {
         "laravel": {
