@@ -12,7 +12,11 @@ if (file_exists(__DIR__ . '/../../vendor/laravel/lumen/artisan')) {
     TestCase::resolveUsing(function () {
         $app = new Application();
         $app->configure('app');
-        $app->boot();
+
+        if (is_callable([$app, 'boot'])) {
+            $app->boot();
+        }
+
         $app->withFacades();
         $app->register(ValidationServiceProvider::class);
 

@@ -11,7 +11,7 @@ class ReplacerTest extends TestCase
      */
     public function testPostalCodeReplacer(): void
     {
-        $locale = $this->app->getLocale();
+        $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
         $translator = $this->app->make('translator');
 
         $validator = $this->app->make('validator')->make(
@@ -36,7 +36,7 @@ class ReplacerTest extends TestCase
      */
     public function testPostalCodeForReplacer(): void
     {
-        $locale = $this->app->getLocale();
+        $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
         $translator = $this->app->make('translator');
 
         $validator = $this->app->make('validator')->make(
