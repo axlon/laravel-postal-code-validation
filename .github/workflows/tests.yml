@@ -25,7 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer remove laravel/framework --dev --no-update
           composer require laravel/laravel:"${{ matrix.laravel }}" --dev --no-update
           composer install --prefer-dist --no-interaction --no-progress
 
@@ -52,7 +51,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer remove laravel/framework --dev --no-update
           composer require laravel/lumen:"${{ matrix.lumen }}" --dev --no-update
           composer install --prefer-dist --no-interaction --no-progress
 
