@@ -7,7 +7,7 @@
  * This is an automatically generated file, don't edit this file directly,
  * run `composer build` instead.
  *
- * Last modified: 2020-02-28T19:35:11+00:00
+ * Last modified: 2020-08-16T09:19:27+00:00
  */
 return [
     'AC' => [
@@ -928,7 +928,7 @@ return [
     ],
     'TW' => [
         'example' => '104',
-        'pattern' => '/^(?:\d{3}(?:\d{2})?)$/i',
+        'pattern' => '/^(?:\d{3}(?:\d{2,3})?)$/i',
     ],
     'TZ' => [
         'example' => '6090',
