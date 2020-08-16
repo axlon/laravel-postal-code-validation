@@ -8,6 +8,9 @@
 - Added exceptions when no arguments are passed to the validation rules
 - Added PostalCodes facade
 
+## [v2.1.1](https://github.com/axlon/laravel-postal-code-validation/tree/v2.1.1) (2020-08-16)
+- Update Taiwan validation pattern
+
 ## [v2.1.0](https://github.com/axlon/laravel-postal-code-validation/tree/v2.1.0) (2020-03-04)
 - Added support for Laravel 7
 
