@@ -1,11 +1,11 @@
 # Changelog
 
 ## [v3.0.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.0.0) (TBD)
-- Dropped support for PHP 7.1
-- Dropped support for Laravel 5.1 - 5.4
+- Dropped support for PHP 7.1 (**breaking change**)
+- Dropped support for Laravel 5.1 - 5.4 (**breaking change**)
 - Added support for manually overriding validation patterns
 - Added lazy loading for postal code examples
-- Added exceptions when no arguments are passed to the validation rules
+- Added exceptions when no arguments are passed to the validation rules (**breaking change**)
 - Added PostalCodes facade
 
 ## [v2.1.1](https://github.com/axlon/laravel-postal-code-validation/tree/v2.1.1) (2020-08-16)
