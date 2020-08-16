@@ -47,9 +47,9 @@ class PatternMatcher
      *
      * @param array|string $countryCode
      * @param string|null $pattern
-     * @return $this
+     * @return void
      */
-    public function override($countryCode, ?string $pattern = null): self
+    public function override($countryCode, ?string $pattern = null): void
     {
         if (is_array($countryCode)) {
             $this->patternOverrides = array_merge(
@@ -58,8 +58,6 @@ class PatternMatcher
         } else {
             $this->patternOverrides[strtoupper($countryCode)] = $pattern;
         }
-
-        return $this;
     }
 
     /**
