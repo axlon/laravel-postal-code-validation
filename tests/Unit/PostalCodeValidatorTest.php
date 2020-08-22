@@ -2,10 +2,10 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
-use Axlon\PostalCodeValidation\PatternMatcher;
+use Axlon\PostalCodeValidation\PostalCodeValidator;
 use PHPUnit\Framework\TestCase;
 
-class PatternMatcherTest extends TestCase
+class PostalCodeValidatorTest extends TestCase
 {
     /**
      * Test if a country without a pattern (null) will always match.
@@ -14,7 +14,7 @@ class PatternMatcherTest extends TestCase
      */
     public function testCountryWithoutPatternAlwaysMatches(): void
     {
-        $matcher = new PatternMatcher(['COUNTRY' => null]);
+        $matcher = new PostalCodeValidator(['COUNTRY' => null]);
 
         $this->assertTrue($matcher->supports('country'));
         $this->assertNull($matcher->patternFor('country'));
@@ -29,7 +29,7 @@ class PatternMatcherTest extends TestCase
      */
     public function testOnlyValidInputMatches(): void
     {
-        $matcher = new PatternMatcher(['COUNTRY' => '/^valid/']);
+        $matcher = new PostalCodeValidator(['COUNTRY' => '/^valid/']);
 
         $this->assertTrue($matcher->supports('country'));
         $this->assertEquals('/^valid/', $matcher->patternFor('country'));
@@ -45,13 +45,13 @@ class PatternMatcherTest extends TestCase
      */
     public function testOverridesTakePrecedence(): void
     {
-        $matcher = new PatternMatcher(['COUNTRY' => '/^old$/']);
+        $matcher = new PostalCodeValidator(['COUNTRY' => '/^old$/']);
         $matcher->override('country', '/^new$/');
 
         $this->assertFalse($matcher->passes('country', 'old'));
         $this->assertTrue($matcher->passes('country', 'new'));
 
-        $matcher = new PatternMatcher(['COUNTRY' => '/^old$/']);
+        $matcher = new PostalCodeValidator(['COUNTRY' => '/^old$/']);
         $matcher->override(['country' => '/^new$/']);
 
         $this->assertTrue($matcher->fails('country', 'old'));
@@ -65,7 +65,7 @@ class PatternMatcherTest extends TestCase
      */
     public function testUnsupportedCountryDoesNotMatch(): void
     {
-        $matcher = new PatternMatcher([]);
+        $matcher = new PostalCodeValidator([]);
 
         $this->assertFalse($matcher->supports('country'));
         $this->assertNull($matcher->patternFor('country'));

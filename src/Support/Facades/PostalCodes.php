@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool passes(string $countryCode, string ...$postalCodes)
  * @method static void override(array|string $countryCode, string|null $pattern = null)
  * @method static bool supports(string $countryCode)
- * @see \Axlon\PostalCodeValidation\PatternMatcher
+ * @see \Axlon\PostalCodeValidation\PostalCodeValidator
  */
 class PostalCodes extends Facade
 {

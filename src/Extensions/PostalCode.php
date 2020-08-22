@@ -2,7 +2,7 @@
 
 namespace Axlon\PostalCodeValidation\Extensions;
 
-use Axlon\PostalCodeValidation\PatternMatcher;
+use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use InvalidArgumentException;
 
@@ -18,21 +18,21 @@ class PostalCode
     /**
      * The pattern matcher.
      *
-     * @var \Axlon\PostalCodeValidation\PatternMatcher
+     * @var \Axlon\PostalCodeValidation\PostalCodeValidator
      */
-    protected $matcher;
+    protected $validator;
 
     /**
      * Create a new PostalCode validator extension.
      *
-     * @param \Axlon\PostalCodeValidation\PatternMatcher $matcher
+     * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
      * @param \Axlon\PostalCodeValidation\Support\PostalCodeExamples $examples
      * @return void
      */
-    public function __construct(PatternMatcher $matcher, PostalCodeExamples $examples)
+    public function __construct(PostalCodeValidator $validator, PostalCodeExamples $examples)
     {
         $this->examples = $examples;
-        $this->matcher = $matcher;
+        $this->validator = $validator;
     }
 
     /**
@@ -82,7 +82,7 @@ class PostalCode
         }
 
         foreach ($parameters as $parameter) {
-            if ($this->matcher->passes($parameter, $value)) {
+            if ($this->validator->passes($parameter, $value)) {
                 return true;
             }
         }

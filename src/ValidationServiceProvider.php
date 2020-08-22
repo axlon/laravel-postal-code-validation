@@ -23,10 +23,10 @@ class ValidationServiceProvider extends ServiceProvider
         }
 
         $this->app->singleton('postal_codes', function () {
-            return new PatternMatcher(require __DIR__ . '/../resources/patterns.php');
+            return new PostalCodeValidator(require __DIR__ . '/../resources/patterns.php');
         });
 
-        $this->app->alias('postal_codes', PatternMatcher::class);
+        $this->app->alias('postal_codes', PostalCodeValidator::class);
     }
 
     /**

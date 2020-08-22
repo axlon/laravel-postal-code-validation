@@ -7,6 +7,7 @@
 - Added lazy loading for postal code examples
 - Added exceptions when no arguments are passed to the validation rules (**breaking change**)
 - Added PostalCodes facade
+- Renamed `Axlon\PostalCodeValidation\Validator` to `Axlon\PostalCodeValidation\PostalCodeValidator` and changed its methods (**breaking change**)
 
 ## [v2.1.1](https://github.com/axlon/laravel-postal-code-validation/tree/v2.1.1) (2020-08-16)
 - Update Taiwan validation pattern
