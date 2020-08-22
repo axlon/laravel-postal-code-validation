@@ -1,8 +1,8 @@
 <?php
 
-namespace Axlon\PostalCodeValidation;
+namespace Axlon\PostalCodeValidation\Support;
 
-trait PostalCodeExamples
+class PostalCodeExamples
 {
     /**
      * The postal code examples.
@@ -17,10 +17,10 @@ trait PostalCodeExamples
      * @param string $countryCode
      * @return string|null
      */
-    public function exampleFor(string $countryCode): ?string
+    public function get(string $countryCode): ?string
     {
         if ($this->examples === null) {
-            $this->examples = require __DIR__ . '/../resources/examples.php';
+            $this->examples = require __DIR__ . '/../../resources/examples.php';
         }
 
         return $this->examples[strtoupper($countryCode)] ?? null;

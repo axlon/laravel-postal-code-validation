@@ -2,7 +2,7 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
-use Axlon\PostalCodeValidation\PostalCodeExamples;
+use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use PHPUnit\Framework\TestCase;
 
 class PostalCodeExamplesTest extends TestCase
@@ -14,12 +14,10 @@ class PostalCodeExamplesTest extends TestCase
      */
     public function testExampleRetrieval(): void
     {
-        $examples = new class {
-            use PostalCodeExamples;
-        };
+        $examples = new PostalCodeExamples();
 
-        $this->assertEquals('1234 AB', $examples->exampleFor('NL'));
-        $this->assertEquals('4000', $examples->exampleFor('be'));
-        $this->assertNull($examples->exampleFor('XX'));
+        $this->assertEquals('1234 AB', $examples->get('NL'));
+        $this->assertEquals('4000', $examples->get('be'));
+        $this->assertNull($examples->get('XX'));
     }
 }

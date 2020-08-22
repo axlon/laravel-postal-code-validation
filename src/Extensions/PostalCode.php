@@ -3,12 +3,17 @@
 namespace Axlon\PostalCodeValidation\Extensions;
 
 use Axlon\PostalCodeValidation\PatternMatcher;
-use Axlon\PostalCodeValidation\PostalCodeExamples;
+use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use InvalidArgumentException;
 
 class PostalCode
 {
-    use PostalCodeExamples;
+    /**
+     * The postal code examples.
+     *
+     * @var \Axlon\PostalCodeValidation\Support\PostalCodeExamples
+     */
+    protected $examples;
 
     /**
      * The pattern matcher.
@@ -21,10 +26,12 @@ class PostalCode
      * Create a new PostalCode validator extension.
      *
      * @param \Axlon\PostalCodeValidation\PatternMatcher $matcher
+     * @param \Axlon\PostalCodeValidation\Support\PostalCodeExamples $examples
      * @return void
      */
-    public function __construct(PatternMatcher $matcher)
+    public function __construct(PatternMatcher $matcher, PostalCodeExamples $examples)
     {
+        $this->examples = $examples;
         $this->matcher = $matcher;
     }
 
@@ -43,7 +50,7 @@ class PostalCode
         $examples = [];
 
         foreach ($parameters as $parameter) {
-            if (($example = $this->exampleFor($parameter)) === null) {
+            if (($example = $this->examples->get($parameter)) === null) {
                 continue;
             }
 
