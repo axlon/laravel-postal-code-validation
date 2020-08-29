@@ -46,8 +46,8 @@ class PostalCodeForTest extends TestCase
     public function testValidationIgnoresMissingFields(): void
     {
         $validator = $this->app->make('validator')->make(
-            ['postal_code' => '1234 AB', 'country_2' => 'NL'],
-            ['postal_code' => 'postal_code_for:country_1,country_2']
+            ['postal_code' => '1234 AB', 'empty' => '', 'null' => null, 'country' => 'NL'],
+            ['postal_code' => 'postal_code_for:empty,missing,null,country']
         );
 
         $this->assertTrue($validator->passes());

@@ -3,73 +3,125 @@
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
 
 class PostalCodeValidatorTest extends TestCase
 {
     /**
-     * Test if a country without a pattern (null) will always match.
+     * The postal code validator.
      *
-     * @return void
+     * @var \Axlon\PostalCodeValidation\PostalCodeValidator
      */
-    public function testCountryWithoutPatternAlwaysMatches(): void
-    {
-        $matcher = new PostalCodeValidator(['COUNTRY' => null]);
+    protected $validator;
 
-        $this->assertTrue($matcher->supports('country'));
-        $this->assertNull($matcher->patternFor('country'));
-        $this->assertTrue($matcher->passes('country', 'any-value'));
-        $this->assertFalse($matcher->fails('country', 'any-value'));
+    /**
+     * Get the examples.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function provideExamples(): Collection
+    {
+        $data = require __DIR__ . '/../../resources/examples.php';
+
+        return collect($data)->map(function (string $example, string $country) {
+            return [$country, $example];
+        });
     }
 
     /**
-     * Test if only valid input passes validation.
-     *
-     * @return void
+     * @inheritDoc
      */
-    public function testOnlyValidInputMatches(): void
+    protected function setUp(): void
     {
-        $matcher = new PostalCodeValidator(['COUNTRY' => '/^valid/']);
-
-        $this->assertTrue($matcher->supports('country'));
-        $this->assertEquals('/^valid/', $matcher->patternFor('country'));
-
-        $this->assertTrue($matcher->passes('country', 'valid input'));
-        $this->assertTrue($matcher->fails('country', 'invalid input'));
+        $this->validator = new PostalCodeValidator(
+            require __DIR__ . '/../../resources/patterns.php'
+        );
     }
 
     /**
-     * Test if overrides take precedence over regular rules.
+     * Test if the shipped examples pass validation.
      *
+     * @param string $country
+     * @param string $example
      * @return void
+     * @dataProvider provideExamples
      */
-    public function testOverridesTakePrecedence(): void
+    public function testExamplesAreValidPatterns(string $country, string $example): void
     {
-        $matcher = new PostalCodeValidator(['COUNTRY' => '/^old$/']);
-        $matcher->override('country', '/^new$/');
-
-        $this->assertFalse($matcher->passes('country', 'old'));
-        $this->assertTrue($matcher->passes('country', 'new'));
-
-        $matcher = new PostalCodeValidator(['COUNTRY' => '/^old$/']);
-        $matcher->override(['country' => '/^new$/']);
-
-        $this->assertTrue($matcher->fails('country', 'old'));
-        $this->assertFalse($matcher->fails('country', 'new'));
+        $this->assertTrue($this->validator->passes($country, $example));
     }
 
     /**
-     * Test if the matcher fails postal code for an unsupported country.
+     * Test whether Great Britain validation fails on an inward code that is too long.
+     *
+     * @link https://github.com/axlon/laravel-postal-code-validation/issues/13
+     * @return void
+     */
+    public function testGreatBritainInwardCodeMaxLength(): void
+    {
+        $this->assertFalse($this->validator->passes('GB', 'NN1 5LLL'));
+    }
+
+    /**
+     * Test whether lower case country codes can be used.
      *
      * @return void
      */
-    public function testUnsupportedCountryDoesNotMatch(): void
+    public function testLowerCaseCountryCode(): void
     {
-        $matcher = new PostalCodeValidator([]);
+        $this->assertTrue($this->validator->supports('nl'));
+        $this->assertNotNull($this->validator->patternFor('nl'));
+        $this->assertTrue($this->validator->passes('nl', '1234 AB'));
+    }
 
-        $this->assertFalse($matcher->supports('country'));
-        $this->assertNull($matcher->patternFor('country'));
-        $this->assertFalse($matcher->passes('country', 'any-value'));
-        $this->assertTrue($matcher->fails('country', 'any-value'));
+    /**
+     * Test whether null patterns match any value.
+     *
+     * @return void
+     */
+    public function testNullPattern(): void
+    {
+        $this->assertTrue($this->validator->supports('GH'));
+        $this->assertNull($this->validator->patternFor('GH'));
+        $this->assertTrue($this->validator->passes('GH', 'any value'));
+    }
+
+    /**
+     * Test pattern override registration.
+     *
+     * @return void
+     */
+    public function testPatternOverride(): void
+    {
+        $this->validator->override('BE', '/override/');
+        $this->assertEquals('/override/', $this->validator->patternFor('BE'));
+        $this->assertTrue($this->validator->fails('BE', '4000'));
+        $this->assertTrue($this->validator->passes('BE', 'override'));
+    }
+
+    /**
+     * Test pattern override registration using an associative array.
+     *
+     * @return void
+     */
+    public function testPatternOverrideViaArray(): void
+    {
+        $this->validator->override(['FR' => '/override/']);
+        $this->assertEquals('/override/', $this->validator->patternFor('FR'));
+        $this->assertTrue($this->validator->fails('FR', '33380'));
+        $this->assertTrue($this->validator->passes('FR', 'override'));
+    }
+
+    /**
+     * Test whether unsupported country codes always fail validation.
+     *
+     * @return void
+     */
+    public function testUnsupportedCountryCode(): void
+    {
+        $this->assertFalse($this->validator->supports('XX'));
+        $this->assertNull($this->validator->patternFor('XX'));
+        $this->assertTrue($this->validator->fails('any value'));
     }
 }

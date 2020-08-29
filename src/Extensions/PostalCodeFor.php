@@ -102,11 +102,11 @@ class PostalCodeFor
         }
 
         foreach ($parameters as $parameter) {
-            if (($parameter = $this->input($parameter, $validator)) === null) {
+            if (($input = $this->input($parameter, $validator)) === null) {
                 continue;
             }
 
-            if ($this->validator->passes($parameter, $value)) {
+            if ($this->validator->passes($input, $value)) {
                 return true;
             }
         }
