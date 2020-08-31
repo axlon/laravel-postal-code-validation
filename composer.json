@@ -1,6 +1,6 @@
 {
     "name": "axlon/laravel-postal-code-validation",
-    "description": "Worldwide postal code validation for Laravel",
+    "description": "Worldwide postal code validation for Laravel and Lumen",
     "keywords": [
         "laravel",
         "lumen",

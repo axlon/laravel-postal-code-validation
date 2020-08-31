@@ -35,7 +35,7 @@ This package has the following requirements:
 
 | Laravel / Lumen version | Package version |
 |-------------------------|-----------------|
-| 5.1 - 5.4               | 2.x             |
+| 5.1 - 5.4               | [2.x](https://github.com/axlon/laravel-postal-code-validation/tree/2.x) |
 | 5.5 and greater         | 3.x             |
 
 ## Installation
