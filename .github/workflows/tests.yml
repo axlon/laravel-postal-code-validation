@@ -10,8 +10,12 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        laravel: [5.5.*, 5.6.*, 5.7.*, 5.8.*, 6.*, 7.*, 8.*]
-    name: Tests for Laravel ${{ matrix.laravel }}
+        laravel: [5.5.*, 5.6.*, 5.7.*, 5.8.*, 6.*, 7.*]
+        php: [7.2]
+        include:
+          - laravel: 8.*
+            php: 7.3
+    name: Tests for Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -19,7 +23,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.3
+          php-version: ${{ matrix.php }}
           tools: composer:v2
           coverage: xdebug
 
@@ -37,7 +41,8 @@ jobs:
       fail-fast: true
       matrix:
         lumen: [5.5.*, 5.6.*, 5.7.*, 5.8.*, 6.*, 7.*]
-    name: Tests for Lumen ${{ matrix.lumen }}
+        php: [7.2]
+    name: Tests for Lumen ${{ matrix.lumen }} on PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -45,7 +50,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.3
+          php-version: ${{ matrix.php }}
           tools: composer:v2
           coverage: xdebug
 
