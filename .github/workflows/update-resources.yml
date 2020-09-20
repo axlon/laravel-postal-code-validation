@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
-    name: Check Google API for updated patterns
+    name: Check Google API for updates
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
