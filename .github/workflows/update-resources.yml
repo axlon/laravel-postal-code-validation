@@ -1,0 +1,36 @@
+name: update-resources
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  laravel:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    name: Check Google API for updates
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Generate resources
+        run: php ./bin/generate-resources
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: Update package resources
+          commit-message: Update package resources
+          branch: actions/update-resources
+          reviewers: axlon
+          delete-branch: true
