@@ -42,6 +42,9 @@ jobs:
       matrix:
         lumen: [5.5.*, 5.6.*, 5.7.*, 5.8.*, 6.*, 7.*]
         php: [7.2]
+        include:
+          - lumen: 8.*
+            php: 7.3
     name: Tests for Lumen ${{ matrix.lumen }} on PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
