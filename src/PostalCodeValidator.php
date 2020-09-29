@@ -34,10 +34,10 @@ class PostalCodeValidator
      * Determine if the given postal code(s) are invalid for the given country.
      *
      * @param string $countryCode
-     * @param string ...$postalCodes
+     * @param string|null ...$postalCodes
      * @return bool
      */
-    public function fails(string $countryCode, string ...$postalCodes): bool
+    public function fails(string $countryCode, ?string ...$postalCodes): bool
     {
         return !$this->passes($countryCode, ...$postalCodes);
     }
@@ -65,10 +65,10 @@ class PostalCodeValidator
      * Determine if the given postal code(s) are valid for the given country.
      *
      * @param string $countryCode
-     * @param string ...$postalCodes
+     * @param string|null ...$postalCodes
      * @return bool
      */
-    public function passes(string $countryCode, string ...$postalCodes): bool
+    public function passes(string $countryCode, ?string ...$postalCodes): bool
     {
         if (!$this->supports($countryCode)) {
             return false;
@@ -79,6 +79,10 @@ class PostalCodeValidator
         }
 
         foreach ($postalCodes as $postalCode) {
+            if ($postalCode === null || trim($postalCode) === '') {
+                return false;
+            }
+
             if (preg_match($pattern, $postalCode) !== 1) {
                 return false;
             }

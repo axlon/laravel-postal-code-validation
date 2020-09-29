@@ -39,6 +39,23 @@ class PostalCodeTest extends TestCase
     }
 
     /**
+     * Test if the 'postal_code' rule fails null input.
+     *
+     * @return void
+     * @link https://github.com/axlon/laravel-postal-code-validation/issues/23
+     */
+    public function testValidationFailsNullPostalCode(): void
+    {
+        $validator = $this->app->make('validator')->make(
+            ['postal_code' => null],
+            ['postal_code' => 'postal_code:DE']
+        );
+
+        $this->assertFalse($validator->passes());
+        $this->assertContains('validation.postal_code', $validator->errors()->all());
+    }
+
+    /**
      * Test if the 'postal_code' rule passes valid input.
      *
      * @return void
