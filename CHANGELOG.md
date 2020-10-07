@@ -1,5 +1,8 @@
 # Changelog
 
+## [v3.1.1](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.1) (2020-09-30)
+- Fixed error when validation receives null ([#23](https://github.com/axlon/laravel-postal-code-validation/issues/23))
+
 ## [v3.1.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.0) (2020-09-09)
 - Added support for Laravel 8 ([#21](https://github.com/axlon/laravel-postal-code-validation/pull/21))
 
