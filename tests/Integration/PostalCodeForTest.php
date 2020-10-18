@@ -55,6 +55,17 @@ class PostalCodeForTest extends TestCase
         $this->assertContains('validation.postal_code_for', $validator->errors()->all());
     }
 
+    public function testValidationPassesIfAllFieldsAreMissing(): void
+    {
+        $validator = $this->app->make('validator')->make(
+            ['postal_code' => '1234 AB'],
+            ['postal_code' => 'postal_code_for:country']
+        );
+
+        $this->assertTrue($validator->passes());
+        $this->assertEmpty($validator->errors()->all());
+    }
+
     /**
      * Test if the 'postal_code_for' rule ignores references that aren't present.
      *

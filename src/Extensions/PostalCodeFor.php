@@ -38,18 +38,6 @@ class PostalCodeFor
     }
 
     /**
-     * Get the value of the given attribute.
-     *
-     * @param string $attribute
-     * @param \Illuminate\Validation\Validator $validator
-     * @return string|null
-     */
-    protected function input(string $attribute, Validator $validator): ?string
-    {
-        return Arr::get($validator->getData(), $attribute);
-    }
-
-    /**
      * Replace error message placeholders.
      *
      * @param string $message
@@ -65,15 +53,15 @@ class PostalCodeFor
         $examples = [];
 
         foreach ($parameters as $parameter) {
-            if (($countryCode = $this->input($parameter, $validator)) === null) {
+            if (($input = Arr::get($validator->getData(), $parameter)) === null) {
                 continue;
             }
 
-            if (($example = $this->examples->get($countryCode)) === null) {
+            if (($example = $this->examples->get($input)) === null) {
                 continue;
             }
 
-            $countries[] = $countryCode;
+            $countries[] = $input;
             $examples[] = $example;
         }
 
@@ -101,8 +89,12 @@ class PostalCodeFor
             throw new InvalidArgumentException('Validation rule postal_code_for requires at least 1 parameter.');
         }
 
+        if (!Arr::has($validator->getData(), $parameters)) {
+            return true;
+        }
+
         foreach ($parameters as $parameter) {
-            if (($input = $this->input($parameter, $validator)) === null) {
+            if (($input = Arr::get($validator->getData(), $parameter)) === null) {
                 continue;
             }
 
