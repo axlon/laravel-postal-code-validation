@@ -38,7 +38,18 @@ class PostalCode
      */
     public function __toString(): string
     {
-        return 'postal_code' . ($this->dependent ? '_for:' : ':') . implode(',', $this->parameters);
+        return 'postal_code' . ($this->dependent ? '_with:' : ':') . implode(',', $this->parameters);
+    }
+
+    /**
+     * Get a postal_code_with constraint builder instance.
+     *
+     * @param string $country
+     * @return static
+     */
+    public static function for(string $country): self
+    {
+        return static::forCountry($country);
     }
 
     /**
@@ -46,6 +57,7 @@ class PostalCode
      *
      * @param string ...$parameters
      * @return static
+     * @deprecated Use \Axlon\PostalCodeValidation\Rules\PostalCode::for() instead, this method will be removed in 4.0
      */
     public static function forCountry(string ...$parameters): self
     {
@@ -57,6 +69,7 @@ class PostalCode
      *
      * @param string ...$parameters
      * @return static
+     * @deprecated Use \Axlon\PostalCodeValidation\Rules\PostalCode::with() instead, this method will be removed in 4.0
      */
     public static function forInput(string ...$parameters): self
     {
@@ -74,5 +87,16 @@ class PostalCode
         $this->parameters = array_merge($this->parameters, $parameters);
 
         return $this;
+    }
+
+    /**
+     * Get a postal_code_with constraint builder instance.
+     *
+     * @param string $field
+     * @return static
+     */
+    public static function with(string $field): self
+    {
+        return static::forInput($field);
     }
 }

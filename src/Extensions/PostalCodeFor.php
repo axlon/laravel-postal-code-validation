@@ -86,7 +86,7 @@ class PostalCodeFor
     public function validate(string $attribute, ?string $value, array $parameters, Validator $validator): bool
     {
         if (empty($parameters)) {
-            throw new InvalidArgumentException('Validation rule postal_code_for requires at least 1 parameter.');
+            throw new InvalidArgumentException('Validation rule postal_code_with requires at least 1 parameter.');
         }
 
         if (!Arr::has($validator->getData(), $parameters)) {

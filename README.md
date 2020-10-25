@@ -81,7 +81,7 @@ countries in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha
 'postal_code' => 'postal_code:NL,DE,FR,BE'
 ```
 
-#### postal_code_for:foo,bar,...
+#### postal_code_with:foo,bar,...
 The field under validation must be a postal code in at least one of the countries in the given fields _only if_ at least
 one of the specified fields is present.
 
@@ -89,7 +89,7 @@ one of the specified fields is present.
 'billing.country' => 'required|string|max:2',
 ...
 'shipping.country' => 'nullable|string|max:2',
-'shipping.postal_code' => 'postal_code_for:billing.country,shipping.country'
+'shipping.postal_code' => 'postal_code_with:billing.country,shipping.country'
 ```
 
 ### Fluent API
@@ -97,18 +97,18 @@ If you prefer using a fluent object style over string based rules, that's also a
 
 ```php
 'postal_code' => [
-    PostalCode::forCountry('NL')->or('BE'),
+    PostalCode::for('NL')->or('BE'),
 ],
 ```
 
-The same goes for the `postal_code_for` rule:
+The same goes for the `postal_code_with` rule:
 
 ```php
 'billing.country' => 'required|string|max:2',
 ...
 'shipping.country' => 'nullable|string|max:2',
 'shipping.postal_code' => [
-    PostalCode::forInput('billing.country')->or('shipping.country')
+    PostalCode::with('billing.country')->or('shipping.country')
 ],
 ```
 
@@ -117,7 +117,7 @@ To add a meaningful error message, add the following lines to `resources/lang/{y
 
 ```php
 'postal_code' => 'Your message here',
-'postal_code_for' => 'Your message here',
+'postal_code_with' => 'Your message here',
 ```
 
 The following placeholders will be automatically filled for you:
