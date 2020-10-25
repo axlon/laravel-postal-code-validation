@@ -8,6 +8,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
 
+/**
+ * @deprecated This class will be removed in 4.0
+ */
 class PostalCodeFor
 {
     /**

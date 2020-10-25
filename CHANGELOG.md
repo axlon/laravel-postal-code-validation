@@ -1,5 +1,11 @@
 # Changelog
 
+## [v3.1.2](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.1) (2020-10-25)
+- Fixed postal_code_for rule failing when none of the referenced fields were present
+- Deprecated the postal_code_for rule
+- Added postal_code_with rule, which is a drop-in replacement for postal_code_for
+- Added deprecation warnings for upcoming 4.0 release
+
 ## [v3.1.1](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.1) (2020-09-30)
 - Fixed error when validation receives null ([#23](https://github.com/axlon/laravel-postal-code-validation/issues/23))
 
