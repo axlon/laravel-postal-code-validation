@@ -1,6 +1,9 @@
 # Changelog
 
-## [v3.1.2](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.1) (2020-10-25)
+## [v3.1.3](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.3) (2020-11-07)
+- Fixed validation getting bypassed on `postal_code_for` and `postal_code_with` when only some referenced fields were present (this only affected v3.1.2)
+
+## [v3.1.2](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.2) (2020-10-25)
 - Fixed postal_code_for rule failing when none of the referenced fields were present
 - Deprecated the postal_code_for rule
 - Added postal_code_with rule, which is a drop-in replacement for postal_code_for

@@ -82,6 +82,17 @@ class PostalCodeWithTest extends TestCase
         $this->assertEmpty($validator->errors()->all());
     }
 
+    public function testValidationIgnoresMissingFieldsFailing(): void
+    {
+        $validator = $this->app->make('validator')->make(
+            ['postal_code' => '1234 AB', 'empty' => '', 'null' => null, 'country' => 'BE'],
+            ['postal_code' => 'postal_code_with:empty,missing,null,country']
+        );
+
+        $this->assertFalse($validator->passes());
+        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
+    }
+
     /**
      * Test if the 'postal_code_with' rule passes valid input.
      *

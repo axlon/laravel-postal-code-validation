@@ -92,16 +92,18 @@ class PostalCodeFor
             throw new InvalidArgumentException('Validation rule postal_code_with requires at least 1 parameter.');
         }
 
-        if (!Arr::has($validator->getData(), $parameters)) {
+        $parameters = Arr::only($validator->getData(), $parameters);
+
+        if ($parameters === []) {
             return true;
         }
 
         foreach ($parameters as $parameter) {
-            if (($input = Arr::get($validator->getData(), $parameter)) === null) {
+            if ($parameter === null) {
                 continue;
             }
 
-            if ($this->validator->passes($input, $value)) {
+            if ($this->validator->passes($parameter, $value)) {
                 return true;
             }
         }
