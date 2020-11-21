@@ -57,7 +57,6 @@ class PostalCode
      *
      * @param string ...$parameters
      * @return static
-     * @deprecated Use \Axlon\PostalCodeValidation\Rules\PostalCode::for() instead, this method will be removed in 4.0
      */
     public static function forCountry(string ...$parameters): self
     {
@@ -69,7 +68,6 @@ class PostalCode
      *
      * @param string ...$parameters
      * @return static
-     * @deprecated Use \Axlon\PostalCodeValidation\Rules\PostalCode::with() instead, this method will be removed in 4.0
      */
     public static function forInput(string ...$parameters): self
     {
