@@ -39,6 +39,22 @@ class PostalCodeWithTest extends TestCase
     }
 
     /**
+     * Test if the 'postal_code_with' rule fails invalid input.
+     *
+     * @return void
+     */
+    public function testValidationFailsInvalidPostalCodeInArray(): void
+    {
+        $validator = $this->app->make('validator')->make(
+            ['postal_codes' => ['not-a-postal-code'], 'countries' => ['NL']],
+            ['postal_codes.*' => 'postal_code_with:countries.*']
+        );
+
+        $this->assertFalse($validator->passes());
+        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
+    }
+
+    /**
      * Test if the 'postal_code' rule fails null input.
      *
      * @return void
@@ -103,6 +119,22 @@ class PostalCodeWithTest extends TestCase
         $validator = $this->app->make('validator')->make(
             ['postal_code' => '1234 AB', 'country' => 'NL'],
             ['postal_code' => 'postal_code_with:country']
+        );
+
+        $this->assertTrue($validator->passes());
+        $this->assertEmpty($validator->errors()->all());
+    }
+
+    /**
+     * Test if the 'postal_code_with' rule passes valid input.
+     *
+     * @return void
+     */
+    public function testValidationPassesValidPostalCodeInArray(): void
+    {
+        $validator = $this->app->make('validator')->make(
+            ['postal_codes' => ['1234 AB'], 'countries' => ['NL']],
+            ['postal_codes.*' => 'postal_code_with:countries.*']
         );
 
         $this->assertTrue($validator->passes());
