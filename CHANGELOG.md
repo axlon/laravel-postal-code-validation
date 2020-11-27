@@ -1,5 +1,8 @@
 # Changelog
 
+## [v3.2.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.3) (2020-11-27)
+- Added support for PHP 8
+
 ## [v3.1.3](https://github.com/axlon/laravel-postal-code-validation/tree/v3.1.3) (2020-11-07)
 - Fixed validation getting bypassed on `postal_code_for` and `postal_code_with` when only some referenced fields were present (this only affected v3.1.2)
 
