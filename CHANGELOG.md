@@ -1,5 +1,8 @@
 # Changelog
 
+## [v3.2.1](https://github.com/axlon/laravel-postal-code-validation/tree/v3.2.1) (2020-12-15)
+- Update Cambodia validation pattern
+
 ## [v3.2.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.2.0) (2020-11-27)
 - Added support for PHP 8
 - Fixed validation passing prematurely if `postal_code_for` or `postal_code_with` only referenced fields in an array
