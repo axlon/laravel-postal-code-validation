@@ -2,14 +2,14 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Rules;
 
-use Axlon\PostalCodeValidation\Rules\ISO3166_1\Alpha2;
+use Axlon\PostalCodeValidation\Rules\Countries;
 use Axlon\PostalCodeValidation\Tests\TestCase;
 
-class Alpha2Test extends TestCase
+class CountriesTrest extends TestCase
 {
     public function testItHandlesExplicitRules(): void
     {
-        $rules = new Alpha2(function () {
+        $rules = new Countries(function () {
             return [
                 'test' => ['pattern'],
             ];
@@ -23,7 +23,7 @@ class Alpha2Test extends TestCase
 
     public function testItHandlesEmptyRules(): void
     {
-        $rules = new Alpha2(function () {
+        $rules = new Countries(function () {
             return [
                 'test' => [],
             ];
@@ -37,7 +37,7 @@ class Alpha2Test extends TestCase
 
     public function testItHandlesExamples(): void
     {
-        $rules = new Alpha2(function () {
+        $rules = new Countries(function () {
             return [
                 'test' => ['pattern', 'example'],
             ];
@@ -49,7 +49,7 @@ class Alpha2Test extends TestCase
 
     public function testItHandlesOverrides(): void
     {
-        $rules = new Alpha2(function () {
+        $rules = new Countries(function () {
             return [
                 'test' => ['test'],
             ];

@@ -1,11 +1,10 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Rules\ISO3166_1;
+namespace Axlon\PostalCodeValidation\Rules;
 
-use Axlon\PostalCodeValidation\Rules\Ruleset;
 use Closure;
 
-class Alpha2 extends Ruleset
+class Countries extends Ruleset
 {
     /**
      * The validation rules.

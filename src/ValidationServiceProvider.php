@@ -3,7 +3,7 @@
 namespace Axlon\PostalCodeValidation;
 
 use Axlon\PostalCodeValidation\Contracts\Ruleset;
-use Axlon\PostalCodeValidation\Rules\ISO3166_1\Alpha2;
+use Axlon\PostalCodeValidation\Rules\Countries;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Factory;
 
@@ -27,7 +27,7 @@ class ValidationServiceProvider extends ServiceProvider
         }
 
         $this->app->bindIf('postal_codes', static function () {
-            return new Alpha2(static function () {
+            return new Countries(static function () {
                 return require __DIR__ . '/../resources/rules.php';
             });
         }, true);
