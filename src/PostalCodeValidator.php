@@ -69,18 +69,17 @@ class PostalCodeValidator
      */
     public function replacePostalCode(string $message, string $attribute, string $rule, array $parameters): string
     {
-        $countries = $examples = [];
+        $examples = [];
+        $parameters = array_map('strtoupper', $parameters);
 
         foreach ($parameters as $parameter) {
-            $countries[] = strtoupper($parameter);
-
             if ($this->rules->hasExample($parameter)) {
                 $examples[] = $this->rules->getExample($parameter);
             }
         }
 
         $replacements = [
-            ':countries' => implode(', ', array_unique($countries)),
+            ':countries' => implode(', ', array_unique($parameters)),
             ':examples' => implode(', ', array_unique($examples)),
         ];
 
@@ -121,6 +120,8 @@ class PostalCodeValidator
         if (!$this->isStringable($value)) {
             return false;
         }
+
+        $parameters = array_map('strtoupper', $parameters);
 
         foreach ($parameters as $parameter) {
             if (!$this->rules->hasRule($parameter)) {

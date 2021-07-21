@@ -40,17 +40,38 @@ class Alpha2 extends Ruleset
     }
 
     /**
+     * Get the explicit validation rule for the given key.
+     *
+     * @param string $key
+     * @return string
+     */
+    public function getExplicitRule(string $key): string
+    {
+        return $this->rules[$key];
+    }
+
+    /**
+     * Get the fallback validation rule.
+     *
+     * @return string
+     */
+    public function getFallbackRule(): string
+    {
+        return '/.*/';
+    }
+
+    /**
      * @inheritDoc
      */
     public function getRule(string $key): string
     {
-        $key = strtoupper($key);
-
-        if (isset($this->overrides[$key])) {
-            return $this->overrides[$key];
+        if ($this->hasOverride($key)) {
+            return $this->getOverride($key);
         }
 
-        return $this->rules[$key] ?: '/.*/';
+        return $this->hasExplicitRule($key)
+            ? $this->getExplicitRule($key)
+            : $this->getFallbackRule();
     }
 
     /**
@@ -58,7 +79,18 @@ class Alpha2 extends Ruleset
      */
     public function hasExample(string $key): bool
     {
-        return array_key_exists(strtoupper($key), $this->examples);
+        return array_key_exists($key, $this->examples);
+    }
+
+    /**
+     * Determine whether a explicit validation rule exists for the given key.
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function hasExplicitRule(string $key): bool
+    {
+        return !empty($this->rules[$key]);
     }
 
     /**
@@ -66,6 +98,6 @@ class Alpha2 extends Ruleset
      */
     public function hasRule(string $key): bool
     {
-        return array_key_exists(strtoupper($key), $this->rules);
+        return array_key_exists($key, $this->rules);
     }
 }

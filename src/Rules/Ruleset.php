@@ -11,7 +11,29 @@ abstract class Ruleset implements RulesetContract
      *
      * @var array
      */
-    protected $overrides;
+    protected $overrides = [];
+
+    /**
+     * Get the validation override for the given key.
+     *
+     * @param string $key
+     * @return string
+     */
+    public function getOverride(string $key): string
+    {
+        return $this->overrides[$key];
+    }
+
+    /**
+     * Determine if a validation override exists for the given key.
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function hasOverride(string $key): bool
+    {
+        return array_key_exists($key, $this->overrides);
+    }
 
     /**
      * Override validation for the given key(s).
@@ -27,7 +49,7 @@ abstract class Ruleset implements RulesetContract
                 array_change_key_case($key, CASE_UPPER),
             );
         } else {
-            $this->overrides[strtoupper($key)] = $rule;
+            $this->overrides[$key] = $rule;
         }
     }
 }
