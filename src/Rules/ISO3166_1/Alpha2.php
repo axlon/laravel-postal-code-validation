@@ -3,16 +3,10 @@
 namespace Axlon\PostalCodeValidation\Rules\ISO3166_1;
 
 use Axlon\PostalCodeValidation\Rules\Ruleset;
+use Closure;
 
 class Alpha2 extends Ruleset
 {
-    /**
-     * The validation examples.
-     *
-     * @var array
-     */
-    protected $examples;
-
     /**
      * The validation rules.
      *
@@ -23,12 +17,12 @@ class Alpha2 extends Ruleset
     /**
      * Create a new ISO 3166-1 alpha 2 validation ruleset.
      *
+     * @param \Closure $resolver
      * @return void
      */
-    public function __construct()
+    public function __construct(Closure $resolver)
     {
-        $this->examples = require __DIR__ . '/../../../resources/examples.php';
-        $this->rules = require __DIR__ . '/../../../resources/patterns.php';
+        $this->rules = $resolver();
     }
 
     /**
@@ -36,7 +30,7 @@ class Alpha2 extends Ruleset
      */
     public function getExample(string $key): string
     {
-        return $this->examples[$key];
+        return $this->rules[$key][1];
     }
 
     /**
@@ -47,7 +41,7 @@ class Alpha2 extends Ruleset
      */
     public function getExplicitRule(string $key): string
     {
-        return $this->rules[$key];
+        return '/^' . $this->rules[$key][0] . '$/i';
     }
 
     /**
@@ -79,7 +73,7 @@ class Alpha2 extends Ruleset
      */
     public function hasExample(string $key): bool
     {
-        return array_key_exists($key, $this->examples);
+        return isset($this->rules[$key][1]);
     }
 
     /**
@@ -90,7 +84,7 @@ class Alpha2 extends Ruleset
      */
     public function hasExplicitRule(string $key): bool
     {
-        return !empty($this->rules[$key]);
+        return isset($this->rules[$key][0]);
     }
 
     /**

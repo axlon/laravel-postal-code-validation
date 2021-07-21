@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+use Axlon\PostalCodeValidation\Build\AddressInput;
+use Axlon\PostalCodeValidation\Build\FileWriter;
+use Illuminate\Support\LazyCollection;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\HttpClient\HttpClient;
+
+require_once __DIR__ . '/lib/AddressInput.php';
+require_once __DIR__ . '/lib/FileWriter.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$httpClient = HttpClient::createForBaseUri('https://chromium-i18n.appspot.com/ssl-address/');
+
+$output = (new ConsoleOutput())->section();
+$progress = new ProgressBar($output);
+
+$output->writeln('Downloading...');
+
+(new AddressInput($httpClient))
+    ->all()
+    ->tapEach(function () use ($progress) {
+        $progress->advance();
+    })
+    ->mapWithKeys(function (array $country) {
+        return [
+            $country['key'] => array_filter([
+                $country['zip'] ?? null,
+                $country['zipex'][0] ?? null,
+            ]),
+        ];
+    })
+    ->pipe(function (LazyCollection $data) {
+        FileWriter::export($data->all());
+    });
+
+$output->overwrite('<info>Done.</info>');

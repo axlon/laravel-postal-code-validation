@@ -26,8 +26,10 @@ class ValidationServiceProvider extends ServiceProvider
             });
         }
 
-        $this->app->bindIf('postal_codes', function () {
-            return new Alpha2();
+        $this->app->bindIf('postal_codes', static function () {
+            return new Alpha2(static function () {
+                return require __DIR__ . '/../resources/rules.php';
+            });
         }, true);
 
         $this->app->alias('postal_codes', Ruleset::class);
