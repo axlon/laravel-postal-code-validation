@@ -2,13 +2,11 @@ name: update-resources
 
 on:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 0 1 * *'
 
 jobs:
   laravel:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
     name: Check Google API for updates
     steps:
       - name: Checkout code
@@ -23,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
 
-      - name: Generate resources
-        run: php ./bin/generate-resources
+      - name: Build resources
+        run: php ./bin/build
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
