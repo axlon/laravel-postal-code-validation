@@ -1,5 +1,8 @@
 # Changelog
 
+## [v3.3.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.3.0) (2022-02-08)
+- Add support for Laravel 9
+
 ## [v3.2.1](https://github.com/axlon/laravel-postal-code-validation/tree/v3.2.1) (2020-12-15)
 - Update Cambodia validation pattern
 
