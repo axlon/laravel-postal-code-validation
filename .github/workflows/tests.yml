@@ -81,6 +81,10 @@ jobs:
             php: 8.0
           - lumen: 8.*
             php: 8.1
+          - lumen: 9.*
+            php: 8.0
+          - lumen: 9.*
+            php: 8.1
     name: Tests for Lumen ${{ matrix.lumen }} on PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
