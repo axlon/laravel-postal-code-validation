@@ -1,5 +1,8 @@
 # Changelog
 
+## [v3.4.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.4.0) (2023-02-15)
+- Add support for Laravel 10
+
 ## [v3.3.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.3.0) (2022-02-08)
 - Add support for Laravel 9
 
