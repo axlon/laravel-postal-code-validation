@@ -37,8 +37,12 @@ jobs:
             php: 8.0
           - laravel: 9.*
             php: 8.1
+          - laravel: 9.*
+            php: 8.2
           - laravel: 10.*
             php: 8.1
+          - laravel: 10.*
+            php: 8.2
     name: Tests for Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
@@ -87,6 +91,8 @@ jobs:
             php: 8.0
           - lumen: 9.*
             php: 8.1
+          - lumen: 9.*
+            php: 8.2
     name: Tests for Lumen ${{ matrix.lumen }} on PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
