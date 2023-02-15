@@ -20,7 +20,7 @@ class PostalCodeValidatorTest extends TestCase
      *
      * @return \Illuminate\Support\Collection
      */
-    public function provideExamples(): Collection
+    public static function provideExamples(): Collection
     {
         $data = require __DIR__ . '/../../resources/examples.php';
 
