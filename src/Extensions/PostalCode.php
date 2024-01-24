@@ -6,9 +6,6 @@ use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use InvalidArgumentException;
 
-/**
- * @deprecated This class will be removed in 4.0
- */
 class PostalCode
 {
     /**

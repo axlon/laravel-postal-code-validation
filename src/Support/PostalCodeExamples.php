@@ -2,9 +2,6 @@
 
 namespace Axlon\PostalCodeValidation\Support;
 
-/**
- * @deprecated This class will be removed in 4.0
- */
 class PostalCodeExamples
 {
     /**
