@@ -7,11 +7,13 @@ on:
 jobs:
   laravel:
     runs-on: ubuntu-latest
+
+
     strategy:
       fail-fast: true
       matrix:
-        laravel: [ 5.5.*, 5.6.*, 5.7.*, 5.8.*, 6.*, 7.* ]
-        php: [ 7.2 ]
+        laravel: ['5.5.*', '5.6.*', '5.7.*', '5.8.*', '6.*', '7.*', '11.*']
+        php: [7.2, '8.2']
         include:
           - laravel: 6.*
             php: 7.3
@@ -43,10 +45,20 @@ jobs:
             php: 8.1
           - laravel: 10.*
             php: 8.2
+          - laravel: 11.*
+            php: '8.2'
+        exclude:
+          - laravel: 11.*
+            php: 7.2
+
+
     name: Tests for Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
+
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -54,22 +66,26 @@ jobs:
           php-version: ${{ matrix.php }}
           tools: composer:v2
           coverage: xdebug
+
 
       - name: Install dependencies
         run: |
           composer require laravel/laravel:"${{ matrix.laravel }}" --dev --no-update
           composer install --prefer-dist --no-interaction --no-progress
 
+
       - name: Run tests
         run: composer test-laravel
 
   lumen:
     runs-on: ubuntu-latest
+
+
     strategy:
       fail-fast: true
       matrix:
-        lumen: [ 5.5.*, 5.6.*, 5.7.*, 5.8.*, 6.*, 7.* ]
-        php: [ 7.2 ]
+        lumen: ['5.5.*', '5.6.*', '5.7.*', '5.8.*', '6.*', '7.*']
+        php: [7.2, '8.2']
         include:
           - lumen: 6.*
             php: 7.3
@@ -93,10 +109,15 @@ jobs:
             php: 8.1
           - lumen: 9.*
             php: 8.2
+
+
     name: Tests for Lumen ${{ matrix.lumen }} on PHP ${{ matrix.php }}
+
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -105,10 +126,12 @@ jobs:
           tools: composer:v2
           coverage: xdebug
 
+
       - name: Install dependencies
         run: |
           composer require laravel/lumen:"${{ matrix.lumen }}" --dev --no-update
           composer install --prefer-dist --no-interaction --no-progress
+
 
       - name: Run tests
         run: composer test-lumen
