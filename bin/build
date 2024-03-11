@@ -2,10 +2,10 @@
 <?php
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Promise\Utils as PromiseUtils;
+use GuzzleHttp\Utils;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\VarExporter\VarExporter;
-use function GuzzleHttp\json_decode;
-use function GuzzleHttp\Promise\all;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -14,11 +14,11 @@ $httpQueue = [];
 $responses = [];
 
 $unwrap = function (ResponseInterface $response) {
-    return json_decode($response->getBody()->getContents());
+    return Utils::jsonDecode($response->getBody()->getContents());
 };
 
 echo "Fetching country list...\r\n";
-$countries = explode('~', json_decode(
+$countries = explode('~', Utils::jsonDecode(
     $httpClient->get('/ssl-address/data')->getBody()->getContents()
 )->countries);
 
@@ -27,7 +27,7 @@ foreach ($countries as $i => $country) {
     $httpQueue[] = $httpClient->getAsync("/ssl-address/data/{$country}")->then($unwrap);
 
     if (($i !== 0 && $i % 10 === 0) || $i + 1 === count($countries)) {
-        $responses = array_merge($responses, all($httpQueue)->wait());
+        $responses = array_merge($responses, PromiseUtils::all($httpQueue)->wait());
         $httpQueue = [];
         usleep(500000);
     }
