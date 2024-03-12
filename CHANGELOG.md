@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.6.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.6.0) (2024-03-12)
+
+- Add support for Laravel 11
+
 ## [v3.5.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.5.0) (2024-01-24)
 
 - Update Dutch validation pattern
