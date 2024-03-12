@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.5.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.5.0) (2024-01-24)
+
+- Update Dutch validation pattern
+- Update Bahraini validation pattern
+
 ## [v3.4.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.4.0) (2023-02-15)
 - Add support for Laravel 10
 
