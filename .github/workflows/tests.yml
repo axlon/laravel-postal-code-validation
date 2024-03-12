@@ -8,7 +8,6 @@ jobs:
   laravel:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
       matrix:
         laravel: [ 5.5.*, 5.6.*, 5.7.*, 5.8.*, 6.*, 7.* ]
         php: [ 7.2 ]
@@ -43,7 +42,13 @@ jobs:
             php: 8.1
           - laravel: 10.*
             php: 8.2
-    name: Tests for Laravel ${{ matrix.laravel }} on PHP ${{ matrix.php }}
+          - laravel: 10.*
+            php: 8.3
+          - laravel: 11.*
+            php: 8.2
+          - laravel: 11.*
+            php: 8.3
+    name: PHPUnit on Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -53,7 +58,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: composer:v2
-          coverage: xdebug
 
       - name: Install dependencies
         run: |
@@ -93,7 +97,7 @@ jobs:
             php: 8.1
           - lumen: 9.*
             php: 8.2
-    name: Tests for Lumen ${{ matrix.lumen }} on PHP ${{ matrix.php }}
+    name: PHPUnit on Lumen ${{ matrix.lumen }} / PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -103,7 +107,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: composer:v2
-          coverage: xdebug
 
       - name: Install dependencies
         run: |
