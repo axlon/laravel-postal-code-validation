@@ -40,6 +40,14 @@ class PostalCodeValidatorTest extends TestCase
     }
 
     /**
+     * @link https://github.com/axlon/laravel-postal-code-validation/issues/35
+     */
+    public function testCanaryIslands(): void
+    {
+        $this->assertTrue($this->validator->passes('IC', '38580'));
+    }
+
+    /**
      * Test if the shipped examples pass validation.
      *
      * @param string $country

@@ -5,6 +5,13 @@ namespace Axlon\PostalCodeValidation;
 class PostalCodeValidator
 {
     /**
+     * The country codes that are aliases for other country codes.
+     */
+    private const ALIASES = [
+        'IC' => 'ES',
+    ];
+
+    /**
      * The matching patterns.
      *
      * @var array
@@ -101,6 +108,10 @@ class PostalCodeValidator
     {
         $countryCode = strtoupper($countryCode);
 
+        if (array_key_exists($countryCode, self::ALIASES)) {
+            $countryCode = self::ALIASES[$countryCode];
+        }
+
         return $this->patternOverrides[$countryCode]
             ?? $this->patterns[$countryCode]
             ?? null;
@@ -117,6 +128,7 @@ class PostalCodeValidator
         $countryCode = strtoupper($countryCode);
 
         return array_key_exists($countryCode, $this->patternOverrides)
-            || array_key_exists($countryCode, $this->patterns);
+            || array_key_exists($countryCode, $this->patterns)
+            || array_key_exists($countryCode, self::ALIASES);
     }
 }
