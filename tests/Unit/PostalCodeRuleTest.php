@@ -1,6 +1,6 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Tests\Unit;
+namespace Tests\Unit;
 
 use Axlon\PostalCodeValidation\Rules\PostalCode;
 use PHPUnit\Framework\TestCase;

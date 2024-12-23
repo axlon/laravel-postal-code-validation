@@ -1,8 +1,9 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Tests\Integration;
+namespace Tests\Integration;
 
 use Axlon\PostalCodeValidation\Support\Facades\PostalCodes;
+use Tests\TestCase;
 
 class FacadeTest extends TestCase
 {

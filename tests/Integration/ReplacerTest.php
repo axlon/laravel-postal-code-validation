@@ -1,6 +1,8 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Tests\Integration;
+namespace Tests\Integration;
+
+use Tests\TestCase;
 
 class ReplacerTest extends TestCase
 {
