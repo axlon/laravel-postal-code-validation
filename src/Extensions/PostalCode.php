@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Extensions;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;

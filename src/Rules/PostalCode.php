@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Rules;
 
 class PostalCode

@@ -26,6 +26,7 @@
         "guzzlehttp/guzzle": "^7.9",
         "orchestra/testbench": "^8.30 || ^9.8",
         "phpunit/phpunit": "^10.5 || ^11.5",
+        "slevomat/coding-standard": "^8.15",
         "symfony/var-exporter": "^6.4 || ^7.2"
     },
     "autoload": {
@@ -41,7 +42,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "kylekatarnls/update-helper": false
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
@@ -25,7 +27,7 @@ class PostalCodeValidatorTest extends TestCase
     {
         $data = require __DIR__ . '/../../resources/examples.php';
 
-        return collect($data)->map(function (string $example, string $country) {
+        return collect($data)->map(static function (string $example, string $country) {
             return [$country, $example];
         });
     }
@@ -36,7 +38,7 @@ class PostalCodeValidatorTest extends TestCase
     protected function setUp(): void
     {
         $this->validator = new PostalCodeValidator(
-            require __DIR__ . '/../../resources/patterns.php'
+            require __DIR__ . '/../../resources/patterns.php',
         );
     }
 

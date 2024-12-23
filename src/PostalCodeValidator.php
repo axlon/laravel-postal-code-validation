@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation;
 
 class PostalCodeValidator
@@ -48,7 +50,7 @@ class PostalCodeValidator
         if (is_array($countryCode)) {
             $this->patternOverrides = array_merge(
                 $this->patternOverrides,
-                array_change_key_case($countryCode, CASE_UPPER)
+                array_change_key_case($countryCode, CASE_UPPER),
             );
         } else {
             $this->patternOverrides[strtoupper($countryCode)] = $pattern;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Integration;
 
 use InvalidArgumentException;
@@ -16,7 +18,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = $this->app->make('validator')->make(
             ['postal_code' => '1234 AB'],
-            ['postal_code' => 'postal_code:not-a-country']
+            ['postal_code' => 'postal_code:not-a-country'],
         );
 
         $this->assertFalse($validator->passes());
@@ -32,7 +34,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = $this->app->make('validator')->make(
             ['postal_code' => 'not-a-postal-code'],
-            ['postal_code' => 'postal_code:NL']
+            ['postal_code' => 'postal_code:NL'],
         );
 
         $this->assertFalse($validator->passes());
@@ -49,7 +51,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = $this->app->make('validator')->make(
             ['postal_code' => null],
-            ['postal_code' => 'postal_code:DE']
+            ['postal_code' => 'postal_code:DE'],
         );
 
         $this->assertFalse($validator->passes());
@@ -65,7 +67,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = $this->app->make('validator')->make(
             ['postal_code' => '1234 AB'],
-            ['postal_code' => 'postal_code:NL']
+            ['postal_code' => 'postal_code:NL'],
         );
 
         $this->assertTrue($validator->passes());
@@ -81,7 +83,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = $this->app->make('validator')->make(
             ['postal_code' => '1234 AB'],
-            ['postal_code' => 'postal_code']
+            ['postal_code' => 'postal_code'],
         );
 
         $this->expectException(InvalidArgumentException::class);
