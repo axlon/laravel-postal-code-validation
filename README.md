@@ -8,7 +8,7 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
     <a href="https://github.com/axlon/laravel-postal-code-validation/releases">
         <img src="https://img.shields.io/packagist/v/axlon/laravel-postal-code-validation" alt="Latest version">
     </a>
-    <a href="LICENSE.md">
+    <a href="LICENSE">
         <img src="https://img.shields.io/packagist/l/axlon/laravel-postal-code-validation" alt="License">
     </a>
 </p>
