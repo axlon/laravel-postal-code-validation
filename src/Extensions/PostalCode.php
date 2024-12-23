@@ -9,30 +9,16 @@ use InvalidArgumentException;
 class PostalCode
 {
     /**
-     * The postal code examples.
-     *
-     * @var \Axlon\PostalCodeValidation\Support\PostalCodeExamples
-     */
-    protected $examples;
-
-    /**
-     * The pattern matcher.
-     *
-     * @var \Axlon\PostalCodeValidation\PostalCodeValidator
-     */
-    protected $validator;
-
-    /**
      * Create a new PostalCode validator extension.
      *
      * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
      * @param \Axlon\PostalCodeValidation\Support\PostalCodeExamples $examples
      * @return void
      */
-    public function __construct(PostalCodeValidator $validator, PostalCodeExamples $examples)
-    {
-        $this->examples = $examples;
-        $this->validator = $validator;
+    public function __construct(
+        protected PostalCodeValidator $validator,
+        protected PostalCodeExamples $examples,
+    ) {
     }
 
     /**

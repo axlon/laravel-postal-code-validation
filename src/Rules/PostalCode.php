@@ -5,30 +5,16 @@ namespace Axlon\PostalCodeValidation\Rules;
 class PostalCode
 {
     /**
-     * Whether or not this rule is dependant.
-     *
-     * @var bool
-     */
-    protected $dependent;
-
-    /**
-     * The rule parameters.
-     *
-     * @var string[]
-     */
-    protected $parameters;
-
-    /**
      * Create a new postal code validation rule.
      *
      * @param array $parameters
-     * @param bool $dependant
+     * @param bool $dependent
      * @return void
      */
-    public function __construct(array $parameters, bool $dependant)
-    {
-        $this->dependent = $dependant;
-        $this->parameters = $parameters;
+    public function __construct(
+        protected array $parameters,
+        protected bool $dependent,
+    ) {
     }
 
     /**

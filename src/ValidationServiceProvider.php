@@ -14,19 +14,12 @@ class ValidationServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if ($this->app->resolved('validator')) {
-            $this->registerRules($this->app['validator']);
-        } else {
-            $this->app->resolving('validator', function (Factory $validator) {
-                $this->registerRules($validator);
-            });
-        }
+        $this->callAfterResolving('validator', $this->registerRules(...));
 
+        $this->app->alias('postal_codes', PostalCodeValidator::class);
         $this->app->singleton('postal_codes', function () {
             return new PostalCodeValidator(require __DIR__ . '/../resources/patterns.php');
         });
-
-        $this->app->alias('postal_codes', PostalCodeValidator::class);
     }
 
     /**

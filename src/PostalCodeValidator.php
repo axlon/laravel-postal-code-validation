@@ -12,29 +12,16 @@ class PostalCodeValidator
     ];
 
     /**
-     * The matching patterns.
-     *
-     * @var array
-     */
-    protected $patterns;
-
-    /**
-     * The matching pattern overrides.
-     *
-     * @var array
-     */
-    protected $patternOverrides;
-
-    /**
      * Create a new postal code matcher.
      *
      * @param array $patterns
+     * @param array $patternOverrides
      * @return void
      */
-    public function __construct(array $patterns)
-    {
-        $this->patternOverrides = [];
-        $this->patterns = $patterns;
+    public function __construct(
+        protected array $patterns,
+        protected array $patternOverrides = [],
+    ) {
     }
 
     /**
