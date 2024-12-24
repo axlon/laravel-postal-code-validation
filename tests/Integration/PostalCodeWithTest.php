@@ -21,8 +21,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_code' => 'postal_code_with:country'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_with', $validator->errors()->all());
     }
 
     /**
@@ -37,8 +37,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_code' => 'postal_code_with:country'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_with', $validator->errors()->all());
     }
 
     /**
@@ -53,8 +53,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_codes.*' => 'postal_code_with:countries.*'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_with', $validator->errors()->all());
     }
 
     /**
@@ -70,8 +70,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_code' => 'postal_code_with:country'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_with', $validator->errors()->all());
     }
 
     public function testValidationPassesIfAllFieldsAreMissing(): void
@@ -81,8 +81,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_code' => 'postal_code_with:country'],
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
+        self::assertEmpty($validator->errors()->all());
     }
 
     /**
@@ -97,8 +97,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_code' => 'postal_code_with:empty,missing,null,country'],
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
+        self::assertEmpty($validator->errors()->all());
     }
 
     public function testValidationIgnoresMissingFieldsFailing(): void
@@ -108,8 +108,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_code' => 'postal_code_with:empty,missing,null,country'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_with', $validator->errors()->all());
     }
 
     /**
@@ -124,8 +124,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_code' => 'postal_code_with:country'],
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
+        self::assertEmpty($validator->errors()->all());
     }
 
     /**
@@ -140,8 +140,8 @@ class PostalCodeWithTest extends TestCase
             ['postal_codes.*' => 'postal_code_with:countries.*'],
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
+        self::assertEmpty($validator->errors()->all());
     }
 
     /**

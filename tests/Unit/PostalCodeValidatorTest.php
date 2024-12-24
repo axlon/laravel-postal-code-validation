@@ -47,7 +47,7 @@ class PostalCodeValidatorTest extends TestCase
      */
     public function testCanaryIslands(): void
     {
-        $this->assertTrue($this->validator->passes('IC', '38580'));
+        self::assertTrue($this->validator->passes('IC', '38580'));
     }
 
     /**
@@ -60,7 +60,7 @@ class PostalCodeValidatorTest extends TestCase
     #[DataProvider('provideExamples')]
     public function testExamplesAreValidPatterns(string $country, string $example): void
     {
-        $this->assertTrue($this->validator->passes($country, $example));
+        self::assertTrue($this->validator->passes($country, $example));
     }
 
     /**
@@ -71,7 +71,7 @@ class PostalCodeValidatorTest extends TestCase
      */
     public function testGreatBritainInwardCodeMaxLength(): void
     {
-        $this->assertFalse($this->validator->passes('GB', 'NN1 5LLL'));
+        self::assertFalse($this->validator->passes('GB', 'NN1 5LLL'));
     }
 
     /**
@@ -81,9 +81,9 @@ class PostalCodeValidatorTest extends TestCase
      */
     public function testLowerCaseCountryCode(): void
     {
-        $this->assertTrue($this->validator->supports('nl'));
-        $this->assertNotNull($this->validator->patternFor('nl'));
-        $this->assertTrue($this->validator->passes('nl', '1234 AB'));
+        self::assertTrue($this->validator->supports('nl'));
+        self::assertNotNull($this->validator->patternFor('nl'));
+        self::assertTrue($this->validator->passes('nl', '1234 AB'));
     }
 
     /**
@@ -93,9 +93,9 @@ class PostalCodeValidatorTest extends TestCase
      */
     public function testNullPattern(): void
     {
-        $this->assertTrue($this->validator->supports('GH'));
-        $this->assertNull($this->validator->patternFor('GH'));
-        $this->assertTrue($this->validator->passes('GH', 'any value'));
+        self::assertTrue($this->validator->supports('GH'));
+        self::assertNull($this->validator->patternFor('GH'));
+        self::assertTrue($this->validator->passes('GH', 'any value'));
     }
 
     /**
@@ -106,9 +106,9 @@ class PostalCodeValidatorTest extends TestCase
     public function testPatternOverride(): void
     {
         $this->validator->override('BE', '/override/');
-        $this->assertEquals('/override/', $this->validator->patternFor('BE'));
-        $this->assertTrue($this->validator->fails('BE', '4000'));
-        $this->assertTrue($this->validator->passes('BE', 'override'));
+        self::assertEquals('/override/', $this->validator->patternFor('BE'));
+        self::assertTrue($this->validator->fails('BE', '4000'));
+        self::assertTrue($this->validator->passes('BE', 'override'));
     }
 
     /**
@@ -119,9 +119,9 @@ class PostalCodeValidatorTest extends TestCase
     public function testPatternOverrideViaArray(): void
     {
         $this->validator->override(['FR' => '/override/']);
-        $this->assertEquals('/override/', $this->validator->patternFor('FR'));
-        $this->assertTrue($this->validator->fails('FR', '33380'));
-        $this->assertTrue($this->validator->passes('FR', 'override'));
+        self::assertEquals('/override/', $this->validator->patternFor('FR'));
+        self::assertTrue($this->validator->fails('FR', '33380'));
+        self::assertTrue($this->validator->passes('FR', 'override'));
     }
 
     /**
@@ -131,8 +131,8 @@ class PostalCodeValidatorTest extends TestCase
      */
     public function testUnsupportedCountryCode(): void
     {
-        $this->assertFalse($this->validator->supports('XX'));
-        $this->assertNull($this->validator->patternFor('XX'));
-        $this->assertTrue($this->validator->fails('any value'));
+        self::assertFalse($this->validator->supports('XX'));
+        self::assertNull($this->validator->patternFor('XX'));
+        self::assertTrue($this->validator->fails('any value'));
     }
 }

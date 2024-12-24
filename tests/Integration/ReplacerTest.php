@@ -27,7 +27,7 @@ class ReplacerTest extends TestCase
             'validation.postal_code' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
         ], $locale);
 
-        $this->assertContains(
+        self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
             $validator->errors()->all(),
         );
@@ -52,7 +52,7 @@ class ReplacerTest extends TestCase
             'validation.postal_code_for' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
         ], $locale);
 
-        $this->assertContains(
+        self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
             $validator->errors()->all(),
         );

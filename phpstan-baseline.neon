@@ -1,0 +1,289 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$countryCode of method Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:passes\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Extensions/PostalCodeFor.php
+
+		-
+			message: '#^Parameter \#1 \$countryCode of method Axlon\\PostalCodeValidation\\Support\\PostalCodeExamples\:\:get\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Extensions/PostalCodeFor.php
+
+		-
+			message: '#^Method Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:__construct\(\) has parameter \$patternOverrides with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			message: '#^Method Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:__construct\(\) has parameter \$patterns with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			message: '#^Method Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:override\(\) has parameter \$countryCode with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			message: '#^Method Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:patternFor\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			message: '#^Method Axlon\\PostalCodeValidation\\Rules\\PostalCode\:\:__construct\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Rules/PostalCode.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 2
+			path: src/Rules/PostalCode.php
+
+		-
+			message: '#^Class Axlon\\PostalCodeValidation\\Support\\Facades\\PostalCodes has PHPDoc tag @method for method override\(\) parameter \#1 \$countryCode with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/Facades/PostalCodes.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Support/PostalCodeExamples.php
+
+		-
+			message: '#^Method Axlon\\PostalCodeValidation\\Support\\PostalCodeExamples\:\:get\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Support/PostalCodeExamples.php
+
+		-
+			message: '#^Property Axlon\\PostalCodeValidation\\Support\\PostalCodeExamples\:\:\$examples \(array\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Support/PostalCodeExamples.php
+
+		-
+			message: '#^Property Axlon\\PostalCodeValidation\\Support\\PostalCodeExamples\:\:\$examples type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/PostalCodeExamples.php
+
+		-
+			message: '#^Parameter \#1 \$patterns of class Axlon\\PostalCodeValidation\\PostalCodeValidator constructor expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/ValidationServiceProvider.php
+
+		-
+			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Integration/FacadeTest.php
+
+		-
+			message: '#^Cannot call method all\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 6
+			path: tests/Integration/PostalCodeForTest.php
+
+		-
+			message: '#^Cannot call method errors\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 6
+			path: tests/Integration/PostalCodeForTest.php
+
+		-
+			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
+			identifier: method.nonObject
+			count: 7
+			path: tests/Integration/PostalCodeForTest.php
+
+		-
+			message: '#^Cannot call method make\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 7
+			path: tests/Integration/PostalCodeForTest.php
+
+		-
+			message: '#^Cannot call method passes\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 6
+			path: tests/Integration/PostalCodeForTest.php
+
+		-
+			message: '#^Cannot call method validate\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Integration/PostalCodeForTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of static method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/Integration/PostalCodeForTest.php
+
+		-
+			message: '#^Cannot call method all\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: tests/Integration/PostalCodeTest.php
+
+		-
+			message: '#^Cannot call method errors\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: tests/Integration/PostalCodeTest.php
+
+		-
+			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: tests/Integration/PostalCodeTest.php
+
+		-
+			message: '#^Cannot call method make\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: tests/Integration/PostalCodeTest.php
+
+		-
+			message: '#^Cannot call method passes\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: tests/Integration/PostalCodeTest.php
+
+		-
+			message: '#^Cannot call method validate\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Integration/PostalCodeTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of static method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/Integration/PostalCodeTest.php
+
+		-
+			message: '#^Cannot call method all\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 9
+			path: tests/Integration/PostalCodeWithTest.php
+
+		-
+			message: '#^Cannot call method errors\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 9
+			path: tests/Integration/PostalCodeWithTest.php
+
+		-
+			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
+			identifier: method.nonObject
+			count: 10
+			path: tests/Integration/PostalCodeWithTest.php
+
+		-
+			message: '#^Cannot call method make\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 10
+			path: tests/Integration/PostalCodeWithTest.php
+
+		-
+			message: '#^Cannot call method passes\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 9
+			path: tests/Integration/PostalCodeWithTest.php
+
+		-
+			message: '#^Cannot call method validate\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Integration/PostalCodeWithTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of static method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
+			identifier: argument.type
+			count: 5
+			path: tests/Integration/PostalCodeWithTest.php
+
+		-
+			message: '#^Cannot call method addLines\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: tests/Integration/ReplacerTest.php
+
+		-
+			message: '#^Cannot call method all\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: tests/Integration/ReplacerTest.php
+
+		-
+			message: '#^Cannot call method errors\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: tests/Integration/ReplacerTest.php
+
+		-
+			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: tests/Integration/ReplacerTest.php
+
+		-
+			message: '#^Cannot call method make\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: tests/Integration/ReplacerTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of static method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Integration/ReplacerTest.php
+
+		-
+			message: '#^Method Tests\\Unit\\PostalCodeValidatorTest\:\:provideExamples\(\) return type with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/Unit/PostalCodeValidatorTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:map\(\) expects callable\(mixed, int\|string\)\: array\{string, string\}, Closure\(string, string\)\: array\{string, string\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/PostalCodeValidatorTest.php
+
+		-
+			message: '#^Parameter \#1 \$patterns of class Axlon\\PostalCodeValidation\\PostalCodeValidator constructor expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/PostalCodeValidatorTest.php
+
+		-
+			message: '#^Parameter \#1 \$value of function collect expects Illuminate\\Contracts\\Support\\Arrayable\<\(int\|string\), mixed\>\|iterable\<\(int\|string\), mixed\>\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Unit/PostalCodeValidatorTest.php
+
+		-
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
+			path: tests/Unit/PostalCodeValidatorTest.php
+
+		-
+			message: '#^Unable to resolve the template type TValue in call to function collect$#'
+			identifier: argument.templateType
+			count: 1
+			path: tests/Unit/PostalCodeValidatorTest.php

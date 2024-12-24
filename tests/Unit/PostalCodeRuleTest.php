@@ -16,12 +16,12 @@ class PostalCodeRuleTest extends TestCase
      */
     public function testDependentRuleCreation(): void
     {
-        $this->assertEquals('postal_code_with:', (string) PostalCode::forInput());
-        $this->assertEquals('postal_code_with:foo', (string) PostalCode::forInput('foo'));
-        $this->assertEquals('postal_code_with:foo,bar,baz', (string) PostalCode::forInput('foo', 'bar')->or('baz'));
+        self::assertEquals('postal_code_with:', (string) PostalCode::forInput());
+        self::assertEquals('postal_code_with:foo', (string) PostalCode::forInput('foo'));
+        self::assertEquals('postal_code_with:foo,bar,baz', (string) PostalCode::forInput('foo', 'bar')->or('baz'));
 
-        $this->assertEquals('postal_code_with:foo', (string) PostalCode::with('foo'));
-        $this->assertEquals('postal_code_with:foo,bar,baz', (string) PostalCode::with('foo')->or('bar')->or('baz'));
+        self::assertEquals('postal_code_with:foo', (string) PostalCode::with('foo'));
+        self::assertEquals('postal_code_with:foo,bar,baz', (string) PostalCode::with('foo')->or('bar')->or('baz'));
     }
 
     /**
@@ -31,11 +31,11 @@ class PostalCodeRuleTest extends TestCase
      */
     public function testExplicitRuleCreation(): void
     {
-        $this->assertEquals('postal_code:', (string) PostalCode::forCountry());
-        $this->assertEquals('postal_code:foo', (string) PostalCode::forCountry('foo'));
-        $this->assertEquals('postal_code:foo,bar,baz', (string) PostalCode::forCountry('foo', 'bar')->or('baz'));
+        self::assertEquals('postal_code:', (string) PostalCode::forCountry());
+        self::assertEquals('postal_code:foo', (string) PostalCode::forCountry('foo'));
+        self::assertEquals('postal_code:foo,bar,baz', (string) PostalCode::forCountry('foo', 'bar')->or('baz'));
 
-        $this->assertEquals('postal_code:foo', (string) PostalCode::for('foo'));
-        $this->assertEquals('postal_code:foo,bar,baz', (string) PostalCode::for('foo')->or('bar')->or('baz'));
+        self::assertEquals('postal_code:foo', (string) PostalCode::for('foo'));
+        self::assertEquals('postal_code:foo,bar,baz', (string) PostalCode::for('foo')->or('bar')->or('baz'));
     }
 }

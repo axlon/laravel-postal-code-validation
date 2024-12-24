@@ -25,6 +25,10 @@
     "require-dev": {
         "guzzlehttp/guzzle": "^7.9",
         "orchestra/testbench": "^8.30 || ^9.8",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^10.5 || ^11.5",
         "slevomat/coding-standard": "^8.15",
         "symfony/var-exporter": "^6.4 || ^7.2"
@@ -42,7 +46,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
         }
     },
     "extra": {
