@@ -8,11 +8,6 @@ use Tests\TestCase;
 
 class ReplacerTest extends TestCase
 {
-    /**
-     * Test the error replacer for the 'postal_code' rule.
-     *
-     * @return void
-     */
     public function testPostalCodeReplacer(): void
     {
         $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
@@ -33,11 +28,6 @@ class ReplacerTest extends TestCase
         );
     }
 
-    /**
-     * Test the error replacer for the 'postal_code_for' rule.
-     *
-     * @return void
-     */
     public function testPostalCodeForReplacer(): void
     {
         $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';

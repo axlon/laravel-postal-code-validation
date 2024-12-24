@@ -16,7 +16,7 @@ class PostalCodeValidatorTest extends TestCase
      *
      * @var \Axlon\PostalCodeValidation\PostalCodeValidator
      */
-    protected $validator;
+    protected PostalCodeValidator $validator;
 
     /**
      * Get the examples.

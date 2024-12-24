@@ -85,54 +85,6 @@ parameters:
 			path: src/ValidationServiceProvider.php
 
 		-
-			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: tests/Integration/FacadeTest.php
-
-		-
-			message: '#^Cannot call method all\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: tests/Integration/PostalCodeForTest.php
-
-		-
-			message: '#^Cannot call method errors\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: tests/Integration/PostalCodeForTest.php
-
-		-
-			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
-			identifier: method.nonObject
-			count: 7
-			path: tests/Integration/PostalCodeForTest.php
-
-		-
-			message: '#^Cannot call method make\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 7
-			path: tests/Integration/PostalCodeForTest.php
-
-		-
-			message: '#^Cannot call method passes\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: tests/Integration/PostalCodeForTest.php
-
-		-
-			message: '#^Cannot call method validate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: tests/Integration/PostalCodeForTest.php
-
-		-
-			message: '#^Parameter \#2 \$haystack of static method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
-			identifier: argument.type
-			count: 3
-			path: tests/Integration/PostalCodeForTest.php
-
-		-
 			message: '#^Cannot call method all\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 4

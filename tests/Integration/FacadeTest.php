@@ -9,13 +9,8 @@ use Tests\TestCase;
 
 class FacadeTest extends TestCase
 {
-    /**
-     * Test if the facade properly proxies the pattern matcher instance.
-     *
-     * @return void
-     */
     public function testFacadesProxiesPatternMatcher(): void
     {
-        self::assertSame($this->app->make('postal_codes'), PostalCodes::getFacadeRoot());
+        self::assertSame($this->app?->make('postal_codes'), PostalCodes::getFacadeRoot());
     }
 }
