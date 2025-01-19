@@ -10,3 +10,5 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Removed
 
 - Support for Lumen
+- Support for Laravel 9.x and below
+- Support for PHP 8.0 and below

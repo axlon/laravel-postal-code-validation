@@ -14,13 +14,9 @@ class ValidationServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if ($this->app->resolved('validator')) {
-            $this->registerRules($this->app['validator']);
-        } else {
-            $this->app->resolving('validator', function (Factory $validator) {
-                $this->registerRules($validator);
-            });
-        }
+        $this->callAfterResolving('validator', function (Factory $validator) {
+            $this->registerRules($validator);
+        });
 
         $this->app->singleton('postal_codes', function () {
             return new PostalCodeValidator(require __DIR__ . '/../resources/patterns.php');
@@ -35,7 +31,7 @@ class ValidationServiceProvider extends ServiceProvider
      * @param \Illuminate\Contracts\Validation\Factory $validator
      * @return void
      */
-    public function registerRules(Factory $validator): void
+    private function registerRules(Factory $validator): void
     {
         $validator->extend('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@validate');
         $validator->replacer('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@replace');
