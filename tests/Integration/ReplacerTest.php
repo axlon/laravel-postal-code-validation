@@ -2,6 +2,8 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
+use Tests\TestCase;
+
 class ReplacerTest extends TestCase
 {
     /**

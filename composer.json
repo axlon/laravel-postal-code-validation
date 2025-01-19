@@ -1,9 +1,8 @@
 {
     "name": "axlon/laravel-postal-code-validation",
-    "description": "Worldwide postal code validation for Laravel and Lumen",
+    "description": "Worldwide postal code validation for Laravel",
     "keywords": [
         "laravel",
-        "lumen",
         "post code",
         "postal code",
         "zip code",
@@ -25,7 +24,8 @@
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^7.8",
-        "phpunit/phpunit": "^8.5 || ^9.6 || ^10.5",
+        "orchestra/testbench": "^3.5 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "phpunit/phpunit": "^6.5 || ^7.5 || ^8.5 || ^9.6 || ^10.5",
         "symfony/var-exporter": "^4.0 || ^5.0 || ^6.0 || ^7.0"
     },
     "autoload": {
@@ -35,7 +35,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Axlon\\PostalCodeValidation\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "config": {
@@ -43,14 +43,6 @@
         "allow-plugins": {
             "kylekatarnls/update-helper": false
         }
-    },
-    "scripts": {
-        "test-laravel": "./vendor/bin/phpunit --colors=always --bootstrap=tests/bootstrap/laravel.php",
-        "test-lumen": "./vendor/bin/phpunit --colors=always --bootstrap=tests/bootstrap/lumen.php"
-    },
-    "scripts-descriptions": {
-        "test-laravel": "Run PHPUnit with Laravel",
-        "test-lumen": "Run PHPUnit with Lumen"
     },
     "extra": {
         "laravel": {
