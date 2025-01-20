@@ -107,22 +107,13 @@ The same goes for the `postal_code_with` rule:
 ```
 
 ### Adding an error message
+
 To add a meaningful error message, add the following lines to `resources/lang/{your language}/validation.php`:
 
 ```php
-'postal_code' => 'Your message here',
-'postal_code_with' => 'Your message here',
+'postal_code' => ':Attribute is not a valid postal code.',
+'postal_code_with' => ':Attribute is not a valid postal code.',
 ```
-
-The following placeholders will be automatically filled for you:
-
-Placeholder | Description
-------------|------------
-:attribute  | The name of the field that was under validation
-:countries  | The countries that were validated against (e.g. `NL, BE`)*
-:examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)*
-
-*The `:countries` and `:examples` placeholders may be empty if no valid countries are passed.
 
 ### Manually validating
 If you want to validate postal codes manually outside of Laravel's validation system, you can call the validator

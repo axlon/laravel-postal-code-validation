@@ -7,12 +7,6 @@ parameters:
 			path: src/Extensions/PostalCodeFor.php
 
 		-
-			message: '#^Parameter \#1 \$countryCode of method Axlon\\PostalCodeValidation\\Support\\PostalCodeExamples\:\:get\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Extensions/PostalCodeFor.php
-
-		-
 			message: '#^Property Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:\$patternOverrides \(array\<string, string\>\) does not accept array\<string, string\|null\>\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -149,39 +143,3 @@ parameters:
 			identifier: argument.type
 			count: 5
 			path: tests/Integration/PostalCodeWithTest.php
-
-		-
-			message: '#^Cannot call method addLines\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: tests/Integration/ReplacerTest.php
-
-		-
-			message: '#^Cannot call method all\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: tests/Integration/ReplacerTest.php
-
-		-
-			message: '#^Cannot call method errors\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: tests/Integration/ReplacerTest.php
-
-		-
-			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: tests/Integration/ReplacerTest.php
-
-		-
-			message: '#^Cannot call method make\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: tests/Integration/ReplacerTest.php
-
-		-
-			message: '#^Parameter \#2 \$haystack of static method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: tests/Integration/ReplacerTest.php
