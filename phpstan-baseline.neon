@@ -7,18 +7,6 @@ parameters:
 			path: src/Extensions/PostalCodeFor.php
 
 		-
-			message: '#^Property Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:\$patternOverrides \(array\<string, string\>\) does not accept array\<string, string\|null\>\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/PostalCodeValidator.php
-
-		-
-			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: tests/Integration/FacadeTest.php
-
-		-
 			message: '#^Cannot call method all\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 6

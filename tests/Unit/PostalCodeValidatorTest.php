@@ -99,32 +99,6 @@ final class PostalCodeValidatorTest extends TestCase
     }
 
     /**
-     * Test pattern override registration.
-     *
-     * @return void
-     */
-    public function testPatternOverride(): void
-    {
-        $this->validator->override('BE', '/override/');
-        self::assertEquals('/override/', $this->validator->patternFor('BE'));
-        self::assertTrue($this->validator->fails('BE', '4000'));
-        self::assertTrue($this->validator->passes('BE', 'override'));
-    }
-
-    /**
-     * Test pattern override registration using an associative array.
-     *
-     * @return void
-     */
-    public function testPatternOverrideViaArray(): void
-    {
-        $this->validator->override(['FR' => '/override/']);
-        self::assertEquals('/override/', $this->validator->patternFor('FR'));
-        self::assertTrue($this->validator->fails('FR', '33380'));
-        self::assertTrue($this->validator->passes('FR', 'override'));
-    }
-
-    /**
      * Test whether unsupported country codes always fail validation.
      *
      * @return void

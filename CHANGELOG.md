@@ -13,3 +13,5 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Support for Laravel 9.x and below
 - Support for PHP 8.0 and below
 - Custom error replacers `:countries` and `:examples`
+- Manual validation through facade
+- Validation overriding
