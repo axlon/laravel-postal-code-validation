@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Extensions;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use InvalidArgumentException;
 
-class PostalCode
+final class PostalCode
 {
     /**
      * The postal code examples.

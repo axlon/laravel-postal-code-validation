@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
@@ -16,7 +18,7 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            ValidationServiceProvider::class
+            ValidationServiceProvider::class,
         ];
     }
 }

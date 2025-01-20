@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Rules;
 
-class PostalCode
+final class PostalCode
 {
     /**
      * Whether or not this rule is dependant.

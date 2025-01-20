@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
 use Tests\TestCase;
 
-class ReplacerTest extends TestCase
+final class ReplacerTest extends TestCase
 {
     /**
      * Test the error replacer for the 'postal_code' rule.
@@ -18,7 +20,7 @@ class ReplacerTest extends TestCase
 
         $validator = $this->app->make('validator')->make(
             ['postal_code' => 'not-a-postal-code'],
-            ['postal_code' => 'postal_code:NL']
+            ['postal_code' => 'postal_code:NL'],
         );
 
         $translator->addLines([
@@ -27,7 +29,7 @@ class ReplacerTest extends TestCase
 
         $this->assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
-            $validator->errors()->all()
+            $validator->errors()->all(),
         );
     }
 
@@ -43,7 +45,7 @@ class ReplacerTest extends TestCase
 
         $validator = $this->app->make('validator')->make(
             ['postal_code' => 'not-a-postal-code', 'country' => 'NL'],
-            ['postal_code' => 'postal_code_for:country']
+            ['postal_code' => 'postal_code_for:country'],
         );
 
         $translator->addLines([
@@ -52,7 +54,7 @@ class ReplacerTest extends TestCase
 
         $this->assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
-            $validator->errors()->all()
+            $validator->errors()->all(),
         );
     }
 }

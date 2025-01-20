@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
@@ -11,7 +13,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool supports(string $countryCode)
  * @see \Axlon\PostalCodeValidation\PostalCodeValidator
  */
-class PostalCodes extends Facade
+final class PostalCodes extends Facade
 {
     /**
      * @inheritDoc

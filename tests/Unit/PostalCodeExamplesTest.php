@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use PHPUnit\Framework\TestCase;
 
-class PostalCodeExamplesTest extends TestCase
+final class PostalCodeExamplesTest extends TestCase
 {
     /**
      * The postal code examples.
