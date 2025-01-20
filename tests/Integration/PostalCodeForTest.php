@@ -21,8 +21,8 @@ final class PostalCodeForTest extends TestCase
             ['postal_code' => 'postal_code_for:country'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_for', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_for', $validator->errors()->all());
     }
 
     /**
@@ -37,8 +37,8 @@ final class PostalCodeForTest extends TestCase
             ['postal_code' => 'postal_code_for:country'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_for', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_for', $validator->errors()->all());
     }
 
     /**
@@ -54,8 +54,8 @@ final class PostalCodeForTest extends TestCase
             ['postal_code' => 'postal_code_for:country'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_for', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_for', $validator->errors()->all());
     }
 
     public function testValidationPassesIfAllFieldsAreMissing(): void
@@ -65,8 +65,8 @@ final class PostalCodeForTest extends TestCase
             ['postal_code' => 'postal_code_for:country'],
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
+        self::assertEmpty($validator->errors()->all());
     }
 
     /**
@@ -81,8 +81,8 @@ final class PostalCodeForTest extends TestCase
             ['postal_code' => 'postal_code_for:empty,missing,null,country'],
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
+        self::assertEmpty($validator->errors()->all());
     }
 
     /**
@@ -97,8 +97,8 @@ final class PostalCodeForTest extends TestCase
             ['postal_code' => 'postal_code_for:country'],
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
+        self::assertEmpty($validator->errors()->all());
     }
 
     /**

@@ -5,4 +5,5 @@ vendor/
 .phpunit.cache
 composer.lock
 phpcs.xml
+phpstan.neon
 phpunit.xml

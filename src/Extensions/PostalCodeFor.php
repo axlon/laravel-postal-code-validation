@@ -92,7 +92,7 @@ final class PostalCodeFor
      */
     public function validate(string $attribute, ?string $value, array $parameters, Validator $validator): bool
     {
-        if (empty($parameters)) {
+        if ($parameters === []) {
             throw new InvalidArgumentException('Validation rule postal_code_with requires at least 1 parameter.');
         }
 

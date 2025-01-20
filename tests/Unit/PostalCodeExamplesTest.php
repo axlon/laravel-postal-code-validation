@@ -31,9 +31,9 @@ final class PostalCodeExamplesTest extends TestCase
      */
     public function testExampleRetrieval(): void
     {
-        $this->assertEquals('1234 AB', $this->examples->get('NL'));
-        $this->assertEquals('4000', $this->examples->get('be')); # Lowercase country code
-        $this->assertNull($this->examples->get('GH')); # Country code without a pattern
-        $this->assertNull($this->examples->get('XX')); # Non-existent country code
+        self::assertEquals('1234 AB', $this->examples->get('NL'));
+        self::assertEquals('4000', $this->examples->get('be')); # Lowercase country code
+        self::assertNull($this->examples->get('GH')); # Country code without a pattern
+        self::assertNull($this->examples->get('XX')); # Non-existent country code
     }
 }

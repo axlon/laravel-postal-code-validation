@@ -9,7 +9,7 @@ final class PostalCodeExamples
     /**
      * The postal code examples.
      *
-     * @var array|null
+     * @var array<string, string>|null
      */
     protected $examples;
 
@@ -22,7 +22,9 @@ final class PostalCodeExamples
     public function get(string $countryCode): ?string
     {
         if ($this->examples === null) {
-            $this->examples = require __DIR__ . '/../../resources/examples.php';
+            /** @var array<string, string> $data */
+            $data = require __DIR__ . '/../../resources/examples.php';
+            $this->examples = $data;
         }
 
         return $this->examples[strtoupper($countryCode)] ?? null;

@@ -21,8 +21,8 @@ final class PostalCodeTest extends TestCase
             ['postal_code' => 'postal_code:not-a-country'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code', $validator->errors()->all());
     }
 
     /**
@@ -37,8 +37,8 @@ final class PostalCodeTest extends TestCase
             ['postal_code' => 'postal_code:NL'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code', $validator->errors()->all());
     }
 
     /**
@@ -54,8 +54,8 @@ final class PostalCodeTest extends TestCase
             ['postal_code' => 'postal_code:DE'],
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code', $validator->errors()->all());
     }
 
     /**
@@ -70,8 +70,8 @@ final class PostalCodeTest extends TestCase
             ['postal_code' => 'postal_code:NL'],
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
+        self::assertEmpty($validator->errors()->all());
     }
 
     /**

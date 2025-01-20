@@ -16,21 +16,21 @@ final class PostalCodeValidator
     /**
      * The matching patterns.
      *
-     * @var array
+     * @var array<string, string|null>
      */
     protected $patterns;
 
     /**
      * The matching pattern overrides.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $patternOverrides;
 
     /**
      * Create a new postal code matcher.
      *
-     * @param array $patterns
+     * @param array<string, string|null> $patterns
      * @return void
      */
     public function __construct(array $patterns)
@@ -54,7 +54,7 @@ final class PostalCodeValidator
     /**
      * Override pattern matching for the given country.
      *
-     * @param array|string $countryCode
+     * @param array<string, string>|string $countryCode
      * @param string|null $pattern
      * @return void
      */
