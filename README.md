@@ -20,7 +20,6 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
 - [Installation](#installation)
 - [Usage](#usage)
     - [Available rules](#available-rules)
-    - [Fluent API](#fluent-api)
     - [Adding an error message](#adding-an-error-message)
 - [Changelog](#changelog)
 - [Contributing](#contributing)
@@ -59,58 +58,41 @@ package manually, you can do this by adding the following line to your `config/a
 ```
 
 ## Usage
+
 Postal code validation perfectly integrates into your Laravel application, you can use it just like you would any
 framework validation rule.
 
 ### Available rules
+
 This package adds the following validation rules:
 
 #### postal_code:foo,bar,...
+
 The field under validation must be a valid postal code in at least one of the given countries. Arguments must be
 countries in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
 
 ```php
-'postal_code' => 'postal_code:NL,DE,FR,BE'
+Validator::validate($data, [
+    'address.postal_code' => 'required|postal_code:NL,BE',
+]);
 ```
 
-#### postal_code_with:foo,bar,...
-The field under validation must be a postal code in at least one of the countries in the given fields _only if_ at least
-one of the specified fields is present.
+Alternatively, you may use an object-oriented approach:
 
 ```php
-'billing.country' => 'required|string|max:2',
-...
-'shipping.country' => 'nullable|string|max:2',
-'shipping.postal_code' => 'postal_code_with:billing.country,shipping.country'
-```
+use Axlon\PostalCodeValidation\Rules\PostalCode;
 
-### Fluent API
-If you prefer using a fluent object style over string based rules, that's also available:
-
-```php
-'postal_code' => [
-    PostalCode::for('NL')->or('BE'),
-],
-```
-
-The same goes for the `postal_code_with` rule:
-
-```php
-'billing.country' => 'required|string|max:2',
-...
-'shipping.country' => 'nullable|string|max:2',
-'shipping.postal_code' => [
-    PostalCode::with('billing.country')->or('shipping.country')
-],
+Validator::validate($data, [
+    'address.postal_code' => ['required', PostalCode::of('NL', 'BE')],
+]);
 ```
 
 ### Adding an error message
 
-To add a meaningful error message, add the following lines to `resources/lang/{your language}/validation.php`:
+To add a meaningful error message, add the following to `resources/lang/{language}/validation.php`:
 
 ```php
 'postal_code' => ':Attribute is not a valid postal code.',
-'postal_code_with' => ':Attribute is not a valid postal code.',
 ```
 
 ## Changelog

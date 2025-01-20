@@ -81,8 +81,6 @@ final class PostalCodeValidator
      */
     public function patternFor(string $countryCode): ?string
     {
-        $countryCode = strtoupper($countryCode);
-
         if (array_key_exists($countryCode, self::ALIASES)) {
             $countryCode = self::ALIASES[$countryCode];
         }
@@ -98,8 +96,6 @@ final class PostalCodeValidator
      */
     public function supports(string $countryCode): bool
     {
-        $countryCode = strtoupper($countryCode);
-
         return array_key_exists($countryCode, $this->patterns)
             || array_key_exists($countryCode, self::ALIASES);
     }

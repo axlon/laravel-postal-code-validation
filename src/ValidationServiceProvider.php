@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Axlon\PostalCodeValidation;
 
-use Illuminate\Contracts\Validation\Factory;
+use Axlon\PostalCodeValidation\Rules\PostalCodeExtension;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Factory;
 
 final class ValidationServiceProvider extends ServiceProvider
 {
@@ -33,26 +34,11 @@ final class ValidationServiceProvider extends ServiceProvider
     /**
      * Register the postal code validation rules with the validator.
      *
-     * @param \Illuminate\Contracts\Validation\Factory $validator
+     * @param \Illuminate\Validation\Factory $validator
      * @return void
      */
     private function registerRules(Factory $validator): void
     {
-        $validator->extend('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@validate');
-
-        if (method_exists($validator, 'extendDependent')) {
-            $validator->extendDependent(
-                'postal_code_for',
-                'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate',
-            );
-
-            $validator->extendDependent(
-                'postal_code_with',
-                'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate',
-            );
-        } else {
-            $validator->extend('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
-            $validator->extend('postal_code_with', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
-        }
+        $validator->extendDependent('postal_code', PostalCodeExtension::make(...));
     }
 }

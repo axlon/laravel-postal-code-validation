@@ -75,18 +75,6 @@ final class PostalCodeValidatorTest extends TestCase
     }
 
     /**
-     * Test whether lower case country codes can be used.
-     *
-     * @return void
-     */
-    public function testLowerCaseCountryCode(): void
-    {
-        self::assertTrue($this->validator->supports('nl'));
-        self::assertNotNull($this->validator->patternFor('nl'));
-        self::assertTrue($this->validator->passes('nl', '1234 AB'));
-    }
-
-    /**
      * Test whether null patterns match any value.
      *
      * @return void
