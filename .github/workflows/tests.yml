@@ -48,6 +48,10 @@ jobs:
             php: 8.2
           - laravel: 11.*
             php: 8.3
+          - laravel: 12.*
+            php: 8.2
+          - laravel: 12.*
+            php: 8.3
     name: PHPUnit on Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
