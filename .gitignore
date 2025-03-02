@@ -1,8 +1,8 @@
 .idea/
-public/coverage
 vendor/
 .phpunit.result.cache
 .phpunit.cache
 composer.lock
 phpcs.xml
+phpstan.neon
 phpunit.xml
