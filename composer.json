@@ -53,6 +53,9 @@
         "test-lumen": "Run PHPUnit with Lumen"
     },
     "extra": {
+        "branch-alias": {
+            "dev-main": "4.x-dev"
+        },
         "laravel": {
             "aliases": {
                 "PostalCodes": "\\Axlon\\PostalCodeValidation\\Support\\Facades\\PostalCodes"
