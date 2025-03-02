@@ -31,20 +31,8 @@ parameters:
 			path: src/PostalCodeValidator.php
 
 		-
-			message: '#^Method Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:override\(\) has parameter \$countryCode with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/PostalCodeValidator.php
-
-		-
 			message: '#^Method Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:patternFor\(\) should return string\|null but returns mixed\.$#'
 			identifier: return.type
-			count: 1
-			path: src/PostalCodeValidator.php
-
-		-
-			message: '#^Property Axlon\\PostalCodeValidation\\PostalCodeValidator\:\:\$patternOverrides type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/PostalCodeValidator.php
 
@@ -65,12 +53,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: src/Rules/PostalCode.php
-
-		-
-			message: '#^Class Axlon\\PostalCodeValidation\\Support\\Facades\\PostalCodes has PHPDoc tag @method for method override\(\) parameter \#1 \$countryCode with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/Support/Facades/PostalCodes.php
 
 		-
 			message: '#^Cannot access offset string on mixed\.$#'
@@ -113,18 +95,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/ValidationServiceProvider.php
-
-		-
-			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: tests/Integration/FacadeTest.php
-
-		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertSame\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 1
-			path: tests/Integration/FacadeTest.php
 
 		-
 			message: '#^Cannot call method all\(\) on mixed\.$#'
@@ -397,12 +367,6 @@ parameters:
 			path: tests/Unit/PostalCodeRuleTest.php
 
 		-
-			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertEquals\(\)\.$#'
-			identifier: staticMethod.dynamicCall
-			count: 2
-			path: tests/Unit/PostalCodeValidatorTest.php
-
-		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
 			identifier: staticMethod.dynamicCall
 			count: 2
@@ -423,7 +387,7 @@ parameters:
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 11
+			count: 7
 			path: tests/Unit/PostalCodeValidatorTest.php
 
 		-
@@ -460,10 +424,4 @@ parameters:
 			message: '#^Unable to resolve the template type TValue in call to function collect$#'
 			identifier: argument.templateType
 			count: 1
-			path: tests/Unit/PostalCodeValidatorTest.php
-
-		-
-			message: '#^You should use assertSame\(\) instead of assertEquals\(\), because both values are scalars of the same type$#'
-			identifier: phpunit.assertEquals
-			count: 2
 			path: tests/Unit/PostalCodeValidatorTest.php

@@ -56,9 +56,6 @@
             "dev-main": "4.x-dev"
         },
         "laravel": {
-            "aliases": {
-                "PostalCodes": "\\Axlon\\PostalCodeValidation\\Support\\Facades\\PostalCodes"
-            },
             "providers": [
                 "\\Axlon\\PostalCodeValidation\\ValidationServiceProvider"
             ]
