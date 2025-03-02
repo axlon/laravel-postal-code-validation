@@ -32,8 +32,8 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
 ## Requirements
 This package has the following requirements:
 
-- PHP 7.2 or higher
-- Laravel 5.5 or higher
+- Laravel 10 or greater
+- PHP 8.1 or greater
 
 ## Installation
 You can install this package with Composer, by running the command below:
