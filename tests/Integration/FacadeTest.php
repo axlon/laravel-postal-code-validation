@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
 use Axlon\PostalCodeValidation\Support\Facades\PostalCodes;
 
-class FacadeTest extends TestCase
+final class FacadeTest extends TestCase
 {
     /**
      * Test if the facade properly proxies the pattern matcher instance.

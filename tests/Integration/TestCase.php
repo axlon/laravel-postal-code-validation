@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
-use Closure;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase

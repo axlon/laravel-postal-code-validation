@@ -1,0 +1,32 @@
+name: PHP_CodeSniffer
+on:
+  pull_request: ~
+  push:
+    branches: [ main ]
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+    name: PHP_CodeSniffer
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          tools: cs2pr
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: |
+          echo "COMPOSER_CACHE_DIR=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Setup Composer cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.COMPOSER_CACHE_DIR }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress --no-scripts
+      - name: Run PHP_CodeSniffer
+        run: ./vendor/bin/phpcs --report=checkstyle -q | cs2pr --graceful-warnings

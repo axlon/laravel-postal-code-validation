@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
 
-class PostalCodeValidatorTest extends TestCase
+final class PostalCodeValidatorTest extends TestCase
 {
     /**
      * The postal code validator.
@@ -24,18 +26,15 @@ class PostalCodeValidatorTest extends TestCase
     {
         $data = require __DIR__ . '/../../resources/examples.php';
 
-        return collect($data)->map(function (string $example, string $country) {
+        return collect($data)->map(static function (string $example, string $country) {
             return [$country, $example];
         });
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function setUp(): void
     {
         $this->validator = new PostalCodeValidator(
-            require __DIR__ . '/../../resources/patterns.php'
+            require __DIR__ . '/../../resources/patterns.php',
         );
     }
 
