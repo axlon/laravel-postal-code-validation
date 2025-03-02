@@ -48,7 +48,7 @@ foreach ($responses as $response) {
 
 echo "Writing files...\r\n";
 foreach ([
-             __DIR__ . '/../resources/examples.php' => $examples,
+             __DIR__ . '/../tests/data/examples-by-country.php' => $examples,
              __DIR__ . '/../resources/patterns.php' => $patterns,
          ] as $path => $data) {
 
@@ -58,6 +58,8 @@ foreach ([
     }
 
     fwrite($handle, '<?php
+
+declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------

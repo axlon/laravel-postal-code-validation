@@ -6,6 +6,7 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class PostalCodeValidatorTest extends TestCase
@@ -20,11 +21,12 @@ final class PostalCodeValidatorTest extends TestCase
     /**
      * Get the examples.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<string, array{string, string}>
      */
     public static function provideExamples(): Collection
     {
-        $data = require __DIR__ . '/../../resources/examples.php';
+        /** @var array<string, string> $data */
+        $data = require __DIR__ . '/../data/examples-by-country.php';
 
         return collect($data)->map(static function (string $example, string $country) {
             return [$country, $example];
@@ -52,8 +54,8 @@ final class PostalCodeValidatorTest extends TestCase
      * @param string $country
      * @param string $example
      * @return void
-     * @dataProvider provideExamples
      */
+    #[DataProvider('provideExamples')]
     public function testExamplesAreValidPatterns(string $country, string $example): void
     {
         $this->assertTrue($this->validator->passes($country, $example));

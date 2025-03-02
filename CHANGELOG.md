@@ -13,3 +13,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for Lumen
 - Ability to customize validation for a country
 - Manual validation through facade
+- Custom error replacers `countries` and `examples`

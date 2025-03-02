@@ -105,16 +105,6 @@ To add a meaningful error message, add the following lines to `resources/lang/{y
 'postal_code_with' => 'Your message here',
 ```
 
-The following placeholders will be automatically filled for you:
-
-Placeholder | Description
-------------|------------
-:attribute  | The name of the field that was under validation
-:countries  | The countries that were validated against (e.g. `NL, BE`)*
-:examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)*
-
-*The `:countries` and `:examples` placeholders may be empty if no valid countries are passed.
-
 ## Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 

@@ -5,18 +5,10 @@ declare(strict_types=1);
 namespace Axlon\PostalCodeValidation\Extensions;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
-use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use InvalidArgumentException;
 
 final class PostalCode
 {
-    /**
-     * The postal code examples.
-     *
-     * @var \Axlon\PostalCodeValidation\Support\PostalCodeExamples
-     */
-    protected $examples;
-
     /**
      * The pattern matcher.
      *
@@ -28,45 +20,11 @@ final class PostalCode
      * Create a new PostalCode validator extension.
      *
      * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
-     * @param \Axlon\PostalCodeValidation\Support\PostalCodeExamples $examples
      * @return void
      */
-    public function __construct(PostalCodeValidator $validator, PostalCodeExamples $examples)
+    public function __construct(PostalCodeValidator $validator)
     {
-        $this->examples = $examples;
         $this->validator = $validator;
-    }
-
-    /**
-     * Replace error message placeholders.
-     *
-     * @param string $message
-     * @param string $attribute
-     * @param string $rule
-     * @param string[] $parameters
-     * @return string
-     */
-    public function replace(string $message, string $attribute, string $rule, array $parameters): string
-    {
-        $countries = [];
-        $examples = [];
-
-        foreach ($parameters as $parameter) {
-            if (($example = $this->examples->get($parameter)) === null) {
-                continue;
-            }
-
-            $countries[] = $parameter;
-            $examples[] = $example;
-        }
-
-        $replacements = [
-            $attribute,
-            implode(', ', array_unique($countries)),
-            implode(', ', array_unique($examples)),
-        ];
-
-        return str_replace([':attribute', ':countries', ':examples'], $replacements, $message);
     }
 
     /**

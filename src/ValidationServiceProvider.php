@@ -40,10 +40,6 @@ final class ValidationServiceProvider extends ServiceProvider
     public function registerRules(Factory $validator): void
     {
         $validator->extend('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@validate');
-        $validator->replacer('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@replace');
-
-        $validator->replacer('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@replace');
-        $validator->replacer('postal_code_with', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@replace');
 
         if (method_exists($validator, 'extendDependent')) {
             $validator->extendDependent(
