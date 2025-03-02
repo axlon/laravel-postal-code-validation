@@ -9,7 +9,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * The application.
      *
-     * @var \Illuminate\Foundation\Application|\Laravel\Lumen\Application
+     * @var \Illuminate\Foundation\Application
      */
     protected $app;
 

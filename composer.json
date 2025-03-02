@@ -1,9 +1,8 @@
 {
     "name": "axlon/laravel-postal-code-validation",
-    "description": "Worldwide postal code validation for Laravel and Lumen",
+    "description": "Worldwide postal code validation for Laravel",
     "keywords": [
         "laravel",
-        "lumen",
         "post code",
         "postal code",
         "zip code",
@@ -45,12 +44,10 @@
         }
     },
     "scripts": {
-        "test-laravel": "./vendor/bin/phpunit --colors=always --bootstrap=tests/bootstrap/laravel.php",
-        "test-lumen": "./vendor/bin/phpunit --colors=always --bootstrap=tests/bootstrap/lumen.php"
+        "test-laravel": "./vendor/bin/phpunit --colors=always --bootstrap=tests/bootstrap/laravel.php"
     },
     "scripts-descriptions": {
-        "test-laravel": "Run PHPUnit with Laravel",
-        "test-lumen": "Run PHPUnit with Lumen"
+        "test-laravel": "Run PHPUnit with Laravel"
     },
     "extra": {
         "branch-alias": {
