@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Axlon\PostalCodeValidation\Tests\Integration;
+namespace Tests\Integration;
 
 use InvalidArgumentException;
 
