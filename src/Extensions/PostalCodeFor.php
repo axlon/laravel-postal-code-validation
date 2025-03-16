@@ -33,15 +33,23 @@ final class PostalCodeFor
      * Validate the given attribute.
      *
      * @param string $attribute
-     * @param string|null $value
+     * @param mixed $value
      * @param string[] $parameters
      * @param \Illuminate\Validation\Validator $validator
      * @return bool
      */
-    public function validate(string $attribute, ?string $value, array $parameters, Validator $validator): bool
+    public function validate(string $attribute, mixed $value, array $parameters, Validator $validator): bool
     {
         if (empty($parameters)) {
             throw new InvalidArgumentException('Validation rule postal_code_with requires at least 1 parameter.');
+        }
+
+        if ($value === null) {
+            return true;
+        }
+
+        if (!is_string($value)) {
+            return false;
         }
 
         $parameters = Arr::only(Arr::dot($validator->getData()), $parameters);

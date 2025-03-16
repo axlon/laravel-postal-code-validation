@@ -69,31 +69,31 @@ parameters:
 		-
 			message: '#^Cannot call method all\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 6
+			count: 5
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
 			message: '#^Cannot call method errors\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 6
+			count: 5
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
 			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
 			identifier: method.nonObject
-			count: 7
+			count: 6
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
 			message: '#^Cannot call method make\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 7
+			count: 6
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
 			message: '#^Cannot call method passes\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 6
+			count: 5
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
@@ -105,7 +105,7 @@ parameters:
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertContains\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 3
+			count: 2
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
@@ -117,49 +117,49 @@ parameters:
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 3
+			count: 2
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 3
+			count: 4
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
 			message: '#^Parameter \#2 \$haystack of method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
 			identifier: argument.type
-			count: 3
+			count: 2
 			path: tests/Integration/PostalCodeForTest.php
 
 		-
 			message: '#^Cannot call method all\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 4
+			count: 3
 			path: tests/Integration/PostalCodeTest.php
 
 		-
 			message: '#^Cannot call method errors\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 4
+			count: 3
 			path: tests/Integration/PostalCodeTest.php
 
 		-
 			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
 			identifier: method.nonObject
-			count: 5
+			count: 4
 			path: tests/Integration/PostalCodeTest.php
 
 		-
 			message: '#^Cannot call method make\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 5
+			count: 4
 			path: tests/Integration/PostalCodeTest.php
 
 		-
 			message: '#^Cannot call method passes\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 4
+			count: 3
 			path: tests/Integration/PostalCodeTest.php
 
 		-
@@ -171,7 +171,7 @@ parameters:
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertContains\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 3
+			count: 2
 			path: tests/Integration/PostalCodeTest.php
 
 		-
@@ -183,49 +183,49 @@ parameters:
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 3
+			count: 2
 			path: tests/Integration/PostalCodeTest.php
 
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 1
+			count: 2
 			path: tests/Integration/PostalCodeTest.php
 
 		-
 			message: '#^Parameter \#2 \$haystack of method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
 			identifier: argument.type
-			count: 3
+			count: 2
 			path: tests/Integration/PostalCodeTest.php
 
 		-
 			message: '#^Cannot call method all\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 9
+			count: 8
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-
 			message: '#^Cannot call method errors\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 9
+			count: 8
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-
 			message: '#^Cannot call method make\(\) on Illuminate\\Foundation\\Application\|null\.$#'
 			identifier: method.nonObject
-			count: 10
+			count: 9
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-
 			message: '#^Cannot call method make\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 10
+			count: 9
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-
 			message: '#^Cannot call method passes\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 9
+			count: 8
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-
@@ -237,7 +237,7 @@ parameters:
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertContains\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 5
+			count: 4
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-
@@ -249,19 +249,19 @@ parameters:
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertFalse\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 5
+			count: 4
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-
 			message: '#^Dynamic call to static method PHPUnit\\Framework\\Assert\:\:assertTrue\(\)\.$#'
 			identifier: staticMethod.dynamicCall
-			count: 4
+			count: 5
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-
 			message: '#^Parameter \#2 \$haystack of method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
 			identifier: argument.type
-			count: 5
+			count: 4
 			path: tests/Integration/PostalCodeWithTest.php
 
 		-

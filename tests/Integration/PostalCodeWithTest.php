@@ -4,10 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Integration;
 
+use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
 
 final class PostalCodeWithTest extends TestCase
 {
+    public function testItPassesWhenValueIsNull(): void
+    {
+        $data = ['value' => null, 'country' => 'NL'];
+        $rules = ['value' => 'postal_code_with:country'];
+
+        $validator = Validator::make($data, $rules);
+
+        $this->assertTrue($validator->passes());
+    }
+
     /**
      * Test if the 'postal_code_with' rule fails on invalid countries.
      *
@@ -50,23 +61,6 @@ final class PostalCodeWithTest extends TestCase
         $validator = $this->app->make('validator')->make(
             ['postal_codes' => ['not-a-postal-code'], 'countries' => ['NL']],
             ['postal_codes.*' => 'postal_code_with:countries.*'],
-        );
-
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
-    }
-
-    /**
-     * Test if the 'postal_code' rule fails null input.
-     *
-     * @return void
-     * @link https://github.com/axlon/laravel-postal-code-validation/issues/23
-     */
-    public function testValidationFailsNullPostalCode(): void
-    {
-        $validator = $this->app->make('validator')->make(
-            ['postal_code' => null, 'country' => 'DE'],
-            ['postal_code' => 'postal_code_with:country'],
         );
 
         $this->assertFalse($validator->passes());
