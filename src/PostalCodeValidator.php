@@ -108,13 +108,15 @@ class PostalCodeValidator
     {
         $countryCode = strtoupper($countryCode);
 
-        if (array_key_exists($countryCode, self::ALIASES)) {
-            $countryCode = self::ALIASES[$countryCode];
-        }
-
-        return $this->patternOverrides[$countryCode]
+        $pattern = $this->patternOverrides[$countryCode]
             ?? $this->patterns[$countryCode]
             ?? null;
+
+        if ($pattern === null && array_key_exists($countryCode, self::ALIASES) &&  $countryCode !== self::ALIASES[$countryCode]) {
+            $pattern = $this->patternFor(self::ALIASES[$countryCode]);
+        }
+
+        return $pattern;
     }
 
     /**
