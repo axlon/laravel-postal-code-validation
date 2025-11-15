@@ -47,6 +47,13 @@ class PostalCodeValidatorTest extends TestCase
         $this->assertTrue($this->validator->passes('IC', '38580'));
     }
 
+    public function testCanaryIslandsCanOverridden(): void
+    {
+        $this->validator->override('IC', '/^(?:00000)$/');
+
+        $this->assertFalse($this->validator->passes('IC', '38580'));
+    }
+
     /**
      * Test if the shipped examples pass validation.
      *
