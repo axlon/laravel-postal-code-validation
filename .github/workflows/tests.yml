@@ -52,6 +52,12 @@ jobs:
             php: 8.2
           - laravel: 12.*
             php: 8.3
+          - laravel: 13.*
+            php: 8.3
+          - laravel: 13.*
+            php: 8.4
+          - laravel: 13.*
+            php: 8.5
     name: PHPUnit on Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
@@ -101,6 +107,12 @@ jobs:
             php: 8.1
           - lumen: 9.*
             php: 8.2
+          - lumen: 9.*
+            php: 8.3
+          - lumen: 9.*
+            php: 8.4
+          - lumen: 9.*
+            php: 8.5
     name: PHPUnit on Lumen ${{ matrix.lumen }} / PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
