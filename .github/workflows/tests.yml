@@ -61,7 +61,7 @@ jobs:
     name: PHPUnit on Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6.0.2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -118,7 +118,7 @@ jobs:
     name: PHPUnit on Lumen ${{ matrix.lumen }} / PHP ${{ matrix.php }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6.0.2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
