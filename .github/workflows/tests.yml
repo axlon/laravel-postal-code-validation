@@ -1,8 +1,9 @@
 name: tests
 
 on:
+  pull_request: ~
   push:
-  pull_request:
+    branches: [ 3.x ]
 
 jobs:
   laravel:
