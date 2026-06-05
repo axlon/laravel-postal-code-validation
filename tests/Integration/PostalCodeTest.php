@@ -6,6 +6,16 @@ use InvalidArgumentException;
 
 class PostalCodeTest extends TestCase
 {
+    public static function provideUnsupportedValueTypes(): array
+    {
+        return [
+            [['1234 AB']],
+            [1234],
+            [12.34],
+            [true],
+        ];
+    }
+
     /**
      * Test if the 'postal_code' rule fails on invalid countries.
      *
@@ -31,6 +41,20 @@ class PostalCodeTest extends TestCase
     {
         $validator = $this->app->make('validator')->make(
             ['postal_code' => 'not-a-postal-code'],
+            ['postal_code' => 'postal_code:NL']
+        );
+
+        $this->assertFalse($validator->passes());
+        $this->assertContains('validation.postal_code', $validator->errors()->all());
+    }
+
+    /**
+     * @dataProvider provideUnsupportedValueTypes
+     */
+    public function testValidationFailsInvalidPostalCodeType($value): void
+    {
+        $validator = $this->app->make('validator')->make(
+            ['postal_code' => $value],
             ['postal_code' => 'postal_code:NL']
         );
 

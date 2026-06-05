@@ -71,14 +71,18 @@ class PostalCode
      * Validate the given attribute.
      *
      * @param string $attribute
-     * @param string|null $value
+     * @param mixed $value
      * @param string[] $parameters
      * @return bool
      */
-    public function validate(string $attribute, ?string $value, array $parameters): bool
+    public function validate(string $attribute, $value, array $parameters): bool
     {
         if (empty($parameters)) {
             throw new InvalidArgumentException('Validation rule postal_code requires at least 1 parameter.');
+        }
+
+        if (!is_string($value)) {
+            return false;
         }
 
         foreach ($parameters as $parameter) {
