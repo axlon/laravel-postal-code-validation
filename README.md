@@ -25,9 +25,6 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
     - [Adding an error message](#adding-an-error-message)
     - [Manually validating](#manually-validating)
     - [Overriding rules](#overriding-rules)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
-- [Credits](#credits)
 - [License](#license)
 
 ## Requirements
@@ -155,16 +152,6 @@ PostalCodes::override([
 
 **Important**: If you believe there is a bug in one of the patterns that this package ships with, please create an
 [issue](https://github.com/axlon/laravel-postal-code-validation/issues/new) in the issue tracker.
-
-## Changelog
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Credits
-- [Choraimy Kroonstuiver](https://github.com/axlon)
-- [All contributors](https://github.com/axlon/laravel-postal-code-validation/contributors)
 
 ## License
 This open-source software is licenced under the [MIT license](LICENSE.md). This software contains code generated from
