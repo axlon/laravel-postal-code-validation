@@ -3,7 +3,7 @@ name: tests
 on:
   pull_request: ~
   push:
-    branches: [ 3.x ]
+    branches: [ 4.x ]
 
 jobs:
   laravel:
