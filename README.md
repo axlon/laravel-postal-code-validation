@@ -26,6 +26,7 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
     - [Manually validating](#manually-validating)
     - [Overriding rules](#overriding-rules)
 - [License](#license)
+- [Attribution](#attribution)
 
 ## Requirements
 This package has the following requirements:
@@ -154,6 +155,17 @@ PostalCodes::override([
 [issue](https://github.com/axlon/laravel-postal-code-validation/issues/new) in the issue tracker.
 
 ## License
-This open-source software is licenced under the [MIT license](LICENSE.md). This software contains code generated from
-Google's Address Data Service, more information on this service can be found
-[here](https://github.com/google/libaddressinput/wiki/AddressValidationMetadata).
+
+This software is licenced under the [MIT license](LICENSE.md).
+
+## Attribution
+
+This software contains data derived from Google's Address Validation Metadata. The original data is provided
+by [Google](https://github.com/google/libaddressinput) and is licensed under
+the [CC-BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
+
+### Modifications
+
+- Only data relevant to postal code validation is included
+- Regular expressions found in the data are adjusted to be compatible with PHP's regex engine
+- The resulting data is converted into PHP resource files
