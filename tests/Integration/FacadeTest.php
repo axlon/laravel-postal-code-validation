@@ -3,6 +3,7 @@
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
 use Axlon\PostalCodeValidation\Support\Facades\PostalCodes;
+use Axlon\PostalCodeValidation\Tests\TestCase;
 
 class FacadeTest extends TestCase
 {

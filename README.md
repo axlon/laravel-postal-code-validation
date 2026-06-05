@@ -2,7 +2,6 @@
 
 Adds postal code validation to Laravel, based on [Google's libaddressinput](https://github.com/google/libaddressinput).
 
-[![Tests](https://github.com/axlon/laravel-postal-code-validation/workflows/tests/badge.svg)](https://github.com/axlon/laravel-postal-code-validation/actions/workflows/tests.yml)
 [![Downloads](https://img.shields.io/packagist/dt/axlon/laravel-postal-code-validation)](https://packagist.org/packages/axlon/laravel-postal-code-validation)
 [![Latest version](https://img.shields.io/packagist/v/axlon/laravel-postal-code-validation)](https://github.com/axlon/laravel-postal-code-validation/releases)
 [![License](https://img.shields.io/packagist/l/axlon/laravel-postal-code-validation)](LICENSE.md)
@@ -22,8 +21,8 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
 
 This package has the following requirements:
 
-- PHP 7.2 or greater
-- Laravel 5.5 or greater
+- PHP 8.2 or greater
+- Laravel 12 or greater
 
 ## Installation
 You can install this package with Composer, by running the command below:

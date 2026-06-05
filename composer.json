@@ -17,15 +17,15 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0",
-        "illuminate/contracts": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-        "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-        "illuminate/validation": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0"
+        "php": ">=8.2",
+        "illuminate/support": "^12.0 || ^13.0",
+        "illuminate/validation": "^12.0 || ^13.0"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^7.8",
-        "phpunit/phpunit": "^8.5 || ^9.6 || ^10.5",
-        "symfony/var-exporter": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+        "guzzlehttp/guzzle": "^7.11",
+        "orchestra/testbench": "^10.11 || ^11.1",
+        "phpunit/phpunit": "^11.5",
+        "symfony/var-exporter": "^7.4 || ^8.1"
     },
     "autoload": {
         "psr-4": {
@@ -38,13 +38,7 @@
         }
     },
     "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "kylekatarnls/update-helper": false
-        }
-    },
-    "scripts": {
-        "test-laravel": "./vendor/bin/phpunit --colors=always --bootstrap=tests/bootstrap/laravel.php"
+        "sort-packages": true
     },
     "extra": {
         "laravel": {

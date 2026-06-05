@@ -4,6 +4,7 @@ namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class PostalCodeValidatorTest extends TestCase
@@ -54,14 +55,7 @@ class PostalCodeValidatorTest extends TestCase
         $this->assertFalse($this->validator->passes('IC', '38580'));
     }
 
-    /**
-     * Test if the shipped examples pass validation.
-     *
-     * @param string $country
-     * @param string $example
-     * @return void
-     * @dataProvider provideExamples
-     */
+    #[DataProvider('provideExamples')]
     public function testExamplesAreValidPatterns(string $country, string $example): void
     {
         $this->assertTrue($this->validator->passes($country, $example));

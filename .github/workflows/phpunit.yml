@@ -1,0 +1,37 @@
+name: PHPUnit
+
+on:
+  pull_request: ~
+  push:
+    branches: [4.x]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    name: Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
+    strategy:
+      matrix:
+        laravel: [12.*, 13.*]
+        php: [8.3]
+        include:
+          - laravel: 12.*
+            php: 8.2
+          - laravel: 12.*
+            php: 8.4
+          - laravel: 13.*
+            php: 8.4
+          - laravel: 13.*
+            php: 8.5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+      - name: Install dependencies
+        run: |
+          composer require laravel/laravel:"${{ matrix.laravel }}" --dev --no-update
+          composer install --no-progress
+      - name: Run tests
+        run: ./vendor/bin/phpunit

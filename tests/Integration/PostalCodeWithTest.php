@@ -2,6 +2,7 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
+use Axlon\PostalCodeValidation\Tests\TestCase;
 use InvalidArgumentException;
 
 class PostalCodeWithTest extends TestCase

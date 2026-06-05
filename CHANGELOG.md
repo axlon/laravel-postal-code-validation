@@ -9,4 +9,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Laravel 11 and below are no longer supported
 - Lumen is no longer supported
