@@ -23,7 +23,7 @@ final class PostalCode
     /**
      * Create a new postal code validation rule.
      *
-     * @param array $parameters
+     * @param array<string> $parameters
      * @param bool $dependant
      * @return void
      */

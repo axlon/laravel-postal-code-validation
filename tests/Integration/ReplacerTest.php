@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
 use Axlon\PostalCodeValidation\Tests\TestCase;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Validator;
 
 final class ReplacerTest extends TestCase
 {
@@ -15,19 +17,16 @@ final class ReplacerTest extends TestCase
      */
     public function testPostalCodeReplacer(): void
     {
-        $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
-        $translator = $this->app->make('translator');
+        Lang::addLines([
+            'validation.postal_code' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
+        ], 'en');
 
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code'],
             ['postal_code' => 'postal_code:NL'],
         );
 
-        $translator->addLines([
-            'validation.postal_code' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
-        ], $locale);
-
-        $this->assertContains(
+        self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
             $validator->errors()->all(),
         );
@@ -40,19 +39,16 @@ final class ReplacerTest extends TestCase
      */
     public function testPostalCodeForReplacer(): void
     {
-        $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
-        $translator = $this->app->make('translator');
+        Lang::addLines([
+            'validation.postal_code_for' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
+        ], 'en');
 
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code', 'country' => 'NL'],
             ['postal_code' => 'postal_code_for:country'],
         );
 
-        $translator->addLines([
-            'validation.postal_code_for' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
-        ], $locale);
-
-        $this->assertContains(
+        self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
             $validator->errors()->all(),
         );

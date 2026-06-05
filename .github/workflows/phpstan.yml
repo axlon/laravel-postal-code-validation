@@ -1,0 +1,22 @@
+name: PHPStan
+
+on:
+  pull_request: ~
+  push:
+    branches: [4.x]
+
+jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+    name: PHPStan
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+      - name: Install Composer dependencies
+        run: composer install --no-progress
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan --no-progress
