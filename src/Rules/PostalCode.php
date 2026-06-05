@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Rules;
 
-class PostalCode
+final class PostalCode
 {
     /**
      * Whether or not this rule is dependant.
@@ -49,7 +51,7 @@ class PostalCode
      */
     public static function for(string $country): self
     {
-        return static::forCountry($country);
+        return self::forCountry($country);
     }
 
     /**
@@ -95,6 +97,6 @@ class PostalCode
      */
     public static function with(string $field): self
     {
-        return static::forInput($field);
+        return self::forInput($field);
     }
 }

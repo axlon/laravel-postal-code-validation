@@ -24,7 +24,9 @@
     "require-dev": {
         "guzzlehttp/guzzle": "^7.11",
         "orchestra/testbench": "^10.11 || ^11.1",
+        "phpcsstandards/phpcsextra": "^1.5",
         "phpunit/phpunit": "^11.5",
+        "slevomat/coding-standard": "^8.29",
         "symfony/var-exporter": "^7.4 || ^8.1"
     },
     "autoload": {
@@ -38,6 +40,9 @@
         }
     },
     "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
         "sort-packages": true
     },
     "extra": {

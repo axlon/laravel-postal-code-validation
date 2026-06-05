@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Tests\Unit;
 
 use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use PHPUnit\Framework\TestCase;
 
-class PostalCodeExamplesTest extends TestCase
+final class PostalCodeExamplesTest extends TestCase
 {
     /**
      * The postal code examples.
@@ -14,9 +16,6 @@ class PostalCodeExamplesTest extends TestCase
      */
     protected $examples;
 
-    /**
-     * @inheritDoc
-     */
     protected function setUp(): void
     {
         $this->examples = new PostalCodeExamples();
@@ -30,8 +29,8 @@ class PostalCodeExamplesTest extends TestCase
     public function testExampleRetrieval(): void
     {
         $this->assertEquals('1234 AB', $this->examples->get('NL'));
-        $this->assertEquals('4000', $this->examples->get('be')); # Lowercase country code
-        $this->assertNull($this->examples->get('GH')); # Country code without a pattern
-        $this->assertNull($this->examples->get('XX')); # Non-existent country code
+        $this->assertEquals('4000', $this->examples->get('be')); // Lowercase country code
+        $this->assertNull($this->examples->get('GH')); // Country code without a pattern
+        $this->assertNull($this->examples->get('XX')); // Non-existent country code
     }
 }

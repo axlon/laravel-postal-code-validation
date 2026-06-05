@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation\Extensions;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
@@ -8,7 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
 
-class PostalCodeFor
+final class PostalCodeFor
 {
     /**
      * The postal code examples.
@@ -47,8 +49,13 @@ class PostalCodeFor
      * @param \Illuminate\Validation\Validator $validator
      * @return string
      */
-    public function replace(string $message, string $attribute, string $rule, array $parameters, Validator $validator): string
-    {
+    public function replace(
+        string $message,
+        string $attribute,
+        string $rule,
+        array $parameters,
+        Validator $validator,
+    ): string {
         $countries = [];
         $examples = [];
 

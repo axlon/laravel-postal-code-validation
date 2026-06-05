@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Axlon\PostalCodeValidation;
 
-class PostalCodeValidator
+final class PostalCodeValidator
 {
     /**
      * The country codes that are aliases for other country codes.
@@ -61,7 +63,7 @@ class PostalCodeValidator
         if (is_array($countryCode)) {
             $this->patternOverrides = array_merge(
                 $this->patternOverrides,
-                array_change_key_case($countryCode, CASE_UPPER)
+                array_change_key_case($countryCode, CASE_UPPER),
             );
         } else {
             $this->patternOverrides[strtoupper($countryCode)] = $pattern;
@@ -112,7 +114,7 @@ class PostalCodeValidator
             ?? $this->patterns[$countryCode]
             ?? null;
 
-        if ($pattern === null && array_key_exists($countryCode, self::ALIASES) &&  $countryCode !== self::ALIASES[$countryCode]) {
+        if ($pattern === null && array_key_exists($countryCode, self::ALIASES)) {
             $pattern = $this->patternFor(self::ALIASES[$countryCode]);
         }
 
