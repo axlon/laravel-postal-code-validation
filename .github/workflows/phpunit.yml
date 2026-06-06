@@ -34,4 +34,8 @@ jobs:
           composer require laravel/laravel:"${{ matrix.laravel }}" --dev --no-update
           composer install --no-progress
       - name: Run tests
-        run: ./vendor/bin/phpunit
+        run: ./vendor/bin/phpunit --coverage-clover ./coverage.xml
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v6
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
