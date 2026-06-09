@@ -11,7 +11,7 @@ jobs:
     name: PHP_CodeSniffer
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v6.0.3
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
