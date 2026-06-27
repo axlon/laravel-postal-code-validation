@@ -11,7 +11,7 @@ jobs:
     name: PHPStan
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.0
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
