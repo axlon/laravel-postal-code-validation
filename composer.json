@@ -41,7 +41,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Axlon\\PostalCodeValidation\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "config": {

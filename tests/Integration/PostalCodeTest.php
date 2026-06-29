@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Axlon\PostalCodeValidation\Tests\Integration;
+namespace Tests\Integration;
 
-use Axlon\PostalCodeValidation\Tests\TestCase;
 use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\TestCase;
 
 final class PostalCodeTest extends TestCase
 {

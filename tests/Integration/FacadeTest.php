@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Axlon\PostalCodeValidation\Tests\Integration;
+namespace Tests\Integration;
 
 use Axlon\PostalCodeValidation\Support\Facades\PostalCodes;
-use Axlon\PostalCodeValidation\Tests\TestCase;
 use Illuminate\Support\Facades\App;
+use Tests\TestCase;
 
 final class FacadeTest extends TestCase
 {

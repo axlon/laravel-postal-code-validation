@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Axlon\PostalCodeValidation\Tests\Integration;
+namespace Tests\Integration;
 
-use Axlon\PostalCodeValidation\Tests\TestCase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
+use Tests\TestCase;
 
 final class ReplacerTest extends TestCase
 {

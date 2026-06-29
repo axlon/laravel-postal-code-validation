@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Axlon\PostalCodeValidation\Tests\Unit;
+namespace Tests\Unit;
 
 use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use PHPUnit\Framework\TestCase;

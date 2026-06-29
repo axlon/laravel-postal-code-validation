@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Axlon\PostalCodeValidation\Tests;
+namespace Tests;
 
 use Axlon\PostalCodeValidation\ValidationServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
