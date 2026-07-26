@@ -24,7 +24,7 @@ jobs:
             php: 8.5
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
