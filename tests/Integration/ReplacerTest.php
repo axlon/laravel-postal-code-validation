@@ -43,4 +43,21 @@ final class ReplacerTest extends TestCase
             $validator->errors()->all(),
         );
     }
+
+    public function testPostalCodeWithReplacerIgnoresNonStringFields(): void
+    {
+        Lang::addLines([
+            'validation.postal_code_with' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
+        ], 'en');
+
+        $validator = Validator::make(
+            ['postal_code' => 'not-a-postal-code', 'array' => ['NL'], 'country' => 'NL'],
+            ['postal_code' => 'postal_code_with:array,country'],
+        );
+
+        self::assertContains(
+            'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
+            $validator->errors()->all(),
+        );
+    }
 }

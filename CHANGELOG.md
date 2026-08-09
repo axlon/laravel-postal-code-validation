@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 4.0.0 (Unreleased)
 
+### Fixed
+
+- Fixed a `TypeError` when a `postal_code_with` field holds a value that is not a string
+
 ### Removed
 
 - Laravel 11 and below are no longer supported

@@ -45,7 +45,7 @@ final class PostalCodeFor
         $examples = [];
 
         foreach ($parameters as $parameter) {
-            if (($input = Arr::get($validator->getData(), $parameter)) === null) {
+            if (!is_string($input = Arr::get($validator->getData(), $parameter))) {
                 continue;
             }
 
@@ -92,7 +92,7 @@ final class PostalCodeFor
         }
 
         foreach ($parameters as $parameter) {
-            if ($parameter === null) {
+            if (!is_string($parameter)) {
                 continue;
             }
 

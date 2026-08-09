@@ -79,6 +79,17 @@ final class PostalCodeWithTest extends TestCase
         self::assertEmpty($validator->errors()->all());
     }
 
+    public function testValidationIgnoresNonStringFields(): void
+    {
+        $validator = Validator::make(
+            ['postal_code' => '1234 AB', 'integer' => 123, 'float' => 1.5, 'boolean' => true],
+            ['postal_code' => 'postal_code_with:integer,float,boolean'],
+        );
+
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_with', $validator->errors()->all());
+    }
+
     public function testValidationIgnoresMissingFieldsFailing(): void
     {
         $validator = Validator::make(
