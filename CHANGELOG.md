@@ -1,5 +1,34 @@
 # Changelog
 
+## [v3.10.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.10.0) (2026-08-09)
+
+- Update Argentine validation pattern
+- Update Egyptian validation pattern
+- Update Paraguayan validation pattern
+- Update Salvadoran validation pattern
+- Update Trinidadian validation pattern
+
+## [v3.9.1](https://github.com/axlon/laravel-postal-code-validation/tree/v3.9.1) (2026-06-05)
+
+- Fix `TypeError` when value is not a string or null
+- Add attribution to generated resources
+
+## [v3.9.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.9.0) (2026-03-20)
+
+- Add support for Laravel 13
+
+## [v3.8.1](https://github.com/axlon/laravel-postal-code-validation/tree/v3.8.1) (2025-11-15)
+
+- Improve support for the Canary Islands
+
+## [v3.8.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.8.0) (2025-02-25)
+
+- Add support for Laravel 12
+
+## [v3.7.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.7.0) (2024-09-10)
+
+- Add support for the Canary Islands
+
 ## [v3.6.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.6.0) (2024-03-12)
 
 - Add support for Laravel 11
