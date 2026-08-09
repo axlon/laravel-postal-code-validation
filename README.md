@@ -14,7 +14,6 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
     - [Fluent API](#fluent-api)
     - [Adding an error message](#adding-an-error-message)
     - [Manually validating](#manually-validating)
-    - [Overriding rules](#overriding-rules)
 - [License](#license)
 - [Attribution](#attribution)
 
@@ -114,24 +113,6 @@ directly, like so:
 ```php
 PostalCodes::passes($country, $postalCode); // returns a boolean
 ```
-
-### Overriding rules
-Depending on your use case you may want to override the patterns used to validate postal codes for a country. You can do
-this by adding the code below in a central place in your application (e.g. a service provider):
-
-```php
-PostalCodes::override('country', '/your pattern/');
-
-// You can also pass overrides as an array
-
-PostalCodes::override([
-    'country 1' => '/pattern 1/',
-    'country 2' => '/pattern 2/',
-]);
-```
-
-**Important**: If you believe there is a bug in one of the patterns that this package ships with, please create an
-[issue](https://github.com/axlon/laravel-postal-code-validation/issues/new) in the issue tracker.
 
 ## License
 

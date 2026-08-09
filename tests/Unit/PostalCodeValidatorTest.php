@@ -49,13 +49,6 @@ final class PostalCodeValidatorTest extends TestCase
         self::assertTrue($this->validator->passes('IC', '38580'));
     }
 
-    public function testCanaryIslandsCanOverridden(): void
-    {
-        $this->validator->override('IC', '/^(?:00000)$/');
-
-        self::assertFalse($this->validator->passes('IC', '38580'));
-    }
-
     #[DataProvider('provideExamples')]
     public function testExamplesAreValidPatterns(string $country, string $example): void
     {
@@ -95,32 +88,6 @@ final class PostalCodeValidatorTest extends TestCase
         self::assertTrue($this->validator->supports('GH'));
         self::assertNull($this->validator->patternFor('GH'));
         self::assertTrue($this->validator->passes('GH', 'any value'));
-    }
-
-    /**
-     * Test pattern override registration.
-     *
-     * @return void
-     */
-    public function testPatternOverride(): void
-    {
-        $this->validator->override('BE', '/override/');
-        self::assertSame('/override/', $this->validator->patternFor('BE'));
-        self::assertTrue($this->validator->fails('BE', '4000'));
-        self::assertTrue($this->validator->passes('BE', 'override'));
-    }
-
-    /**
-     * Test pattern override registration using an associative array.
-     *
-     * @return void
-     */
-    public function testPatternOverrideViaArray(): void
-    {
-        $this->validator->override(['FR' => '/override/']);
-        self::assertSame('/override/', $this->validator->patternFor('FR'));
-        self::assertTrue($this->validator->fails('FR', '33380'));
-        self::assertTrue($this->validator->passes('FR', 'override'));
     }
 
     /**

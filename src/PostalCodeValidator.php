@@ -21,13 +21,6 @@ final class PostalCodeValidator
     protected $patterns;
 
     /**
-     * The matching pattern overrides.
-     *
-     * @var array<string, string|null>
-     */
-    protected $patternOverrides;
-
-    /**
      * Create a new postal code matcher.
      *
      * @param array<string, string|null> $patterns
@@ -35,7 +28,6 @@ final class PostalCodeValidator
      */
     public function __construct(array $patterns)
     {
-        $this->patternOverrides = [];
         $this->patterns = $patterns;
     }
 
@@ -49,25 +41,6 @@ final class PostalCodeValidator
     public function fails(string $countryCode, ?string ...$postalCodes): bool
     {
         return !$this->passes($countryCode, ...$postalCodes);
-    }
-
-    /**
-     * Override pattern matching for the given country.
-     *
-     * @param array<string, string|null>|string $countryCode
-     * @param string|null $pattern
-     * @return void
-     */
-    public function override($countryCode, ?string $pattern = null): void
-    {
-        if (is_array($countryCode)) {
-            $this->patternOverrides = array_merge(
-                $this->patternOverrides,
-                array_change_key_case($countryCode, CASE_UPPER),
-            );
-        } else {
-            $this->patternOverrides[strtoupper($countryCode)] = $pattern;
-        }
     }
 
     /**
@@ -108,17 +81,22 @@ final class PostalCodeValidator
      */
     public function patternFor(string $countryCode): ?string
     {
+        $countryCode = $this->resolveAlias($countryCode);
+
+        return $this->patterns[$countryCode] ?? null;
+    }
+
+    /**
+     * Resolve the given country code to the country code its data is stored under.
+     *
+     * @param string $countryCode
+     * @return string
+     */
+    private function resolveAlias(string $countryCode): string
+    {
         $countryCode = strtoupper($countryCode);
 
-        $pattern = $this->patternOverrides[$countryCode]
-            ?? $this->patterns[$countryCode]
-            ?? null;
-
-        if ($pattern === null && array_key_exists($countryCode, self::ALIASES)) {
-            $pattern = $this->patternFor(self::ALIASES[$countryCode]);
-        }
-
-        return $pattern;
+        return self::ALIASES[$countryCode] ?? $countryCode;
     }
 
     /**
@@ -129,10 +107,6 @@ final class PostalCodeValidator
      */
     public function supports(string $countryCode): bool
     {
-        $countryCode = strtoupper($countryCode);
-
-        return array_key_exists($countryCode, $this->patternOverrides)
-            || array_key_exists($countryCode, $this->patterns)
-            || array_key_exists($countryCode, self::ALIASES);
+        return array_key_exists($this->resolveAlias($countryCode), $this->patterns);
     }
 }

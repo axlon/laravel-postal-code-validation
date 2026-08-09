@@ -18,3 +18,10 @@ with `postal_code_with`, rule parameters are unchanged:
 ```
 
 If you published a `validation.postal_code_for` translation line, rename it to `validation.postal_code_with`.
+
+### Overriding validation patterns is no longer supported
+
+**Likelihood of impact: low**
+
+If you believe one of the shipped patterns contains a bug, please open
+an [issue](https://github.com/axlon/laravel-postal-code-validation/issues/new) so it can be fixed for everyone.
