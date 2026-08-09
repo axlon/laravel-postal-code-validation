@@ -4,6 +4,17 @@ includes:
 
 parameters:
     level: 10
+    checkBenevolentUnionTypes: true
+    checkMissingCallableSignature: true
+    checkTooWideParameterOutInProtectedAndPublicMethods: true
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+    checkTooWideThrowTypesInProtectedAndPublicMethods: true
+    checkUninitializedProperties: true
+    reportAlwaysTrueInLastCondition: true
+    reportAnyTypeWideningInVarTag: true
+    reportPossiblyNonexistentConstantArrayOffset: true
+    reportPossiblyNonexistentGeneralArrayOffset: true
+    reportIgnoresWithoutComments: true
     paths:
         - src
         - tests
