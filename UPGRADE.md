@@ -19,6 +19,27 @@ with `postal_code_with`, rule parameters are unchanged:
 
 If you published a `validation.postal_code_for` translation line, rename it to `validation.postal_code_with`.
 
+### Validating outside of Laravel's validator is no longer supported
+
+**Likelihood of impact: low**
+
+Postal codes can no longer be validated by hand; the `postal_code` and `postal_code_with` rules are now the only way to
+validate. Anywhere you validated manually, run the value through the validator instead:
+
+```diff
+-if (PostalCodes::passes($country, $postalCode)) {
+-    // ...
+-}
++$passes = Validator::make(
++    ['postal_code' => $postalCode],
++    ['postal_code' => PostalCode::for($country)],
++)->passes();
++
++if ($passes) {
++    // ...
++}
+```
+
 ### Overriding validation patterns is no longer supported
 
 **Likelihood of impact: low**

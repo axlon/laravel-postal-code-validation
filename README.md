@@ -13,7 +13,6 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
     - [Available rules](#available-rules)
     - [Fluent API](#fluent-api)
     - [Adding an error message](#adding-an-error-message)
-    - [Manually validating](#manually-validating)
 - [License](#license)
 - [Attribution](#attribution)
 
@@ -105,14 +104,6 @@ Placeholder | Description
 :examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)*
 
 *The `:countries` and `:examples` placeholders may be empty if no valid countries are passed.
-
-### Manually validating
-If you want to validate postal codes manually outside of Laravel's validation system, you can call the validator
-directly, like so:
-
-```php
-PostalCodes::passes($country, $postalCode); // returns a boolean
-```
 
 ## License
 

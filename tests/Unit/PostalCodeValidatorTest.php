@@ -74,7 +74,6 @@ final class PostalCodeValidatorTest extends TestCase
     public function testLowerCaseCountryCode(): void
     {
         self::assertTrue($this->validator->supports('nl'));
-        self::assertNotNull($this->validator->patternFor('nl'));
         self::assertTrue($this->validator->passes('nl', '1234 AB'));
     }
 
@@ -86,7 +85,6 @@ final class PostalCodeValidatorTest extends TestCase
     public function testNullPattern(): void
     {
         self::assertTrue($this->validator->supports('GH'));
-        self::assertNull($this->validator->patternFor('GH'));
         self::assertTrue($this->validator->passes('GH', 'any value'));
     }
 
@@ -98,7 +96,6 @@ final class PostalCodeValidatorTest extends TestCase
     public function testUnsupportedCountryCode(): void
     {
         self::assertFalse($this->validator->supports('XX'));
-        self::assertNull($this->validator->patternFor('XX'));
-        self::assertTrue($this->validator->fails('any value'));
+        self::assertFalse($this->validator->passes('XX', 'any value'));
     }
 }

@@ -32,18 +32,6 @@ final class PostalCodeValidator
     }
 
     /**
-     * Determine if the given postal code(s) are invalid for the given country.
-     *
-     * @param string $countryCode
-     * @param string|null ...$postalCodes
-     * @return bool
-     */
-    public function fails(string $countryCode, ?string ...$postalCodes): bool
-    {
-        return !$this->passes($countryCode, ...$postalCodes);
-    }
-
-    /**
      * Determine if the given postal code(s) are valid for the given country.
      *
      * @param string $countryCode
@@ -79,7 +67,7 @@ final class PostalCodeValidator
      * @param string $countryCode
      * @return string|null
      */
-    public function patternFor(string $countryCode): ?string
+    private function patternFor(string $countryCode): ?string
     {
         $countryCode = $this->resolveAlias($countryCode);
 

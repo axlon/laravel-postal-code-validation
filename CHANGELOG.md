@@ -12,4 +12,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Laravel 11 and below are no longer supported
 - Lumen is no longer supported
 - The `postal_code_for` rule has been removed, use `postal_code_with` instead
+- The `PostalCodes` facade has been removed
 - Overriding validation patterns is no longer supported
+- Validating outside of Laravel's validator is no longer supported
