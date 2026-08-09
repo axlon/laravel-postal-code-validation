@@ -33,19 +33,19 @@ final class ReplacerTest extends TestCase
     }
 
     /**
-     * Test the error replacer for the 'postal_code_for' rule.
+     * Test the error replacer for the 'postal_code_with' rule.
      *
      * @return void
      */
-    public function testPostalCodeForReplacer(): void
+    public function testPostalCodeWithReplacer(): void
     {
         Lang::addLines([
-            'validation.postal_code_for' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
+            'validation.postal_code_with' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
         ], 'en');
 
         $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code', 'country' => 'NL'],
-            ['postal_code' => 'postal_code_for:country'],
+            ['postal_code' => 'postal_code_with:country'],
         );
 
         self::assertContains(
