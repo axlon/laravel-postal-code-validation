@@ -14,21 +14,13 @@ final class PostalCodeValidator
     ];
 
     /**
-     * The matching patterns.
-     *
-     * @var array<string, string|null>
-     */
-    protected $patterns;
-
-    /**
      * Create a new postal code matcher.
      *
      * @param array<string, string|null> $patterns
-     * @return void
      */
-    public function __construct(array $patterns)
-    {
-        $this->patterns = $patterns;
+    public function __construct(
+        protected array $patterns,
+    ) {
     }
 
     /**

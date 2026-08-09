@@ -9,11 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 final class PostalCodeRuleTest extends TestCase
 {
-    /**
-     * Test the creation of dependent postal code rules.
-     *
-     * @return void
-     */
     public function testDependentRuleCreation(): void
     {
         self::assertSame('postal_code_with:', (string) PostalCode::forInput());
@@ -24,11 +19,6 @@ final class PostalCodeRuleTest extends TestCase
         self::assertSame('postal_code_with:foo,bar,baz', (string) PostalCode::with('foo')->or('bar')->or('baz'));
     }
 
-    /**
-     * Test the creation of explicit postal code rules.
-     *
-     * @return void
-     */
     public function testExplicitRuleCreation(): void
     {
         self::assertSame('postal_code:', (string) PostalCode::forCountry());

@@ -11,7 +11,7 @@ final class PostalCodeExamples
      *
      * @var array<string, string>|null
      */
-    protected $examples;
+    protected ?array $examples = null;
 
     /**
      * Get a postal code example for the given country.

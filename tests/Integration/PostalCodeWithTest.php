@@ -10,11 +10,6 @@ use Tests\TestCase;
 
 final class PostalCodeWithTest extends TestCase
 {
-    /**
-     * Test if the 'postal_code_with' rule fails on invalid countries.
-     *
-     * @return void
-     */
     public function testValidationFailsInvalidCountry(): void
     {
         $validator = Validator::make(
@@ -26,11 +21,6 @@ final class PostalCodeWithTest extends TestCase
         self::assertContains('validation.postal_code_with', $validator->errors()->all());
     }
 
-    /**
-     * Test if the 'postal_code_with' rule fails invalid input.
-     *
-     * @return void
-     */
     public function testValidationFailsInvalidPostalCode(): void
     {
         $validator = Validator::make(
@@ -42,11 +32,6 @@ final class PostalCodeWithTest extends TestCase
         self::assertContains('validation.postal_code_with', $validator->errors()->all());
     }
 
-    /**
-     * Test if the 'postal_code_with' rule fails invalid input.
-     *
-     * @return void
-     */
     public function testValidationFailsInvalidPostalCodeInArray(): void
     {
         $validator = Validator::make(
@@ -59,9 +44,6 @@ final class PostalCodeWithTest extends TestCase
     }
 
     /**
-     * Test if the 'postal_code' rule fails null input.
-     *
-     * @return void
      * @link https://github.com/axlon/laravel-postal-code-validation/issues/23
      */
     public function testValidationFailsNullPostalCode(): void
@@ -86,11 +68,6 @@ final class PostalCodeWithTest extends TestCase
         self::assertEmpty($validator->errors()->all());
     }
 
-    /**
-     * Test if the 'postal_code_with' rule ignores references that aren't present.
-     *
-     * @return void
-     */
     public function testValidationIgnoresMissingFields(): void
     {
         $validator = Validator::make(
@@ -113,11 +90,6 @@ final class PostalCodeWithTest extends TestCase
         self::assertContains('validation.postal_code_with', $validator->errors()->all());
     }
 
-    /**
-     * Test if the 'postal_code_with' rule passes valid input.
-     *
-     * @return void
-     */
     public function testValidationPassesValidPostalCode(): void
     {
         $validator = Validator::make(
@@ -129,11 +101,6 @@ final class PostalCodeWithTest extends TestCase
         self::assertEmpty($validator->errors()->all());
     }
 
-    /**
-     * Test if the 'postal_code_with' rule passes valid input.
-     *
-     * @return void
-     */
     public function testValidationPassesValidPostalCodeInArray(): void
     {
         $validator = Validator::make(
@@ -145,11 +112,6 @@ final class PostalCodeWithTest extends TestCase
         self::assertEmpty($validator->errors()->all());
     }
 
-    /**
-     * Test if an exception is thrown when calling the 'postal_code' rule without arguments.
-     *
-     * @return void
-     */
     public function testValidationThrowsWithoutParameters(): void
     {
         $validator = Validator::make(

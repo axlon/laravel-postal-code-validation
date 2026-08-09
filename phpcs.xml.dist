@@ -170,6 +170,7 @@
     <rule ref="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue"/>
     <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces"/>
     <rule ref="Squiz.Commenting.FunctionComment">
+        <exclude-pattern>./tests</exclude-pattern>
         <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
         <exclude name="Squiz.Commenting.FunctionComment.Missing"/>
         <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment"/>
@@ -182,12 +183,6 @@
         <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
         <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType"/>
         <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
-    </rule>
-    <rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
-        <exclude-pattern>tests/**/*Test.php</exclude-pattern>
-    </rule>
-    <rule ref="Squiz.Commenting.FunctionComment.MissingReturn">
-        <exclude-pattern>tests/**/*Test.php</exclude-pattern>
     </rule>
     <rule ref="Squiz.Commenting.InlineComment">
         <exclude name="Squiz.Commenting.InlineComment.DocBlock"/>

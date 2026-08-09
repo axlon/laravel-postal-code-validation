@@ -10,11 +10,6 @@ use Tests\TestCase;
 
 final class ReplacerTest extends TestCase
 {
-    /**
-     * Test the error replacer for the 'postal_code' rule.
-     *
-     * @return void
-     */
     public function testPostalCodeReplacer(): void
     {
         Lang::addLines([
@@ -32,11 +27,6 @@ final class ReplacerTest extends TestCase
         );
     }
 
-    /**
-     * Test the error replacer for the 'postal_code_with' rule.
-     *
-     * @return void
-     */
     public function testPostalCodeWithReplacer(): void
     {
         Lang::addLines([

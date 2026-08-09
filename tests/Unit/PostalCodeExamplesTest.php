@@ -9,23 +9,13 @@ use PHPUnit\Framework\TestCase;
 
 final class PostalCodeExamplesTest extends TestCase
 {
-    /**
-     * The postal code examples.
-     *
-     * @var \Axlon\PostalCodeValidation\Support\PostalCodeExamples
-     */
-    protected $examples;
+    protected PostalCodeExamples $examples;
 
     protected function setUp(): void
     {
         $this->examples = new PostalCodeExamples();
     }
 
-    /**
-     * Test the retrieval of valid postal code examples.
-     *
-     * @return void
-     */
     public function testExampleRetrieval(): void
     {
         self::assertSame('1234 AB', $this->examples->get('NL'));
