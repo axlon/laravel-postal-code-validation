@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Axlon\PostalCodeValidation;
 
+use Axlon\PostalCodeValidation\Contracts\ConstraintRepository;
+use Axlon\PostalCodeValidation\Contracts\ExampleRepository;
+use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Factory;
 
@@ -16,16 +19,16 @@ final class ValidationServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->callAfterResolving('validator', self::registerRules(...));
-
-        $this->app->singleton('postal_codes', static function () {
+        $this->app->singleton(ConstraintRepository::class, static function () {
             /** @var array<string, string|null> $data */
             $data = require __DIR__ . '/../resources/patterns.php';
 
             return new PostalCodeValidator($data);
         });
 
-        $this->app->alias('postal_codes', PostalCodeValidator::class);
+        $this->app->singleton(ExampleRepository::class, PostalCodeExamples::class);
+
+        $this->callAfterResolving('validator', self::registerRules(...));
     }
 
     /**

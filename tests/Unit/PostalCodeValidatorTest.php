@@ -39,13 +39,19 @@ final class PostalCodeValidatorTest extends TestCase
      */
     public function testCanaryIslands(): void
     {
-        self::assertTrue($this->validator->passes('IC', '38580'));
+        $constraint = $this->validator->get('IC');
+
+        self::assertNotNull($constraint);
+        self::assertTrue($constraint->matches('38580'));
     }
 
     #[DataProvider('provideExamples')]
     public function testExamplesAreValidPatterns(string $country, string $example): void
     {
-        self::assertTrue($this->validator->passes($country, $example));
+        $constraint = $this->validator->get($country);
+
+        self::assertNotNull($constraint);
+        self::assertTrue($constraint->matches($example));
     }
 
     /**
@@ -53,24 +59,30 @@ final class PostalCodeValidatorTest extends TestCase
      */
     public function testGreatBritainInwardCodeMaxLength(): void
     {
-        self::assertFalse($this->validator->passes('GB', 'NN1 5LLL'));
+        $constraint = $this->validator->get('GB');
+
+        self::assertNotNull($constraint);
+        self::assertFalse($constraint->matches('NN1 5LLL'));
     }
 
-    public function testLowerCaseCountryCode(): void
+    public function testLowerCaseAreaCode(): void
     {
-        self::assertTrue($this->validator->supports('nl'));
-        self::assertTrue($this->validator->passes('nl', '1234 AB'));
+        $constraint = $this->validator->get('nl');
+
+        self::assertNotNull($constraint);
+        self::assertTrue($constraint->matches('1234 AB'));
     }
 
     public function testNullPattern(): void
     {
-        self::assertTrue($this->validator->supports('GH'));
-        self::assertTrue($this->validator->passes('GH', 'any value'));
+        $constraint = $this->validator->get('GH');
+
+        self::assertNotNull($constraint);
+        self::assertTrue($constraint->matches('any value'));
     }
 
-    public function testUnsupportedCountryCode(): void
+    public function testUnsupportedAreaCode(): void
     {
-        self::assertFalse($this->validator->supports('XX'));
-        self::assertFalse($this->validator->passes('XX', 'any value'));
+        self::assertNull($this->validator->get('XX'));
     }
 }

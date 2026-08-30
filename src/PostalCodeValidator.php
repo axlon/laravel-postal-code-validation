@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace Axlon\PostalCodeValidation;
 
-final class PostalCodeValidator
+use Axlon\PostalCodeValidation\Constraints\RegularExpression;
+use Axlon\PostalCodeValidation\Constraints\Unconstrained;
+use Axlon\PostalCodeValidation\Contracts\Constraint;
+use Axlon\PostalCodeValidation\Contracts\ConstraintRepository;
+
+final class PostalCodeValidator implements ConstraintRepository
 {
     /**
-     * The country codes that are aliases for other country codes.
+     * The area codes that are aliases for other area codes.
      */
     private const ALIASES = [
         'IC' => 'ES',
     ];
 
     /**
-     * Create a new postal code matcher.
+     * Create a new postal code constraint repository.
      *
      * @param array<string, string|null> $patterns
+     * @return void
      */
     public function __construct(
         protected array $patterns,
@@ -24,69 +30,36 @@ final class PostalCodeValidator
     }
 
     /**
-     * Determine if the given postal code(s) are valid for the given country.
+     * Get the postal code constraint for the specified area.
      *
-     * @param string $countryCode
-     * @param string|null ...$postalCodes
-     * @return bool
+     * @param string $areaCode
+     * @return \Axlon\PostalCodeValidation\Contracts\Constraint|null
      */
-    public function passes(string $countryCode, ?string ...$postalCodes): bool
+    public function get(string $areaCode): ?Constraint
     {
-        if (!$this->supports($countryCode)) {
-            return false;
+        $areaCode = $this->resolveAlias($areaCode);
+
+        if (!array_key_exists($areaCode, $this->patterns)) {
+            return null;
         }
 
-        if (($pattern = $this->patternFor($countryCode)) === null) {
-            return true;
+        if (($pattern = $this->patterns[$areaCode]) === null) {
+            return new Unconstrained();
         }
 
-        foreach ($postalCodes as $postalCode) {
-            if ($postalCode === null || trim($postalCode) === '') {
-                return false;
-            }
-
-            if (preg_match($pattern, $postalCode) !== 1) {
-                return false;
-            }
-        }
-
-        return true;
+        return new RegularExpression($pattern);
     }
 
     /**
-     * Get the matching pattern for the given country.
+     * Resolve the given area code to the area code its data is stored under.
      *
-     * @param string $countryCode
-     * @return string|null
-     */
-    private function patternFor(string $countryCode): ?string
-    {
-        $countryCode = $this->resolveAlias($countryCode);
-
-        return $this->patterns[$countryCode] ?? null;
-    }
-
-    /**
-     * Resolve the given country code to the country code its data is stored under.
-     *
-     * @param string $countryCode
+     * @param string $areaCode
      * @return string
      */
-    private function resolveAlias(string $countryCode): string
+    private function resolveAlias(string $areaCode): string
     {
-        $countryCode = strtoupper($countryCode);
+        $areaCode = strtoupper($areaCode);
 
-        return self::ALIASES[$countryCode] ?? $countryCode;
-    }
-
-    /**
-     * Determine if a matching pattern exists for the given country.
-     *
-     * @param string $countryCode
-     * @return bool
-     */
-    public function supports(string $countryCode): bool
-    {
-        return array_key_exists($this->resolveAlias($countryCode), $this->patterns);
+        return self::ALIASES[$areaCode] ?? $areaCode;
     }
 }

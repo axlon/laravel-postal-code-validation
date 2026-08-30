@@ -44,5 +44,9 @@ validate. Anywhere you validated manually, run the value through the validator i
 
 **Likelihood of impact: low**
 
+While no longer a first-party feature, it is now possible to override both patterns and examples, you may do this by
+extending `ConstraintRepository` and `ExampleRepository` respectively. See
+the [Laravel docs](https://laravel.com/framework/docs/container#extending-bindings) for more information.
+
 If you believe one of the shipped patterns contains a bug, please open
 an [issue](https://github.com/axlon/laravel-postal-code-validation/issues/new) so it can be fixed for everyone.

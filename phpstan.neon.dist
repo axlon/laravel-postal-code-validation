@@ -9,6 +9,12 @@ parameters:
     checkTooWideReturnTypesInProtectedAndPublicMethods: true
     checkTooWideThrowTypesInProtectedAndPublicMethods: true
     checkUninitializedProperties: true
+    ignoreErrors:
+        - path: tests
+          identifiers:
+            - classConstant.internalClass
+            - method.internalClass
+            - new.internalClass
     reportAlwaysTrueInLastCondition: true
     reportAnyTypeWideningInVarTag: true
     reportPossiblyNonexistentConstantArrayOffset: true

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Axlon\PostalCodeValidation\Extensions;
 
-use Axlon\PostalCodeValidation\PostalCodeValidator;
-use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
+use Axlon\PostalCodeValidation\Contracts\ConstraintRepository;
+use Axlon\PostalCodeValidation\Contracts\ExampleRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
@@ -15,12 +15,12 @@ final class PostalCodeFor
     /**
      * Create a new PostalCodeFor validator extension.
      *
-     * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
-     * @param \Axlon\PostalCodeValidation\Support\PostalCodeExamples $examples
+     * @param \Axlon\PostalCodeValidation\Contracts\ConstraintRepository $constraints
+     * @param \Axlon\PostalCodeValidation\Contracts\ExampleRepository $examples
      */
     public function __construct(
-        protected PostalCodeValidator $validator,
-        protected PostalCodeExamples $examples,
+        protected ConstraintRepository $constraints,
+        protected ExampleRepository $examples,
     ) {
     }
 
@@ -96,7 +96,7 @@ final class PostalCodeFor
                 continue;
             }
 
-            if ($this->validator->passes($parameter, $value)) {
+            if ($this->constraints->get($parameter)?->matches($value) === true) {
                 return true;
             }
         }
