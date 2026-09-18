@@ -22,7 +22,7 @@
         "illuminate/validation": "^12.0 || ^13.0"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^7.11",
+        "nikic/php-parser": "^5.9",
         "orchestra/testbench": "^10.11 || ^11.1",
         "phpcsstandards/phpcsextra": "^1.5",
         "phpstan/extension-installer": "^1.4",
@@ -30,9 +30,10 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
+        "phpstan/phpstan-webmozart-assert": "^2.0",
         "phpunit/phpunit": "^11.5",
         "slevomat/coding-standard": "^8.29",
-        "symfony/var-exporter": "^7.4 || ^8.1"
+        "webmozart/assert": "^2.4"
     },
     "autoload": {
         "psr-4": {
@@ -41,6 +42,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Axlon\\PostalCodeValidation\\Build\\": "build/",
             "Tests\\": "tests/"
         }
     },
@@ -50,6 +52,9 @@
             "phpstan/extension-installer": true
         },
         "sort-packages": true
+    },
+    "scripts": {
+        "build": "Axlon\\PostalCodeValidation\\Build\\ComposerScripts::build"
     },
     "extra": {
         "laravel": {

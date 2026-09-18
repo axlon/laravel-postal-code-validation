@@ -8,6 +8,7 @@
     <arg name="extensions" value="php"/>
     <arg value="sp"/>
 
+    <file>./build</file>
     <file>./src</file>
     <file>./tests</file>
 

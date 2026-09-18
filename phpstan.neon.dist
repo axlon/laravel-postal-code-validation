@@ -15,5 +15,6 @@ parameters:
     reportPossiblyNonexistentGeneralArrayOffset: true
     reportIgnoresWithoutComments: true
     paths:
+        - build
         - src
         - tests

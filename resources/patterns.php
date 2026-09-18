@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
 | This file contains data derived from Google's Address Validation Metadata (CC-BY 4.0).
 | For attribution and licensing information, see the README.
@@ -7,7 +9,6 @@
 | This file is generated automatically. Please do not edit it directly;
 | pull requests containing changes to this file will not be accepted.
 */
-
 return [
     'AC' => '/^(?:ASCN 1ZZ)$/i',
     'AD' => '/^(?:AD[1-7]0\d)$/i',
