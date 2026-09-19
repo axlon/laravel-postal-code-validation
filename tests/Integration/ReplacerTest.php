@@ -13,7 +13,7 @@ final class ReplacerTest extends TestCase
     public function testPostalCodeReplacer(): void
     {
         Lang::addLines([
-            'validation.postal_code' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
+            'validation.postal_code' => ':attribute invalid, should be a :countries postal code.',
         ], 'en');
 
         $validator = Validator::make(
@@ -22,7 +22,7 @@ final class ReplacerTest extends TestCase
         );
 
         self::assertContains(
-            'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
+            'postal code invalid, should be a NL postal code.',
             $validator->errors()->all(),
         );
     }
@@ -30,7 +30,7 @@ final class ReplacerTest extends TestCase
     public function testPostalCodeWithReplacer(): void
     {
         Lang::addLines([
-            'validation.postal_code_with' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
+            'validation.postal_code_with' => ':attribute invalid, should be a :countries postal code.',
         ], 'en');
 
         $validator = Validator::make(
@@ -39,7 +39,7 @@ final class ReplacerTest extends TestCase
         );
 
         self::assertContains(
-            'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
+            'postal code invalid, should be a NL postal code.',
             $validator->errors()->all(),
         );
     }
@@ -47,7 +47,7 @@ final class ReplacerTest extends TestCase
     public function testPostalCodeWithReplacerIgnoresNonStringFields(): void
     {
         Lang::addLines([
-            'validation.postal_code_with' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
+            'validation.postal_code_with' => ':attribute invalid, should be a :countries postal code.',
         ], 'en');
 
         $validator = Validator::make(
@@ -56,7 +56,7 @@ final class ReplacerTest extends TestCase
         );
 
         self::assertContains(
-            'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
+            'postal code invalid, should be a NL postal code.',
             $validator->errors()->all(),
         );
     }

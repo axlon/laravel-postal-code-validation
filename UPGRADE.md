@@ -19,6 +19,18 @@ with `postal_code_with`, rule parameters are unchanged:
 
 If you published a `validation.postal_code_for` translation line, rename it to `validation.postal_code_with`.
 
+### Postal code examples are no longer available in validation messages
+
+**Likelihood of impact: low**
+
+The `:examples` placeholder has been removed. If a custom `postal_code` or `postal_code_with` validation message uses
+it, remove the placeholder or replace it with static wording:
+
+```diff
+-'postal_code' => ':attribute must be valid for :countries (for example :examples).',
++'postal_code' => ':attribute must be valid for :countries.',
+```
+
 ### Validating outside of Laravel's validator is no longer supported
 
 **Likelihood of impact: low**
