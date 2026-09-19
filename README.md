@@ -10,8 +10,8 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Available rules](#available-rules)
-    - [Fluent API](#fluent-api)
+    - [Available rule](#available-rule)
+    - [Rule object](#rule-object)
     - [Adding an error message](#adding-an-error-message)
 - [License](#license)
 - [Attribution](#attribution)
@@ -30,80 +30,63 @@ You can install this package with Composer, by running the command below:
 composer require axlon/laravel-postal-code-validation
 ```
 
-If you have package discovery enabled, that's it, continue to the [usage](#usage) section. If you want to register the
-package manually, you can do this by adding the following line to your `config/app.php` file:
-
-```php
-'providers' => [
-   ...
-   Axlon\PostalCodeValidation\ValidationServiceProvider::class,
-   ...
-],
-```
-
 ## Usage
 Postal code validation perfectly integrates into your Laravel application, you can use it just like you would any
 framework validation rule.
 
 ### Available rules
+
 This package adds the following validation rules:
 
 #### postal_code:foo,bar,...
-The field under validation must be a valid postal code in at least one of the given countries. Arguments must be
-countries in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+
+The field under validation must be a valid postal code in at least one of the given regions. Each argument may be either
+an uppercase [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code or the name of a field
+that contains one. Region codes are case-sensitive.
 
 ```php
-'postal_code' => 'postal_code:NL,DE,FR,BE'
+'postal_code' => 'postal_code:NL,BE'
 ```
 
-#### postal_code_with:foo,bar,...
-The field under validation must be a postal code in at least one of the countries in the given fields _only if_ at least
-one of the specified fields is present.
+Fields can be referenced using dot notation:
 
 ```php
-'billing.country' => 'required|string|max:2',
-...
-'shipping.country' => 'nullable|string|max:2',
-'shipping.postal_code' => 'postal_code_with:billing.country,shipping.country'
+'shipping.country' => 'nullable|string|size:2|uppercase',
+'shipping.postal_code' => 'postal_code:shipping.country'
 ```
 
-### Fluent API
-If you prefer using a fluent object style over string based rules, that's also available:
+> [!IMPORTANT]
+> Validation fails when no arguments resolve to a valid region code.
+
+### Rule object
+
+This package also provides a `PostalCode` rule object, which allows for fluent rule building:
 
 ```php
 'postal_code' => [
-    PostalCode::for('NL')->or('BE'),
+    PostalCode::of(['NL', 'BE']),
 ],
 ```
 
-The same goes for the `postal_code_with` rule:
-
-```php
-'billing.country' => 'required|string|max:2',
-...
-'shipping.country' => 'nullable|string|max:2',
-'shipping.postal_code' => [
-    PostalCode::with('billing.country')->or('shipping.country')
-],
-```
+It accepts the same arguments as the `postal_code` rule does.
 
 ### Adding an error message
-To add a meaningful error message, add the following lines to `resources/lang/{your language}/validation.php`:
+
+Add the following line to `lang/{locale}/validation.php`:
 
 ```php
-'postal_code' => 'Your message here',
-'postal_code_with' => 'Your message here',
+'postal_code' => 'Your message here.',
 ```
 
-The following placeholders will be automatically filled for you:
+The following placeholders are automatically filled for you:
 
-| Placeholder | Description                                                |
-|-------------|------------------------------------------------------------|
-| :attribute  | The name of the field that was under validation            |
-| :countries  | The countries that were validated against (e.g. `NL, BE`) |
+| Placeholder | Description                                             |
+|-------------|---------------------------------------------------------|
+| :attribute  | The name of the field that was under validation         |
+| :regions    | The regions that were validated against (e.g. `NL, BE`) |
 
 > [!IMPORTANT]
-> The `:countries` placeholder will be empty when referenced fields do not contain any country codes.
+> The `:regions` placeholder will be empty when referenced fields do not contain any country codes.
 
 ## License
 

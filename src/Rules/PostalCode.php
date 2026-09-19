@@ -4,84 +4,137 @@ declare(strict_types=1);
 
 namespace Axlon\PostalCodeValidation\Rules;
 
-final class PostalCode
+use Axlon\PostalCodeValidation\PostalCodeValidator;
+use Closure;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Validation\DataAwareRule;
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Arr;
+
+final class PostalCode implements ValidationRule, DataAwareRule
 {
     /**
-     * Create a new postal code validation rule.
+     * The data under validation.
      *
-     * @param string[] $parameters
-     * @param bool $dependent
+     * @var array<mixed>
      */
-    public function __construct(
-        protected array $parameters,
-        protected bool $dependent,
+    private array $data = [];
+
+    /**
+     * The regions to validate against.
+     *
+     * @var list<non-empty-string>|null
+     */
+    private ?array $regions = null;
+
+    /**
+     * Create a new rule instance.
+     *
+     * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
+     * @param array<string> $parameters
+     * @return void
+     */
+    private function __construct(
+        private readonly PostalCodeValidator $validator,
+        private array $parameters,
     ) {
     }
 
     /**
-     * Convert the rule to a validation string.
+     * Determine whether the given value is a valid region code.
      *
-     * @return string
+     * @param mixed $value
+     * @return bool
+     * @phpstan-assert-if-true =non-empty-string $value
      */
-    public function __toString(): string
+    private static function isRegionCode(mixed $value): bool
     {
-        return 'postal_code' . ($this->dependent ? '_with:' : ':') . implode(',', $this->parameters);
+        return is_string($value) && preg_match('/^[A-Z]{2}$/', $value) === 1;
     }
 
     /**
-     * Get a postal_code_with constraint builder instance.
+     * Create a new rule instance.
      *
-     * @param string $country
-     * @return static
+     * @param array<string>|string ...$parameters
+     * @return self
      */
-    public static function for(string $country): self
+    public static function of(array|string ...$parameters): self
     {
-        return self::forCountry($country);
+        $allParameters = [];
+
+        foreach ($parameters as $parameter) {
+            $allParameters = [...$allParameters, ...(is_string($parameter) ? [$parameter] : $parameter)];
+        }
+
+        return new self(
+            Container::getInstance()->make(PostalCodeValidator::class),
+            $allParameters,
+        );
     }
 
     /**
-     * Create a new postal code validation rule for given countries.
+     * Get the regions to validate against.
      *
-     * @param string ...$parameters
-     * @return static
+     * @return list<non-empty-string>
      */
-    public static function forCountry(string ...$parameters): self
+    public function regions(): array
     {
-        return new static($parameters, false);
+        if ($this->regions === null) {
+            $regions = [];
+
+            foreach ($this->parameters as $parameter) {
+                if (!self::isRegionCode($parameter)) {
+                    $parameter = Arr::get($this->data, $parameter);
+
+                    if (!self::isRegionCode($parameter)) {
+                        continue;
+                    }
+                }
+
+                $regions[] = $parameter;
+            }
+
+            $this->regions = array_values(array_unique($regions));
+        }
+
+        return $this->regions;
     }
 
     /**
-     * Create a new postal code validation rule for given inputs.
+     * Set the data under validation.
      *
-     * @param string ...$parameters
-     * @return static
-     */
-    public static function forInput(string ...$parameters): self
-    {
-        return new static($parameters, true);
-    }
-
-    /**
-     * Add additional validation parameters to the rule.
-     *
-     * @param string ...$parameters
+     * @param array<mixed> $data
      * @return $this
      */
-    public function or(string ...$parameters): self
+    public function setData(array $data): self
     {
-        $this->parameters = array_merge($this->parameters, $parameters);
+        $this->data = $data;
+        $this->regions = null;
 
         return $this;
     }
 
     /**
-     * Get a postal_code_with constraint builder instance.
+     * Run the validation rule.
      *
-     * @param string $field
-     * @return static
+     * @param string $attribute
+     * @param mixed $value
+     * @param \Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString $fail
+     * @return void
      */
-    public static function with(string $field): self
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        return self::forInput($field);
+        if (is_string($value)) {
+            foreach ($this->regions() as $region) {
+                if ($this->validator->passes($region, $value)) {
+                    return;
+                }
+            }
+        }
+
+        $fail('validation.postal_code')->translate([
+            'attribute' => $attribute,
+            'regions' => implode(', ', $this->regions()),
+        ]);
     }
 }

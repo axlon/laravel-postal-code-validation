@@ -59,7 +59,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "\\Axlon\\PostalCodeValidation\\ValidationServiceProvider"
+                "Axlon\\PostalCodeValidation\\PostalCodeServiceProvider"
             ]
         }
     }
