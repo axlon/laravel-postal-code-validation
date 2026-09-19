@@ -97,13 +97,13 @@ To add a meaningful error message, add the following lines to `resources/lang/{y
 
 The following placeholders will be automatically filled for you:
 
-Placeholder | Description
-------------|------------
-:attribute  | The name of the field that was under validation
-:countries  | The countries that were validated against (e.g. `NL, BE`)*
-:examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)*
+| Placeholder | Description                                                |
+|-------------|------------------------------------------------------------|
+| :attribute  | The name of the field that was under validation            |
+| :countries  | The countries that were validated against (e.g. `NL, BE`) |
 
-*The `:countries` and `:examples` placeholders may be empty if no valid countries are passed.
+> [!IMPORTANT]
+> The `:countries` placeholder will be empty when referenced fields do not contain any country codes.
 
 ## License
 
@@ -119,4 +119,4 @@ the [CC-BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
 - Only data relevant to postal code validation is included
 - Regular expressions found in the data are adjusted to be compatible with PHP's regex engine
-- The resulting data is converted into PHP resource files
+- The resulting data is used to generate PHP files

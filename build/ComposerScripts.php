@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Axlon\PostalCodeValidation\Build;
 
 use Axlon\PostalCodeValidation\Build\Http\AddressValidationDataClient;
-use Axlon\PostalCodeValidation\Build\Php\ExampleResourceBuilder;
+use Axlon\PostalCodeValidation\Build\Php\CountryDataProviderBuilder;
 use Axlon\PostalCodeValidation\Build\Php\PatternResourceBuilder;
 use Axlon\PostalCodeValidation\Build\Php\PhpPrinter;
 use Closure;
+use PhpParser\Node\Name;
 use PhpParser\PhpVersion;
 use Webmozart\Assert\Assert;
 
@@ -29,7 +30,9 @@ final class ComposerScripts
         self::renderTask('Writing files', static function () use ($data) {
             $files = [
                 __DIR__ . '/../resources/patterns.php' => new PatternResourceBuilder(),
-                __DIR__ . '/../resources/examples.php' => new ExampleResourceBuilder(),
+                __DIR__ . '/../tests/Generated/CountryDataProvider.php' => new CountryDataProviderBuilder(
+                    className: new Name('Tests\Generated\CountryDataProvider'),
+                ),
             ];
 
             $printer = new PhpPrinter([

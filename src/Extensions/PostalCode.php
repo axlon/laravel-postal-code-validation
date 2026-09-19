@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Axlon\PostalCodeValidation\Extensions;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
-use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
 use InvalidArgumentException;
 
 final class PostalCode
@@ -14,11 +13,10 @@ final class PostalCode
      * Create a new PostalCode validator extension.
      *
      * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
-     * @param \Axlon\PostalCodeValidation\Support\PostalCodeExamples $examples
+     * @return void
      */
     public function __construct(
         protected PostalCodeValidator $validator,
-        protected PostalCodeExamples $examples,
     ) {
     }
 
@@ -34,24 +32,19 @@ final class PostalCode
     public function replace(string $message, string $attribute, string $rule, array $parameters): string
     {
         $countries = [];
-        $examples = [];
 
         foreach ($parameters as $parameter) {
-            if (($example = $this->examples->get($parameter)) === null) {
-                continue;
+            if ($this->validator->supports($parameter)) {
+                $countries[] = $parameter;
             }
-
-            $countries[] = $parameter;
-            $examples[] = $example;
         }
 
         $replacements = [
             $attribute,
             implode(', ', array_unique($countries)),
-            implode(', ', array_unique($examples)),
         ];
 
-        return str_replace([':attribute', ':countries', ':examples'], $replacements, $message);
+        return str_replace([':attribute', ':countries'], $replacements, $message);
     }
 
     /**
