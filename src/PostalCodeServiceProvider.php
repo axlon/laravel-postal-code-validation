@@ -51,7 +51,9 @@ final class PostalCodeServiceProvider extends ServiceProvider
         array $parameters,
         Validator $validator,
     ): string {
-        $rule = PostalCode::of($parameters)->setData($validator->getData());
+        $rule = $parameters !== [] ? PostalCode::of($parameters) : PostalCode::default();
+        $rule->setData($validator->getData());
+
         $regions = implode(', ', $rule->regions());
 
         return str_replace([':attribute', ':regions'], [$attribute, $regions], $message);
@@ -72,7 +74,9 @@ final class PostalCodeServiceProvider extends ServiceProvider
         array $parameters,
         Validator $validator,
     ): bool {
-        return InvokableValidationRule::make(PostalCode::of($parameters))
+        $rule = $parameters !== [] ? PostalCode::of($parameters) : PostalCode::default();
+
+        return InvokableValidationRule::make($rule)
             ->setValidator($validator)
             ->passes($attribute, $value);
     }

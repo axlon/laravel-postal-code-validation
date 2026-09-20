@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 4.0.0 (Unreleased)
 
+### Added
+
+- Default validation logic can now be configured via `PostalCode::defaults()`
+
 ### Changed
 
 - The `postal_code` rule now accepts both region codes and fields name as parameters
 - Region codes must now use uppercase ISO 3166-1 alpha-2 format
 - Validation now fails when no valid region can be resolved from rule parameters
-- A parameterless `postal_code` rule now returns a validation error instead of throwing an `InvalidArgumentException`
+- The `postal_code` rule will now use the configured defaults when used without parameters
 - The `:countries` message placeholder has been renamed to `:regions`
 - The `PostalCode` rule object can now only be created via `PostalCode::of()`, replacing its old builder methods
 
