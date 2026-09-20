@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
+use Axlon\PostalCodeValidation\Constraints\ConstraintRegistry;
 use Axlon\PostalCodeValidation\PostalCodeServiceProvider;
 use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Axlon\PostalCodeValidation\Rules\PostalCode;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use Orchestra\Testbench\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
+use Tests\Fakes\FakeConstraint;
+use Tests\Fakes\FakeConstraintRegistry;
 
 #[CoversClass(PostalCodeServiceProvider::class)]
 #[UsesClass(PostalCode::class)]
@@ -33,17 +36,17 @@ final class PostalCodeServiceProviderTest extends TestCase
         parent::tearDown();
     }
 
-    public function testItBindsPostalCodeValidator(): void
+    public function testItBindsConstraintRegistry(): void
     {
-        $validator = App::make(PostalCodeValidator::class);
+        $validator = App::make(ConstraintRegistry::class);
 
-        self::assertSame($validator, App::make(PostalCodeValidator::class));
+        self::assertSame($validator, App::make(ConstraintRegistry::class));
     }
 
     public function testItRegistersPostalCodeRule(): void
     {
-        App::instance(PostalCodeValidator::class, new PostalCodeValidator([
-            'NL' => '/^\d{4} ?[A-Z]{2}$/i',
+        App::instance(ConstraintRegistry::class, new FakeConstraintRegistry([
+            'NL' => new FakeConstraint('1234 AB'),
         ]));
 
         $validator = Validator::make(
@@ -56,8 +59,8 @@ final class PostalCodeServiceProviderTest extends TestCase
 
     public function testItRegistersPostalCodeReplacer(): void
     {
-        App::instance(PostalCodeValidator::class, new PostalCodeValidator([
-            'NL' => '/^\d{4} ?[A-Z]{2}$/i',
+        App::instance(ConstraintRegistry::class, new FakeConstraintRegistry([
+            'NL' => new FakeConstraint('1234 AB'),
         ]));
 
         Lang::addLines([
@@ -85,8 +88,8 @@ final class PostalCodeServiceProviderTest extends TestCase
 
     public function testItUsesDefaultConfigurationWhenCalledWithoutParameters(): void
     {
-        App::instance(PostalCodeValidator::class, new PostalCodeValidator([
-            'NL' => '/^\d{4} ?[A-Z]{2}$/i',
+        App::instance(ConstraintRegistry::class, new FakeConstraintRegistry([
+            'NL' => new FakeConstraint('1234 AB'),
         ]));
 
         Lang::addLines([

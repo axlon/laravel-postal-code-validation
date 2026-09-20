@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Axlon\PostalCodeValidation\Rules;
 
-use Axlon\PostalCodeValidation\PostalCodeValidator;
+use Axlon\PostalCodeValidation\Constraints\ConstraintRegistry;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Validation\DataAwareRule;
@@ -37,12 +37,12 @@ final class PostalCode implements ValidationRule, DataAwareRule
     /**
      * Create a new rule instance.
      *
-     * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
+     * @param \Axlon\PostalCodeValidation\Constraints\ConstraintRegistry $constraints
      * @param array<string> $parameters
      * @return void
      */
     private function __construct(
-        private readonly PostalCodeValidator $validator,
+        private readonly ConstraintRegistry $constraints,
         private array $parameters,
     ) {
     }
@@ -97,7 +97,7 @@ final class PostalCode implements ValidationRule, DataAwareRule
         }
 
         return new self(
-            Container::getInstance()->make(PostalCodeValidator::class),
+            Container::getInstance()->make(ConstraintRegistry::class),
             $allParameters,
         );
     }
@@ -156,7 +156,7 @@ final class PostalCode implements ValidationRule, DataAwareRule
     {
         if (is_string($value)) {
             foreach ($this->regions() as $region) {
-                if ($this->validator->passes($region, $value)) {
+                if ($this->constraints->get($region)?->test($value) === true) {
                     return;
                 }
             }

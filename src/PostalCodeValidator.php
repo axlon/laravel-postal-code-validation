@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace Axlon\PostalCodeValidation;
 
-final class PostalCodeValidator
+use Axlon\PostalCodeValidation\Constraints\Constraint;
+use Axlon\PostalCodeValidation\Constraints\ConstraintRegistry;
+
+final class PostalCodeValidator implements ConstraintRegistry
 {
     /**
-     * The country codes that are aliases for other country codes.
-     */
-    private const ALIASES = [
-        'IC' => 'ES',
-    ];
-
-    /**
-     * Create a new postal code matcher.
+     * Create a new constraint registry.
      *
      * @param array<string, string|null> $patterns
      */
@@ -24,69 +20,40 @@ final class PostalCodeValidator
     }
 
     /**
-     * Determine if the given postal code(s) are valid for the given country.
+     * Retrieve a constraint for the specified region.
      *
-     * @param string $countryCode
-     * @param string|null ...$postalCodes
-     * @return bool
+     * @param string $regionCode
+     * @return \Axlon\PostalCodeValidation\Constraints\Constraint|null
      */
-    public function passes(string $countryCode, ?string ...$postalCodes): bool
+    public function get(string $regionCode): ?Constraint
     {
-        if (!$this->supports($countryCode)) {
-            return false;
+        $regionCode = $regionCode === 'IC' ? 'ES' : $regionCode;
+
+        if (array_key_exists($regionCode, $this->patterns)) {
+            return self::makeConstraint($this->patterns[$regionCode] ?? '/.*/');
         }
 
-        if (($pattern = $this->patternFor($countryCode)) === null) {
-            return true;
-        }
+        return null;
+    }
 
-        foreach ($postalCodes as $postalCode) {
-            if ($postalCode === null || trim($postalCode) === '') {
-                return false;
+    /**
+     * Make a constraint from the given pattern.
+     *
+     * @param string $pattern
+     * @return \Axlon\PostalCodeValidation\Constraints\Constraint
+     */
+    private static function makeConstraint(string $pattern): Constraint
+    {
+        return new class ($pattern) implements Constraint {
+            public function __construct(
+                private readonly string $pattern,
+            ) {
             }
 
-            if (preg_match($pattern, $postalCode) !== 1) {
-                return false;
+            public function test(string $value): bool
+            {
+                return preg_match($this->pattern, $value) === 1;
             }
-        }
-
-        return true;
-    }
-
-    /**
-     * Get the matching pattern for the given country.
-     *
-     * @param string $countryCode
-     * @return string|null
-     */
-    private function patternFor(string $countryCode): ?string
-    {
-        $countryCode = $this->resolveAlias($countryCode);
-
-        return $this->patterns[$countryCode] ?? null;
-    }
-
-    /**
-     * Resolve the given country code to the country code its data is stored under.
-     *
-     * @param string $countryCode
-     * @return string
-     */
-    private function resolveAlias(string $countryCode): string
-    {
-        $countryCode = strtoupper($countryCode);
-
-        return self::ALIASES[$countryCode] ?? $countryCode;
-    }
-
-    /**
-     * Determine if a matching pattern exists for the given country.
-     *
-     * @param string $countryCode
-     * @return bool
-     */
-    public function supports(string $countryCode): bool
-    {
-        return array_key_exists($this->resolveAlias($countryCode), $this->patterns);
+        };
     }
 }

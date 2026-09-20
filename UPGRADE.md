@@ -120,5 +120,8 @@ validated manually, run the value through the validator instead:
 
 **Likelihood of impact: low**
 
+While no longer a first-class feature, you can still override validation logic
+by [extending](https://laravel.com/framework/docs/container#extending-bindings) the `ConstraintRegistry`.
+
 If you believe one of the shipped patterns contains a bug, please open
 an [issue](https://github.com/axlon/laravel-postal-code-validation/issues/new) so it can be fixed for everyone.

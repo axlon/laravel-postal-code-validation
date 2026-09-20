@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Rules;
 
-use Axlon\PostalCodeValidation\PostalCodeValidator;
+use Axlon\PostalCodeValidation\Constraints\ConstraintRegistry;
 use Axlon\PostalCodeValidation\Rules\PostalCode;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -12,19 +12,19 @@ use Illuminate\Support\Facades\Validator;
 use Orchestra\Testbench\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\TestWith;
-use PHPUnit\Framework\Attributes\UsesClass;
+use Tests\Fakes\FakeConstraint;
+use Tests\Fakes\FakeConstraintRegistry;
 
 #[CoversClass(PostalCode::class)]
-#[UsesClass(PostalCodeValidator::class)]
 final class PostalCodeTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
 
-        App::instance(PostalCodeValidator::class, new PostalCodeValidator([
-            'BE' => '/^\d{4}$/i',
-            'NL' => '/^\d{4} ?[A-Z]{2}$/i',
+        App::instance(ConstraintRegistry::class, new FakeConstraintRegistry([
+            'BE' => new FakeConstraint('1234'),
+            'NL' => new FakeConstraint('1234 AB'),
         ]));
     }
 
