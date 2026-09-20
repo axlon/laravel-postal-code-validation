@@ -26,6 +26,13 @@ final class PostalCodeServiceProviderTest extends TestCase
         ];
     }
 
+    protected function tearDown(): void
+    {
+        PostalCode::defaults(null);
+
+        parent::tearDown();
+    }
+
     public function testItBindsPostalCodeValidator(): void
     {
         $validator = App::make(PostalCodeValidator::class);
@@ -74,5 +81,23 @@ final class PostalCodeServiceProviderTest extends TestCase
             ['The values.1.postal_code must be a valid BE postal code.'],
             $validator->messages()->all(),
         );
+    }
+
+    public function testItUsesDefaultConfigurationWhenCalledWithoutParameters(): void
+    {
+        App::instance(PostalCodeValidator::class, new PostalCodeValidator([
+            'NL' => '/^\d{4} ?[A-Z]{2}$/i',
+        ]));
+
+        Lang::addLines([
+            'validation.postal_code' => 'The :attribute must be a valid :regions postal code.',
+        ], locale: 'en');
+
+        PostalCode::defaults(PostalCode::of('NL'));
+
+        $validator = Validator::make(['value' => '1234'], ['value' => 'postal_code']);
+
+        self::assertFalse($validator->passes());
+        self::assertSame(['The value must be a valid NL postal code.'], $validator->messages()->all());
     }
 }

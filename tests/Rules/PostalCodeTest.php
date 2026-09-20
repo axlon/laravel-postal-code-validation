@@ -28,6 +28,37 @@ final class PostalCodeTest extends TestCase
         ]));
     }
 
+    protected function tearDown(): void
+    {
+        PostalCode::defaults(null);
+
+        parent::tearDown();
+    }
+
+    public function testItConfiguresDefaultRuleUsingCallback(): void
+    {
+        $expected = PostalCode::of('NL');
+
+        PostalCode::defaults(static fn () => $expected);
+
+        $actual = PostalCode::default();
+
+        self::assertNotSame($expected, $actual);
+        self::assertEquals($expected, $actual);
+    }
+
+    public function testItConfiguresDefaultUsingInstance(): void
+    {
+        $rule = PostalCode::of('NL');
+
+        PostalCode::defaults($rule);
+
+        $actual = PostalCode::default();
+
+        self::assertNotSame($rule, $actual);
+        self::assertEquals($rule, $actual);
+    }
+
     public function testItFailsWhenRegionFieldIsMissing(): void
     {
         $validator = Validator::make(

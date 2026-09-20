@@ -60,14 +60,6 @@ The old `postal_code_with` rule passed when all of its referenced fields were mi
 fails when none of its parameters resolve to a valid region code. Ensure at least one referenced field contains an
 ISO 3166-1 alpha-2 code whenever the postal code is validated, or conditionally exclude the postal code rule.
 
-### Parameterless rules no longer throw an exception
-
-**Likelihood of impact: low**
-
-A parameterless `postal_code` rule now produces a normal validation error instead of throwing an
-`InvalidArgumentException`. Handle the validation failure instead of catching that exception. In most cases, supplying
-the missing literal region or field name is the appropriate fix.
-
 ### The service provider was renamed
 
 **Likelihood of impact: low**

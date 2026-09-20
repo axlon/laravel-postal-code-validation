@@ -14,6 +14,13 @@ use Illuminate\Support\Arr;
 final class PostalCode implements ValidationRule, DataAwareRule
 {
     /**
+     * The callback that will generate the "default" version of the rule.
+     *
+     * @var (\Closure(): self)|null
+     */
+    private static ?Closure $defaultCallback = null;
+
+    /**
      * The data under validation.
      *
      * @var array<mixed>
@@ -50,6 +57,29 @@ final class PostalCode implements ValidationRule, DataAwareRule
     private static function isRegionCode(mixed $value): bool
     {
         return is_string($value) && preg_match('/^[A-Z]{2}$/', $value) === 1;
+    }
+
+    /**
+     * Get the "default" version of the postal code rule.
+     *
+     * @return self
+     */
+    public static function default(): self
+    {
+        return self::of(
+            self::$defaultCallback !== null ? (self::$defaultCallback)()->parameters : [],
+        );
+    }
+
+    /**
+     * Set the "default" version of the postal code rule.
+     *
+     * @param (\Closure(): self)|self|null $callback
+     * @return void
+     */
+    public static function defaults(Closure|self|null $callback): void
+    {
+        self::$defaultCallback = $callback instanceof self ? static fn () => $callback : $callback;
     }
 
     /**

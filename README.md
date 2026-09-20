@@ -12,6 +12,7 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
 - [Usage](#usage)
     - [Available rule](#available-rule)
     - [Rule object](#rule-object)
+    - [Default configuration](#default-configuration)
     - [Adding an error message](#adding-an-error-message)
 - [License](#license)
 - [Attribution](#attribution)
@@ -38,7 +39,7 @@ framework validation rule.
 
 This package adds the following validation rules:
 
-#### postal_code:foo,bar,...
+#### postal_code
 
 The field under validation must be a valid postal code in at least one of the given regions. Each argument may be either
 an uppercase [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code or the name of a field
@@ -55,9 +56,6 @@ Fields can be referenced using dot notation:
 'shipping.postal_code' => 'postal_code:shipping.country'
 ```
 
-> [!IMPORTANT]
-> Validation fails when no arguments resolve to a valid region code.
-
 ### Rule object
 
 This package also provides a `PostalCode` rule object, which allows for fluent rule building:
@@ -69,6 +67,20 @@ This package also provides a `PostalCode` rule object, which allows for fluent r
 ```
 
 It accepts the same arguments as the `postal_code` rule does.
+
+### Default configuration
+
+If you use the same configuration in multiple places, you may want to set a default way to validate postal codes.
+Typically, this should be done in a service provider's `boot()` method:
+
+```php
+use Axlon\PostalCodeValidation\Rules\PostalCode;
+
+PostalCode::defaults(static fn () => PostalCode::of('NL'));
+```
+
+You can then easily invoke this default configuration by calling `PostalCode::default()`, or by calling the
+`postal_code` rule without any arguments.
 
 ### Adding an error message
 
