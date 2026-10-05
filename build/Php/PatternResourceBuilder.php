@@ -26,7 +26,7 @@ final readonly class PatternResourceBuilder implements Builder
 
         foreach ($countries as $country) {
             if ($country->postalCode !== null) {
-                $data[$country->key] = sprintf('/^(?:%s)$/i', $country->postalCode['pattern']);
+                $data[$country->key] = sprintf('/^(?:%s)\z/i', $country->postalCode['pattern']);
             } else {
                 $data[$country->key] = null;
             }

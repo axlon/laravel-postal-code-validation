@@ -49,6 +49,11 @@ final class PostalCodeValidatorTest extends TestCase
         self::assertTrue($this->validator->passes('nl', '1234 AB'));
     }
 
+    public function testTrailingNewlineIsInvalid(): void
+    {
+        self::assertFalse($this->validator->passes('US', "12345\n"));
+    }
+
     public function testNullPattern(): void
     {
         self::assertTrue($this->validator->supports('GH'));

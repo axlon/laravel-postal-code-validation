@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed a `TypeError` when a referenced field holds a value that is not a string
+- Fixed validation passing when a valid postal code has a trailing newline and Laravel's input trimming is disabled
 
 ### Removed
 
