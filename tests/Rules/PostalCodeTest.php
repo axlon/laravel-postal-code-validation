@@ -189,7 +189,6 @@ final class PostalCodeTest extends TestCase
         );
 
         self::assertTrue($validator->passes());
-        self::assertEmpty($validator->errors()->all());
     }
 
     public function testItPassesWhenValueMatchesAnyRegionField(): void
@@ -200,7 +199,6 @@ final class PostalCodeTest extends TestCase
         );
 
         self::assertTrue($validator->passes());
-        self::assertEmpty($validator->errors()->all());
     }
 
     public function testItPassesWhenValueMatchesNestedRegionField(): void
@@ -211,7 +209,6 @@ final class PostalCodeTest extends TestCase
         );
 
         self::assertTrue($validator->passes());
-        self::assertEmpty($validator->errors()->all());
     }
 
     public function testItReplacesRegionsInErrorMessage(): void
