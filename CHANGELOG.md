@@ -1,5 +1,10 @@
 # Changelog
 
+#[v3.11.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.11.0) (2026-11-18)
+
+- Update Kazakhstani validation pattern
+- Update Nigerian validation pattern
+
 ## [v3.10.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.10.0) (2026-08-09)
 
 - Update Argentine validation pattern
