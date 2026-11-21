@@ -1,20 +1,11 @@
 # Laravel Postal Code Validation
-Worldwide postal code validation for Laravel, based on Google's Address Data Service.
 
-<p align="center">
-    <a href="https://github.com/axlon/laravel-postal-code-validation/actions">
-        <img src="https://github.com/axlon/laravel-postal-code-validation/workflows/tests/badge.svg" alt="Build status">
-    </a>
-    <a href="https://packagist.org/packages/axlon/laravel-postal-code-validation">
-        <img src="https://img.shields.io/packagist/dt/axlon/laravel-postal-code-validation" alt="Downloads">
-    </a>
-    <a href="https://github.com/axlon/laravel-postal-code-validation/releases">
-        <img src="https://img.shields.io/packagist/v/axlon/laravel-postal-code-validation" alt="Latest version">
-    </a>
-    <a href="LICENSE.md">
-        <img src="https://img.shields.io/packagist/l/axlon/laravel-postal-code-validation" alt="License">
-    </a>
-</p>
+Adds postal code validation to Laravel, based on [Google's libaddressinput](https://github.com/google/libaddressinput).
+
+[![Tests](https://github.com/axlon/laravel-postal-code-validation/workflows/tests/badge.svg)](https://github.com/axlon/laravel-postal-code-validation/actions/workflows/tests.yml)
+[![Downloads](https://img.shields.io/packagist/dt/axlon/laravel-postal-code-validation)](https://packagist.org/packages/axlon/laravel-postal-code-validation)
+[![Latest version](https://img.shields.io/packagist/v/axlon/laravel-postal-code-validation)](https://github.com/axlon/laravel-postal-code-validation/releases)
+[![License](https://img.shields.io/packagist/l/axlon/laravel-postal-code-validation)](LICENSE.md)
 
 - [Requirements](#requirements)
 - [Installation](#installation)
@@ -29,15 +20,11 @@ Worldwide postal code validation for Laravel, based on Google's Address Data Ser
 - [Attribution](#attribution)
 
 ## Requirements
+
 This package has the following requirements:
 
-- PHP 7.2 or higher
-- Laravel (or Lumen) 5.5 or higher
-
-| Laravel / Lumen version | Package version |
-|-------------------------|-----------------|
-| 5.1 - 5.4               | [2.x](https://github.com/axlon/laravel-postal-code-validation/tree/2.x) |
-| 5.5 and greater         | 3.x             |
+- PHP 7.2 or greater
+- Laravel (or Lumen) 5.5 or greater
 
 ## Installation
 You can install this package with Composer, by running the command below:
