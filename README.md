@@ -9,7 +9,6 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
 
 - [Requirements](#requirements)
 - [Installation](#installation)
-    - [Lumen](#lumen)
 - [Usage](#usage)
     - [Available rules](#available-rules)
     - [Fluent API](#fluent-api)
@@ -24,7 +23,7 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
 This package has the following requirements:
 
 - PHP 7.2 or greater
-- Laravel (or Lumen) 5.5 or greater
+- Laravel 5.5 or greater
 
 ## Installation
 You can install this package with Composer, by running the command below:
@@ -42,13 +41,6 @@ package manually, you can do this by adding the following line to your `config/a
    Axlon\PostalCodeValidation\ValidationServiceProvider::class,
    ...
 ],
-```
-
-### Lumen
-If you are using Lumen, register the package by adding the following line to your `bootstrap/app.php` file:
-
-```php
-$app->register(Axlon\PostalCodeValidation\ValidationServiceProvider::class);
 ```
 
 ## Usage
