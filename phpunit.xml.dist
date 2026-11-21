@@ -5,14 +5,9 @@
          colors="true"
          processIsolation="false"
          stopOnFailure="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          cacheDirectory=".phpunit.cache"
          backupStaticProperties="false">
-    <coverage>
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-    </coverage>
     <testsuites>
         <testsuite name="Integration">
             <directory suffix="Test.php">./tests/Integration</directory>
@@ -21,4 +16,9 @@
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
 </phpunit>

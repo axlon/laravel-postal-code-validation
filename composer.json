@@ -17,15 +17,15 @@
         }
     ],
     "require": {
-        "php": "^7.2 || ^8.0",
-        "illuminate/contracts": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-        "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-        "illuminate/validation": "^5.5 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0"
+        "php": ">=8.2",
+        "illuminate/contracts": "^12.0 || ^13.0",
+        "illuminate/support": "^12.0 || ^13.0",
+        "illuminate/validation": "^12.0 || ^13.0"
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^7.8",
-        "orchestra/testbench": "^3.5 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
-        "phpunit/phpunit": "^6.5 || ^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5",
+        "orchestra/testbench": "^10.0 || ^11.0",
+        "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4",
         "symfony/var-exporter": "^4.0 || ^5.0 || ^6.0 || ^7.0"
     },
     "autoload": {

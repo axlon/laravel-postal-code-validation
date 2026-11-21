@@ -22,8 +22,8 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
 
 This package has the following requirements:
 
-- PHP 7.2 or greater
-- Laravel 5.5 or greater
+- Laravel 12 or greater
+- PHP 8.2 or greater
 
 ## Installation
 You can install this package with Composer, by running the command below:
