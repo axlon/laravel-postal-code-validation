@@ -25,6 +25,7 @@ jobs:
             php: 8.4
           - laravel: 13.*
             php: 8.5
+            coverage: xdebug
           - laravel: 13.*
             php: '8.6'
     name: Tests on Laravel ${{ matrix.laravel }} / PHP ${{ matrix.php }}
@@ -36,6 +37,7 @@ jobs:
         uses: shivammathur/setup-php@2.40.0
         with:
           php-version: ${{ matrix.php }}
+          coverage: ${{ matrix.coverage || 'none' }}
 
       - name: Install dependencies
         env:
@@ -46,4 +48,17 @@ jobs:
           composer install --prefer-dist --no-interaction --no-progress
 
       - name: Run tests
+        if: ${{ !matrix.coverage }}
         run: vendor/bin/phpunit
+
+      - name: Run tests with coverage
+        if: ${{ matrix.coverage }}
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
+
+      - name: Upload coverage to Codecov
+        if: ${{ matrix.coverage }}
+        uses: codecov/codecov-action@v7.1.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.xml
+          disable_search: true
