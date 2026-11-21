@@ -74,8 +74,8 @@ jobs:
           COMPOSER_POLICY_ADVISORIES_BLOCK: 0
           COMPOSER_POLICY_ABANDONED_BLOCK: 0
         run: |
-          composer require laravel/laravel:"${{ matrix.laravel }}" --dev --no-update
+          composer require laravel/framework:"${{ matrix.laravel }}" --dev --no-update
           composer install --prefer-dist --no-interaction --no-progress
 
       - name: Run tests
-        run: composer test-laravel
+        run: vendor/bin/phpunit
