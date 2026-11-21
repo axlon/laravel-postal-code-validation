@@ -13,7 +13,7 @@ $httpClient = new Client(['base_uri' => 'https://chromium-i18n.appspot.com']);
 $httpQueue = [];
 $responses = [];
 
-$unwrap = function (ResponseInterface $response) {
+$unwrap = static function (ResponseInterface $response) {
     return Utils::jsonDecode($response->getBody()->getContents());
 };
 
@@ -47,11 +47,12 @@ foreach ($responses as $response) {
 }
 
 echo "Writing files...\r\n";
-foreach ([
-             __DIR__ . '/../resources/examples.php' => $examples,
-             __DIR__ . '/../resources/patterns.php' => $patterns,
-         ] as $path => $data) {
-
+foreach (
+    [
+        __DIR__ . '/../resources/examples.php' => $examples,
+        __DIR__ . '/../resources/patterns.php' => $patterns,
+    ] as $path => $data
+) {
     if (!$handle = @fopen($path, 'w')) {
         echo 'Unable to write to file: ' . $path;
         exit(1);
