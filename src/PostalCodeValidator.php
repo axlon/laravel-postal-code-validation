@@ -112,7 +112,11 @@ class PostalCodeValidator
             ?? $this->patterns[$countryCode]
             ?? null;
 
-        if ($pattern === null && array_key_exists($countryCode, self::ALIASES) &&  $countryCode !== self::ALIASES[$countryCode]) {
+        if (
+            $pattern === null
+            && array_key_exists($countryCode, self::ALIASES)
+            && $countryCode !== self::ALIASES[$countryCode]
+        ) {
             $pattern = $this->patternFor(self::ALIASES[$countryCode]);
         }
 

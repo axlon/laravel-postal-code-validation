@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Postal Code Validation">
+    <arg value="ps"/>
+
+    <file>bin/build</file>
+    <file>src</file>
+    <file>tests</file>
+
+    <rule ref="PSR12"/>
+    <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration"/>
+    <rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>
+</ruleset>

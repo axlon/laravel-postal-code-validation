@@ -25,7 +25,7 @@ class PostalCodeValidatorTest extends TestCase
     {
         $data = require __DIR__ . '/../../resources/examples.php';
 
-        return collect($data)->map(function (string $example, string $country) {
+        return collect($data)->map(static function (string $example, string $country) {
             return [$country, $example];
         });
     }

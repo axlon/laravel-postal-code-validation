@@ -26,6 +26,8 @@
         "guzzlehttp/guzzle": "^7.8",
         "orchestra/testbench": "^10.0 || ^11.0",
         "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4",
+        "slevomat/coding-standard": "^8.25",
+        "squizlabs/php_codesniffer": "^4.0",
         "symfony/var-exporter": "^4.0 || ^5.0 || ^6.0 || ^7.0"
     },
     "autoload": {
@@ -39,10 +41,10 @@
         }
     },
     "config": {
-        "sort-packages": true,
         "allow-plugins": {
-            "kylekatarnls/update-helper": false
-        }
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
     },
     "scripts": {
         "build": "@php bin/build"

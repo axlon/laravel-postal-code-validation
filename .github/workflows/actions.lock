@@ -3,6 +3,9 @@
 # Docs: https://gh.io/actions-lockfile
 version: 'v0.0.3'
 workflows:
+    '.github/workflows/phpcs.yml':
+        - 'actions/checkout@v7.0.1'
+        - 'shivammathur/setup-php@2.40.0'
     '.github/workflows/tests.yml':
         - 'actions/checkout@v7.0.1'
         - 'shivammathur/setup-php@2.40.0'

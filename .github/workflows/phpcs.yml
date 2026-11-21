@@ -1,0 +1,26 @@
+name: Coding standard
+
+on:
+  pull_request: ~
+  push:
+    branches: [ 4.x ]
+
+jobs:
+  coding-standard:
+    name: Coding standard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.40.0
+        with:
+          php-version: '8.5'
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Check coding standard
+        run: vendor/bin/phpcs -q --standard=phpcs.xml.dist
