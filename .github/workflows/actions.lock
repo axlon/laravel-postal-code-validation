@@ -9,7 +9,7 @@ workflows:
     '.github/workflows/phpstan.yml':
         - 'actions/checkout@v7.0.1'
         - 'shivammathur/setup-php@2.40.0'
-    '.github/workflows/tests.yml':
+    '.github/workflows/phpunit.yml':
         - 'actions/checkout@v7.0.1'
         - 'shivammathur/setup-php@2.40.0'
     '.github/workflows/update-resources.yml':
