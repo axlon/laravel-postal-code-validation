@@ -19,7 +19,7 @@ $unwrap = static function (ResponseInterface $response) {
 echo "Fetching country list...\r\n";
 $countries = explode('~', json_decode(
     $httpClient->get('/ssl-address/data')->getBody()->getContents(),
-    flags: JSON_THROW_ON_ERROR
+    flags: JSON_THROW_ON_ERROR,
 )->countries);
 
 echo "Fetching country data...\r\n";

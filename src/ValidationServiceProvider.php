@@ -46,11 +46,11 @@ class ValidationServiceProvider extends ServiceProvider
         if (method_exists($validator, 'extendDependent')) {
             $validator->extendDependent(
                 'postal_code_for',
-                'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate'
+                'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate',
             );
             $validator->extendDependent(
                 'postal_code_with',
-                'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate'
+                'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate',
             );
         } else {
             $validator->extend('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');

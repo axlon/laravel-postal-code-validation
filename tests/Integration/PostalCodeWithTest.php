@@ -16,7 +16,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB', 'country' => 'not-a-country'],
-            ['postal_code' => 'postal_code_with:country']
+            ['postal_code' => 'postal_code_with:country'],
         );
 
         self::assertFalse($validator->passes());
@@ -32,7 +32,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code', 'country' => 'NL'],
-            ['postal_code' => 'postal_code_with:country']
+            ['postal_code' => 'postal_code_with:country'],
         );
 
         self::assertFalse($validator->passes());
@@ -48,7 +48,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_codes' => ['not-a-postal-code'], 'countries' => ['NL']],
-            ['postal_codes.*' => 'postal_code_with:countries.*']
+            ['postal_codes.*' => 'postal_code_with:countries.*'],
         );
 
         self::assertFalse($validator->passes());
@@ -65,7 +65,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => null, 'country' => 'DE'],
-            ['postal_code' => 'postal_code_with:country']
+            ['postal_code' => 'postal_code_with:country'],
         );
 
         self::assertFalse($validator->passes());
@@ -76,7 +76,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB'],
-            ['postal_code' => 'postal_code_with:country']
+            ['postal_code' => 'postal_code_with:country'],
         );
 
         self::assertTrue($validator->passes());
@@ -91,7 +91,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB', 'empty' => '', 'null' => null, 'country' => 'NL'],
-            ['postal_code' => 'postal_code_with:empty,missing,null,country']
+            ['postal_code' => 'postal_code_with:empty,missing,null,country'],
         );
 
         self::assertTrue($validator->passes());
@@ -101,7 +101,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB', 'integer' => 123, 'float' => 1.5, 'boolean' => true],
-            ['postal_code' => 'postal_code_with:integer,float,boolean']
+            ['postal_code' => 'postal_code_with:integer,float,boolean'],
         );
 
         self::assertFalse($validator->passes());
@@ -112,7 +112,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB', 'empty' => '', 'null' => null, 'country' => 'BE'],
-            ['postal_code' => 'postal_code_with:empty,missing,null,country']
+            ['postal_code' => 'postal_code_with:empty,missing,null,country'],
         );
 
         self::assertFalse($validator->passes());
@@ -128,7 +128,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB', 'country' => 'NL'],
-            ['postal_code' => 'postal_code_with:country']
+            ['postal_code' => 'postal_code_with:country'],
         );
 
         self::assertTrue($validator->passes());
@@ -143,7 +143,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_codes' => ['1234 AB'], 'countries' => ['NL']],
-            ['postal_codes.*' => 'postal_code_with:countries.*']
+            ['postal_codes.*' => 'postal_code_with:countries.*'],
         );
 
         self::assertTrue($validator->passes());
@@ -158,7 +158,7 @@ class PostalCodeWithTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB'],
-            ['postal_code' => 'postal_code_with']
+            ['postal_code' => 'postal_code_with'],
         );
 
         $this->expectException(InvalidArgumentException::class);

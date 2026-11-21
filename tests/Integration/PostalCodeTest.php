@@ -27,7 +27,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB'],
-            ['postal_code' => 'postal_code:not-a-country']
+            ['postal_code' => 'postal_code:not-a-country'],
         );
 
         self::assertFalse($validator->passes());
@@ -43,7 +43,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code'],
-            ['postal_code' => 'postal_code:NL']
+            ['postal_code' => 'postal_code:NL'],
         );
 
         self::assertFalse($validator->passes());
@@ -55,7 +55,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => $value],
-            ['postal_code' => 'postal_code:NL']
+            ['postal_code' => 'postal_code:NL'],
         );
 
         self::assertFalse($validator->passes());
@@ -72,7 +72,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => null],
-            ['postal_code' => 'postal_code:DE']
+            ['postal_code' => 'postal_code:DE'],
         );
 
         self::assertFalse($validator->passes());
@@ -88,7 +88,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB'],
-            ['postal_code' => 'postal_code:NL']
+            ['postal_code' => 'postal_code:NL'],
         );
 
         self::assertTrue($validator->passes());
@@ -103,7 +103,7 @@ class PostalCodeTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => '1234 AB'],
-            ['postal_code' => 'postal_code']
+            ['postal_code' => 'postal_code'],
         );
 
         $this->expectException(InvalidArgumentException::class);
