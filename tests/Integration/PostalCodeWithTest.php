@@ -98,6 +98,17 @@ class PostalCodeWithTest extends TestCase
         $this->assertEmpty($validator->errors()->all());
     }
 
+    public function testValidationIgnoresNonStringFields(): void
+    {
+        $validator = $this->app->make('validator')->make(
+            ['postal_code' => '1234 AB', 'integer' => 123, 'float' => 1.5, 'boolean' => true],
+            ['postal_code' => 'postal_code_with:integer,float,boolean']
+        );
+
+        $this->assertFalse($validator->passes());
+        $this->assertContains('validation.postal_code_with', $validator->errors()->all());
+    }
+
     public function testValidationIgnoresMissingFieldsFailing(): void
     {
         $validator = $this->app->make('validator')->make(

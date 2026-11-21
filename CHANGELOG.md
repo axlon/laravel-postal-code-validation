@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fix `TypeError` when a `postal_code_with` field holds a value that is not a string
+
 ## [v3.11.0](https://github.com/axlon/laravel-postal-code-validation/tree/v3.11.0) (2026-11-18)
 
 - Update Kazakhstani validation pattern

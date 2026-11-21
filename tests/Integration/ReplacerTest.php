@@ -29,6 +29,26 @@ class ReplacerTest extends TestCase
         );
     }
 
+    public function testPostalCodeWithReplacerIgnoresNonStringFields(): void
+    {
+        $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
+        $translator = $this->app->make('translator');
+
+        $validator = $this->app->make('validator')->make(
+            ['postal_code' => 'not-a-postal-code', 'array' => ['NL'], 'country' => 'NL'],
+            ['postal_code' => 'postal_code_with:array,country']
+        );
+
+        $translator->addLines([
+            'validation.postal_code_with' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
+        ], $locale);
+
+        $this->assertContains(
+            'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
+            $validator->errors()->all()
+        );
+    }
+
     /**
      * Test the error replacer for the 'postal_code_for' rule.
      *
