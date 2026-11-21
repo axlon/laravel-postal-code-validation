@@ -3,7 +3,6 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils as PromiseUtils;
-use GuzzleHttp\Utils;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\VarExporter\VarExporter;
 
@@ -14,12 +13,13 @@ $httpQueue = [];
 $responses = [];
 
 $unwrap = static function (ResponseInterface $response) {
-    return Utils::jsonDecode($response->getBody()->getContents());
+    return json_decode($response->getBody()->getContents(), flags: JSON_THROW_ON_ERROR);
 };
 
 echo "Fetching country list...\r\n";
-$countries = explode('~', Utils::jsonDecode(
-    $httpClient->get('/ssl-address/data')->getBody()->getContents()
+$countries = explode('~', json_decode(
+    $httpClient->get('/ssl-address/data')->getBody()->getContents(),
+    flags: JSON_THROW_ON_ERROR
 )->countries);
 
 echo "Fetching country data...\r\n";
