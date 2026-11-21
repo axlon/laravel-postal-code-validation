@@ -13,6 +13,6 @@ class FacadeTest extends TestCase
      */
     public function testFacadesProxiesPatternMatcher(): void
     {
-        $this->assertSame($this->app->make('postal_codes'), PostalCodes::getFacadeRoot());
+        self::assertSame($this->app?->make('postal_codes'), PostalCodes::getFacadeRoot());
     }
 }
