@@ -1,0 +1,169 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: Access to an undefined property object::$key.
+			identifier: property.notFound
+			count: 2
+			path: bin/build
+
+		-
+			rawMessage: Cannot access property $countries on mixed.
+			identifier: property.nonObject
+			count: 1
+			path: bin/build
+
+		-
+			rawMessage: Cannot access property $key on mixed.
+			identifier: property.nonObject
+			count: 1
+			path: bin/build
+
+		-
+			rawMessage: Cannot access property $zip on mixed.
+			identifier: property.nonObject
+			count: 1
+			path: bin/build
+
+		-
+			rawMessage: 'Only booleans are allowed in a negated boolean, resource|false given.'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: bin/build
+
+		-
+			rawMessage: 'Parameter #2 $string of function explode expects string, mixed given.'
+			identifier: argument.type
+			count: 2
+			path: bin/build
+
+		-
+			rawMessage: 'Parameter #2 ...$arrays of function array_merge expects array, mixed given.'
+			identifier: argument.type
+			count: 1
+			path: bin/build
+
+		-
+			rawMessage: 'Part $response->zip (mixed) of encapsed string cannot be cast to string.'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: bin/build
+
+		-
+			rawMessage: Possibly invalid array key type mixed.
+			identifier: offsetAccess.invalidOffset
+			count: 3
+			path: bin/build
+
+		-
+			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Extensions/PostalCode.php
+
+		-
+			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
+			identifier: empty.notAllowed
+			count: 1
+			path: src/Extensions/PostalCodeFor.php
+
+		-
+			rawMessage: 'Method Axlon\PostalCodeValidation\PostalCodeValidator::__construct() has parameter $patterns with no value type specified in iterable type array.'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			rawMessage: 'Method Axlon\PostalCodeValidation\PostalCodeValidator::override() has parameter $countryCode with no value type specified in iterable type array.'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			rawMessage: 'Method Axlon\PostalCodeValidation\PostalCodeValidator::patternFor() should return string|null but returns mixed.'
+			identifier: return.type
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			rawMessage: Property Axlon\PostalCodeValidation\PostalCodeValidator::$patternOverrides type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			rawMessage: Property Axlon\PostalCodeValidation\PostalCodeValidator::$patterns type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			rawMessage: 'Strict comparison using !== between ''IC'' and ''ES'' will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/PostalCodeValidator.php
+
+		-
+			rawMessage: 'Method Axlon\PostalCodeValidation\Rules\PostalCode::__construct() has parameter $parameters with no value type specified in iterable type array.'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Rules/PostalCode.php
+
+		-
+			rawMessage: 'Property Axlon\PostalCodeValidation\Rules\PostalCode::$parameters (array<string>) does not accept array.'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Rules/PostalCode.php
+
+		-
+			rawMessage: 'Unsafe usage of new static().'
+			identifier: new.static
+			count: 2
+			path: src/Rules/PostalCode.php
+
+		-
+			rawMessage: 'Class Axlon\PostalCodeValidation\Support\Facades\PostalCodes has PHPDoc tag @method for method override() parameter #1 $countryCode with no value type specified in iterable type array.'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/Facades/PostalCodes.php
+
+		-
+			rawMessage: Cannot access offset string on mixed.
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Support/PostalCodeExamples.php
+
+		-
+			rawMessage: 'Method Axlon\PostalCodeValidation\Support\PostalCodeExamples::get() should return string|null but returns mixed.'
+			identifier: return.type
+			count: 1
+			path: src/Support/PostalCodeExamples.php
+
+		-
+			rawMessage: 'Property Axlon\PostalCodeValidation\Support\PostalCodeExamples::$examples (array|null) does not accept mixed.'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Support/PostalCodeExamples.php
+
+		-
+			rawMessage: Property Axlon\PostalCodeValidation\Support\PostalCodeExamples::$examples type has no value type specified in iterable type array.
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Support/PostalCodeExamples.php
+
+		-
+			rawMessage: Cannot access offset 'validator' on Illuminate\Contracts\Foundation\Application.
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/ValidationServiceProvider.php
+
+		-
+			rawMessage: 'Parameter #1 $patterns of class Axlon\PostalCodeValidation\PostalCodeValidator constructor expects array, mixed given.'
+			identifier: argument.type
+			count: 1
+			path: src/ValidationServiceProvider.php
+
+		-
+			rawMessage: 'Parameter #1 $validator of method Axlon\PostalCodeValidation\ValidationServiceProvider::registerRules() expects Illuminate\Contracts\Validation\Factory, mixed given.'
+			identifier: argument.type
+			count: 1
+			path: src/ValidationServiceProvider.php
