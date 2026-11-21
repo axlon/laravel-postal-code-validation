@@ -162,7 +162,7 @@ class PostalCodeWithTest extends TestCase
         );
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessageIs('Validation rule postal_code_with requires at least 1 parameter.');
+        $this->expectExceptionMessageMatches('/\AValidation rule postal_code_with requires at least 1 parameter\.\z/');
 
         $validator->validate();
     }
