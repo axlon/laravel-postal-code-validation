@@ -16,7 +16,7 @@ class ReplacerTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code'],
-            ['postal_code' => 'postal_code:NL']
+            ['postal_code' => 'postal_code:NL'],
         );
 
         Lang::addLines([
@@ -25,7 +25,7 @@ class ReplacerTest extends TestCase
 
         self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
-            $validator->errors()->all()
+            $validator->errors()->all(),
         );
     }
 
@@ -33,7 +33,7 @@ class ReplacerTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code', 'array' => ['NL'], 'country' => 'NL'],
-            ['postal_code' => 'postal_code_with:array,country']
+            ['postal_code' => 'postal_code_with:array,country'],
         );
 
         Lang::addLines([
@@ -42,7 +42,7 @@ class ReplacerTest extends TestCase
 
         self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
-            $validator->errors()->all()
+            $validator->errors()->all(),
         );
     }
 
@@ -55,7 +55,7 @@ class ReplacerTest extends TestCase
     {
         $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code', 'country' => 'NL'],
-            ['postal_code' => 'postal_code_for:country']
+            ['postal_code' => 'postal_code_for:country'],
         );
 
         Lang::addLines([
@@ -64,7 +64,7 @@ class ReplacerTest extends TestCase
 
         self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
-            $validator->errors()->all()
+            $validator->errors()->all(),
         );
     }
 }
