@@ -1,0 +1,44 @@
+name: Update resources
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+      timezone: Europe/Amsterdam
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-resources
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.40.0
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Build resources
+        run: composer build
+
+      - name: Create or update pull request
+        uses: peter-evans/create-pull-request@v8.1.3
+        with:
+          branch: automation/update-resources
+          delete-branch: true
+          commit-message: Update package resources
+          title: Update package resources
