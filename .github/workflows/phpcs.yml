@@ -1,4 +1,4 @@
-name: Coding standard
+name: PHP_CodeSniffer
 
 on:
   pull_request: ~
@@ -6,8 +6,8 @@ on:
     branches: [ 4.x ]
 
 jobs:
-  coding-standard:
-    name: Coding standard
+  phpcs:
+    name: Validate code style
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
