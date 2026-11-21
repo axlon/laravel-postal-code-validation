@@ -3,6 +3,7 @@
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class PostalCodeTest extends TestCase
 {
@@ -48,9 +49,7 @@ class PostalCodeTest extends TestCase
         $this->assertContains('validation.postal_code', $validator->errors()->all());
     }
 
-    /**
-     * @dataProvider provideUnsupportedValueTypes
-     */
+    #[DataProvider('provideUnsupportedValueTypes')]
     public function testValidationFailsInvalidPostalCodeType($value): void
     {
         $validator = $this->app->make('validator')->make(
