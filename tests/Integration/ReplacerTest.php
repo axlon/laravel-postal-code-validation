@@ -2,6 +2,9 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Validator;
+
 class ReplacerTest extends TestCase
 {
     /**
@@ -11,19 +14,16 @@ class ReplacerTest extends TestCase
      */
     public function testPostalCodeReplacer(): void
     {
-        $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
-        $translator = $this->app->make('translator');
-
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code'],
             ['postal_code' => 'postal_code:NL']
         );
 
-        $translator->addLines([
+        Lang::addLines([
             'validation.postal_code' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
-        ], $locale);
+        ], Lang::getLocale());
 
-        $this->assertContains(
+        self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
             $validator->errors()->all()
         );
@@ -31,19 +31,16 @@ class ReplacerTest extends TestCase
 
     public function testPostalCodeWithReplacerIgnoresNonStringFields(): void
     {
-        $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
-        $translator = $this->app->make('translator');
-
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code', 'array' => ['NL'], 'country' => 'NL'],
             ['postal_code' => 'postal_code_with:array,country']
         );
 
-        $translator->addLines([
+        Lang::addLines([
             'validation.postal_code_with' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
-        ], $locale);
+        ], Lang::getLocale());
 
-        $this->assertContains(
+        self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
             $validator->errors()->all()
         );
@@ -56,19 +53,16 @@ class ReplacerTest extends TestCase
      */
     public function testPostalCodeForReplacer(): void
     {
-        $locale = is_callable([$this->app, 'getLocale']) ? $this->app->getLocale() : 'en';
-        $translator = $this->app->make('translator');
-
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code', 'country' => 'NL'],
             ['postal_code' => 'postal_code_for:country']
         );
 
-        $translator->addLines([
+        Lang::addLines([
             'validation.postal_code_for' => ':attribute invalid, should be a :countries postal code (e.g. :examples)',
-        ], $locale);
+        ], Lang::getLocale());
 
-        $this->assertContains(
+        self::assertContains(
             'postal code invalid, should be a NL postal code (e.g. 1234 AB)',
             $validator->errors()->all()
         );

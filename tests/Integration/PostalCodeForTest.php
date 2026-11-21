@@ -2,6 +2,7 @@
 
 namespace Axlon\PostalCodeValidation\Tests\Integration;
 
+use Illuminate\Support\Facades\Validator;
 use InvalidArgumentException;
 
 class PostalCodeForTest extends TestCase
@@ -13,13 +14,13 @@ class PostalCodeForTest extends TestCase
      */
     public function testValidationFailsInvalidCountry(): void
     {
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => '1234 AB', 'country' => 'not-a-country'],
             ['postal_code' => 'postal_code_for:country']
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_for', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_for', $validator->errors()->all());
     }
 
     /**
@@ -29,13 +30,13 @@ class PostalCodeForTest extends TestCase
      */
     public function testValidationFailsInvalidPostalCode(): void
     {
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => 'not-a-postal-code', 'country' => 'NL'],
             ['postal_code' => 'postal_code_for:country']
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_for', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_for', $validator->errors()->all());
     }
 
     /**
@@ -46,24 +47,23 @@ class PostalCodeForTest extends TestCase
      */
     public function testValidationFailsNullPostalCode(): void
     {
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => null, 'country' => 'DE'],
             ['postal_code' => 'postal_code_for:country']
         );
 
-        $this->assertFalse($validator->passes());
-        $this->assertContains('validation.postal_code_for', $validator->errors()->all());
+        self::assertFalse($validator->passes());
+        self::assertContains('validation.postal_code_for', $validator->errors()->all());
     }
 
     public function testValidationPassesIfAllFieldsAreMissing(): void
     {
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => '1234 AB'],
             ['postal_code' => 'postal_code_for:country']
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
     }
 
     /**
@@ -73,13 +73,12 @@ class PostalCodeForTest extends TestCase
      */
     public function testValidationIgnoresMissingFields(): void
     {
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => '1234 AB', 'empty' => '', 'null' => null, 'country' => 'NL'],
             ['postal_code' => 'postal_code_for:empty,missing,null,country']
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
     }
 
     /**
@@ -89,13 +88,12 @@ class PostalCodeForTest extends TestCase
      */
     public function testValidationPassesValidPostalCode(): void
     {
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => '1234 AB', 'country' => 'NL'],
             ['postal_code' => 'postal_code_for:country']
         );
 
-        $this->assertTrue($validator->passes());
-        $this->assertEmpty($validator->errors()->all());
+        self::assertTrue($validator->passes());
     }
 
     /**
@@ -105,13 +103,13 @@ class PostalCodeForTest extends TestCase
      */
     public function testValidationThrowsWithoutParameters(): void
     {
-        $validator = $this->app->make('validator')->make(
+        $validator = Validator::make(
             ['postal_code' => '1234 AB'],
             ['postal_code' => 'postal_code_for']
         );
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Validation rule postal_code_with requires at least 1 parameter.');
+        $this->expectExceptionMessageIs('Validation rule postal_code_with requires at least 1 parameter.');
 
         $validator->validate();
     }
