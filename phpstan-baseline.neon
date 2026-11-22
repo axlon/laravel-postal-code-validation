@@ -64,7 +64,7 @@ parameters:
 			rawMessage: 'Construct empty() is not allowed. Use more strict comparison.'
 			identifier: empty.notAllowed
 			count: 1
-			path: src/Extensions/PostalCodeFor.php
+			path: src/Extensions/PostalCodeWith.php
 
 		-
 			rawMessage: 'Method Axlon\PostalCodeValidation\Rules\PostalCode::__construct() has parameter $parameters with no value type specified in iterable type array.'

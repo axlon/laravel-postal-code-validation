@@ -2,6 +2,7 @@
 
 namespace Axlon\PostalCodeValidation;
 
+use Axlon\PostalCodeValidation\Extensions\PostalCodeWith;
 use Illuminate\Validation\Factory;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,10 +38,7 @@ class ValidationServiceProvider extends ServiceProvider
         $validator->extend('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@validate');
         $validator->replacer('postal_code', 'Axlon\PostalCodeValidation\Extensions\PostalCode@replace');
 
-        $validator->replacer('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@replace');
-        $validator->replacer('postal_code_with', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@replace');
-
-        $validator->extendDependent('postal_code_for', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
-        $validator->extendDependent('postal_code_with', 'Axlon\PostalCodeValidation\Extensions\PostalCodeFor@validate');
+        $validator->replacer('postal_code_with', PostalCodeWith::class . '@replace');
+        $validator->extendDependent('postal_code_with', PostalCodeWith::class . '@validate');
     }
 }
