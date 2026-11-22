@@ -10,3 +10,6 @@
 ### Removed
 
 - Lumen is no longer supported
+- Removed the `PostalCodes` facade
+- Removed standalone postal code validation
+- Removed validation pattern overrides
