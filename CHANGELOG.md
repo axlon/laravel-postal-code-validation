@@ -13,3 +13,4 @@
 - Removed the `PostalCodes` facade
 - Removed standalone postal code validation
 - Removed validation pattern overrides
+- Removed the `postal_code_for` validation rule, use `postal_code_with` instead

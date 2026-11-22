@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
 
-class PostalCodeFor
+class PostalCodeWith
 {
     /**
      * The postal code examples.
@@ -25,7 +25,7 @@ class PostalCodeFor
     protected $validator;
 
     /**
-     * Create a new PostalCodeFor validator extension.
+     * Create a new PostalCodeWith validator extension.
      *
      * @param \Axlon\PostalCodeValidation\PostalCodeValidator $validator
      * @param \Axlon\PostalCodeValidation\Support\PostalCodeExamples $examples
