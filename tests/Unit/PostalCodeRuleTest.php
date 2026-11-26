@@ -1,10 +1,12 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Tests\Unit;
+namespace Tests\Unit;
 
 use Axlon\PostalCodeValidation\Rules\PostalCode;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PostalCode::class)]
 class PostalCodeRuleTest extends TestCase
 {
     /**

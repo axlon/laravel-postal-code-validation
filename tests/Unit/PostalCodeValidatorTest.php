@@ -1,12 +1,14 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Tests\Unit;
+namespace Tests\Unit;
 
 use Axlon\PostalCodeValidation\PostalCodeValidator;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(PostalCodeValidator::class)]
 class PostalCodeValidatorTest extends TestCase
 {
     /**
