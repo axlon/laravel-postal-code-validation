@@ -8,3 +8,10 @@ parameters:
         - bin/build
         - src
         - tests
+    ignoreErrors:
+        - path: tests/*
+          identifiers:
+            - classConstant.internalClass
+            - method.internalClass
+            - new.internalClass
+            - property.internalClass

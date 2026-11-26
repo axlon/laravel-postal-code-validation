@@ -1,10 +1,22 @@
 <?php
 
-namespace Axlon\PostalCodeValidation\Tests\Integration;
+namespace Tests\Integration;
 
+use Axlon\PostalCodeValidation\Extensions\PostalCode;
+use Axlon\PostalCodeValidation\Extensions\PostalCodeWith;
+use Axlon\PostalCodeValidation\PostalCodeValidator;
+use Axlon\PostalCodeValidation\Support\PostalCodeExamples;
+use Axlon\PostalCodeValidation\ValidationServiceProvider;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 
+#[CoversClass(PostalCode::class)]
+#[CoversClass(PostalCodeWith::class)]
+#[UsesClass(ValidationServiceProvider::class)]
+#[UsesClass(PostalCodeValidator::class)]
+#[UsesClass(PostalCodeExamples::class)]
 class ReplacerTest extends TestCase
 {
     /**
