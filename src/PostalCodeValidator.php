@@ -5,7 +5,7 @@ namespace Axlon\PostalCodeValidation;
 /**
  * @internal
  */
-final class PostalCodeValidator
+final class PostalCodeValidator implements Contracts\PostalCodeValidator
 {
     private const ALIASES = [
         'IC' => 'ES',
@@ -23,15 +23,15 @@ final class PostalCodeValidator
     }
 
     /**
-     * Determine if the given postal code is valid for the given country.
+     * Determine if the given postal code is valid for the specified area.
      *
-     * @param string $countryCode
      * @param string $postalCode
+     * @param string $areaCode
      * @return bool
      */
-    public function passes(string $countryCode, string $postalCode): bool
+    public function isValid(string $postalCode, string $areaCode): bool
     {
-        $countryCode = strtoupper($countryCode);
+        $countryCode = strtoupper($areaCode);
         $countryCode = self::ALIASES[$countryCode] ?? $countryCode;
 
         if (!array_key_exists($countryCode, $this->patterns)) {

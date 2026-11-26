@@ -18,6 +18,7 @@
     ],
     "require": {
         "php": ">=8.2",
+        "illuminate/container": "^12.0 || ^13.0",
         "illuminate/contracts": "^12.0 || ^13.0",
         "illuminate/support": "^12.0 || ^13.0",
         "illuminate/validation": "^12.0 || ^13.0"
@@ -58,7 +59,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "\\Axlon\\PostalCodeValidation\\ValidationServiceProvider"
+                "\\Axlon\\PostalCodeValidation\\PostalCodeServiceProvider"
             ]
         }
     }
