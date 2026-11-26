@@ -1,8 +1,12 @@
+> [!WARNING]
+> This documentation is for version 4.x, which is still in development. For production, use version 3.x and follow the
+> [3.x documentation](https://github.com/axlon/laravel-postal-code-validation/blob/3.x/README.md).
+
 # Laravel Postal Code Validation
 
 Adds postal code validation to Laravel, based on [Google's libaddressinput](https://github.com/google/libaddressinput).
 
-[![Tests](https://github.com/axlon/laravel-postal-code-validation/workflows/tests/badge.svg)](https://github.com/axlon/laravel-postal-code-validation/actions/workflows/tests.yml)
+[![Tests](https://github.com/axlon/laravel-postal-code-validation/actions/workflows/phpunit.yml/badge.svg)](https://github.com/axlon/laravel-postal-code-validation/actions/workflows/phpunit.yml)
 [![Downloads](https://img.shields.io/packagist/dt/axlon/laravel-postal-code-validation)](https://packagist.org/packages/axlon/laravel-postal-code-validation)
 [![Latest version](https://img.shields.io/packagist/v/axlon/laravel-postal-code-validation)](https://github.com/axlon/laravel-postal-code-validation/releases)
 [![License](https://img.shields.io/packagist/l/axlon/laravel-postal-code-validation)](LICENSE.md)
@@ -10,11 +14,13 @@ Adds postal code validation to Laravel, based on [Google's libaddressinput](http
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Available rules](#available-rules)
-    - [Fluent API](#fluent-api)
+    - [Validate a postal code](#validate-a-postal-code)
+    - [Validate a postal code against a dynamic area](#validate-a-postal-code-against-a-dynamic-area)
+    - [String notation](#string-notation)
     - [Adding an error message](#adding-an-error-message)
 - [License](#license)
 - [Attribution](#attribution)
+    - [Modifications](#modifications)
 
 ## Requirements
 
@@ -30,80 +36,70 @@ You can install this package with Composer, by running the command below:
 composer require axlon/laravel-postal-code-validation
 ```
 
-If you have package discovery enabled, that's it, continue to the [usage](#usage) section. If you want to register the
-package manually, you can do this by adding the following line to your `config/app.php` file:
+Laravel registers the service provider through package discovery. To register it manually, add it to your Laravel
+application's `bootstrap/providers.php` file:
 
 ```php
-'providers' => [
-   ...
-   Axlon\PostalCodeValidation\ValidationServiceProvider::class,
-   ...
-],
+return [
+    // ...
+    Axlon\PostalCodeValidation\PostalCodeServiceProvider::class,
+];
 ```
 
 ## Usage
-Postal code validation perfectly integrates into your Laravel application, you can use it just like you would any
-framework validation rule.
 
-### Available rules
-This package adds the following validation rules:
+### Validate a postal code
 
-#### postal_code:foo,bar,...
-The field under validation must be a valid postal code in at least one of the given countries. Arguments must be
-countries in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+The field under validation must be a valid postal code in at least one of the specified areas. Arguments must be
+countries in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format:
 
 ```php
-'postal_code' => 'postal_code:NL,DE,FR,BE'
+use Axlon\PostalCodeValidation\Rules\PostalCode;
+
+request()->validate([
+    'address.postal_code' => ['required', PostalCode::of(['NL', 'BE'])],
+]);
 ```
 
-#### postal_code_with:foo,bar,...
-The field under validation must be a postal code in at least one of the countries in the given fields _only if_ at least
-one of the specified fields is present.
+### Validate a postal code against a dynamic area
+
+You may also validate a postal code against an area code that is passed in the request:
 
 ```php
-'billing.country' => 'required|string|max:2',
-...
-'shipping.country' => 'nullable|string|max:2',
-'shipping.postal_code' => 'postal_code_with:billing.country,shipping.country'
+use Axlon\PostalCodeValidation\Rules\PostalCode;
+
+request()->validate([
+    'address.country' => ['required', 'in:NL,BE'],
+    'address.postal_code' => ['required', PostalCode::of('address.country')],
+]);
 ```
 
-### Fluent API
-If you prefer using a fluent object style over string based rules, that's also available:
+### String notation
 
-```php
-'postal_code' => [
-    PostalCode::for('NL')->or('BE'),
-],
-```
+Use `postal_code` with one or more comma-separated parameters. Just like with the object rule, you can mix literal area
+codes and input field references:
 
-The same goes for the `postal_code_with` rule:
-
-```php
-'billing.country' => 'required|string|max:2',
-...
-'shipping.country' => 'nullable|string|max:2',
-'shipping.postal_code' => [
-    PostalCode::with('billing.country')->or('shipping.country')
-],
+```diff
+request()->validate([
+-    'address.postal_code' => ['required', PostalCode::of(['NL', 'BE])],
++    'address.postal_code' => 'required|postal_code:NL,BE',
+]);
 ```
 
 ### Adding an error message
-To add a meaningful error message, add the following lines to `resources/lang/{your language}/validation.php`:
+
+To add a meaningful error message, add an error message to `resources/lang/{your language}/validation.php`:
 
 ```php
-'postal_code' => 'Your message here',
-'postal_code_with' => 'Your message here',
+'postal_code' => 'The :attribute must be a valid postal code for :areas.',
 ```
 
 The following placeholders will be automatically filled for you:
 
-Placeholder | Description
-------------|------------
-:attribute  | The name of the field that was under validation
-:countries  | The countries that were validated against (e.g. `NL, BE`)*
-:examples   | Examples of allowed postal codes (e.g. `1234 AB, 4000`)*
-
-*The `:countries` and `:examples` placeholders may be empty if no valid countries are passed.
+| Placeholder | Description                                           |
+|-------------|-------------------------------------------------------|
+| :attribute  | The name of the field that was under validation       |
+| :areas      | The areas that were validated against (e.g. `NL, BE`) |
 
 ## License
 
